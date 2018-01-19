@@ -3,6 +3,7 @@ package com.indiraactive.stockupdaterserver.controller;
 import com.indiraactive.stockupdaterserver.model.User;
 import com.indiraactive.stockupdaterserver.service.InventoryUpdater;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -30,9 +31,4 @@ public class HomeController {
         inventoryUpdater.updateInventory();
         return "success";
     }
-
-
-
-
-
 }
