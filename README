@@ -1,0 +1,9 @@
+# Install gCloud SDK CDK
+https://cloud.google.com/sdk/docs/
+
+# Run to auth and set enviorment project
+gcloud auth login
+gcloud config set project [PROJECT_ID] #fulfillment-platform
+
+# Build docker image and upload to registry
+gcloud container builds submit --config cloudbuild.yaml .
