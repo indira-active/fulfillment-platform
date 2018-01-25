@@ -6,9 +6,11 @@ import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 
+// http://support.fulfil.io/article/496-using-vendors-shopify-for-inventory-feed
+
 @Component
 public class InventoryUpdater {
-
+    // http://support.fulfil.io/article/496-using-vendors-shopify-for-inventory-feed Want to eventually utilize this script
     @Value("${inventoryUpdaterScriptPath}") // TODO: Verify everyone is in agreement with how the scripts are loaded
     private String inventoryUpdaterScriptPath;   // TODO: Supplier service to provide us w/ supplier info to update inventory from
 
