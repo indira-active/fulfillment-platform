@@ -24,13 +24,23 @@
 # images:
 # - 'gcr.io/$PROJECT_ID/quickstart-image:latest`
 
-
+steps:
 # Envs Needed
 # REVISION_ID
 # PROJECT_ID
 
+# Pull and decrypt secrets
+- name: gcr.io/cloud-builders/gcloud
+  args:
+  - kms
+  - decrypt
+  - --ciphertext-file=id_fulfilment-platform.enc
+  - --plaintext-file=id_fulfilment-platform
+  - --location=global
+  - --keyring=ssh-keys
+  - --key=fulfilment-platform
+
 # Build Dockerfile
-steps:
 - name: 'gcr.io/cloud-builders/docker'
   args: [ 'build', '-t', 'gcr.io/$PROJECT_ID/quickstart-image:$REVISION_ID', '.' ]
 # Push image Container Registry
