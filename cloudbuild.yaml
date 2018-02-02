@@ -25,10 +25,13 @@ steps:
   env:
   - 'CLOUDSDK_COMPUTE_ZONE=us-central1-a'
   - 'CLOUDSDK_CONTAINER_CLUSTER=cluster-1'
-  tags:
-    - "java"
-    - "web-frontend"
-    - "logic-backend"
 
-# Push image Container Registry
+
+logsBucket: 'fulfilment_platform_logs'
+tags:
+  - "java"
+  - "web-frontend"
+  - "logic-backend"
+
+# Save image in Container Registry
 images: 'gcr.io/$PROJECT_ID/java-web:$BRANCH_NAME-$REVISION_ID'
