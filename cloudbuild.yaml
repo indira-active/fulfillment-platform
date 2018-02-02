@@ -15,10 +15,6 @@ steps:
 - name: 'gcr.io/cloud-builders/docker'
   args: [ 'build', '-t', 'gcr.io/$PROJECT_ID/java-web:$BRANCH_NAME-$REVISION_ID', '.' ]
 
-# Push image Container Registry
-  images: 'gcr.io/$PROJECT_ID/java-web:$BRANCH_NAME-$REVISION_ID'
-# Working directory is now /workspace
-
 # Deploy to cluster TBD
 - name: 'gcr.io/cloud-builders/kubectl'
   args:
@@ -29,8 +25,10 @@ steps:
   env:
   - 'CLOUDSDK_COMPUTE_ZONE=us-central1-a'
   - 'CLOUDSDK_CONTAINER_CLUSTER=cluster-1'
-
   tags:
     - "java"
     - "web-frontend"
     - "logic-backend"
+
+# Push image Container Registry
+images: 'gcr.io/$PROJECT_ID/java-web:$BRANCH_NAME-$REVISION_ID'
