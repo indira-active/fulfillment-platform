@@ -11,16 +11,12 @@ RUN pwd && ls -la
 
 # May want to copy in an additional secret for script parameters (API keys, etc.)
 
-# Install dependencies
+# Install build dependencies
 RUN apt-get update && \
   apt-get upgrade -y && \
-  apt-get install -q -y openjdk-8-jdk maven build-essential git ssh python-dev python-pip && \
+  apt-get install -q -y openjdk-8-jdk maven build-essential git ssh && \
   apt-get autoremove && \
   apt-get clean
-
-RUN pip install --no-cache-dir -r requirements.txt && \
-	pip install --user virtualenv && \
-	pip install --user virtualenvwrapper
 
 # Setup temp ssh key to pull from private git repo
 RUN mkdir -p /root/.ssh/ && \
@@ -36,7 +32,7 @@ RUN git clone git@github.com:indira-active/Scripts.git
 RUN pwd && ls -la
 
 # Build java application
-RUN mvn clean intall
+RUN mvn clean install
 
 # Cleanup ssh keys 
 RUN rm -vf id_fulfilment-platform /root/.ssh/id*
@@ -48,7 +44,22 @@ RUN pwd && ls -la
 # BUILD STAGE 2 - copy the compiled app dir into a fresh runtime image
 FROM ubuntu:latest as runtime
 COPY --from=builder /app /app
+WORKDIR /app
 
-# Start service etc.
+# Debug
+RUN pwd && ls -la
+
+# Install runtime dependencies
+RUN apt-get update && \
+  apt-get upgrade -y && \
+  apt-get install -q -y openjdk-8-jdk python-dev python-pip && \
+  apt-get autoremove && \
+  apt-get clean
+
+RUN pip install --no-cache-dir -r requirements.txt && \
+	pip install --user virtualenv && \
+	pip install --user virtualenvwrapper
+
+# Start service
 EXPOSE 8089
 ENTRYPOINT ["java", "-jar", "inventory-updater-web-app.jar"]
