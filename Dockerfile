@@ -3,8 +3,8 @@
 # BUILD STAGE 1 - Start with the same image that will be used at runtime
 FROM ubuntu:latest as builder
 
-COPY . /app
-WORKDIR /app
+COPY . /build
+WORKDIR /build
 
 # Debug
 RUN pwd && ls -la
@@ -41,10 +41,10 @@ RUN rm -vf id_fulfilment-platform /root/.ssh/id*
 RUN pwd && ls -la
 
 ########################################################################
-# BUILD STAGE 2 - copy the compiled app dir into a fresh runtime image
+# BUILD STAGE 2 - copy the compiled build dir into a fresh runtime image
 FROM ubuntu:latest as runtime
-COPY --from=builder /app /app
-WORKDIR /app
+COPY --from=builder /build /target
+WORKDIR /target
 
 # Debug
 RUN pwd && ls -la
@@ -62,4 +62,4 @@ RUN pip install --no-cache-dir -r requirements.txt && \
 
 # Start service
 EXPOSE 8089
-ENTRYPOINT ["java", "-jar", "inventory-updater-web-app.jar"]
+ENTRYPOINT ["java", "-jar", "./target/inventory-updater-web-app.jar"]
