@@ -41,4 +41,6 @@ tags:
   - "logic-backend"
 
 # Save image in Container Registry
-images: ['gcr.io/$PROJECT_ID/java-web:$BRANCH_NAME-$REVISION_ID']
+images: 
+  - 'gcr.io/$PROJECT_ID/java-web:$BRANCH_NAME-$REVISION_ID'
+  - 'gcr.io/$PROJECT_ID/java-web:latest'
