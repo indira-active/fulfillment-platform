@@ -15,6 +15,10 @@ steps:
 - name: 'gcr.io/cloud-builders/docker'
   args: [ 'build', '-t', 'gcr.io/$PROJECT_ID/java-web:$BRANCH_NAME-$REVISION_ID', '.' ]
 
+# Push image to gcr
+- name: 'gcr.io/cloud-builders/docker'
+  args: ["push", "gcr.io/$PROJECT_ID/java-web:$BRANCH_NAME-$REVISION_ID"]
+
 # Deploy to cluster TBD
 - name: 'gcr.io/cloud-builders/kubectl'
   args: ['-n', 'default', 'set', 'image', deployment/java-web',
