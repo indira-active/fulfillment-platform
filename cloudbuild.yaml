@@ -17,7 +17,7 @@ steps:
 
 # Deploy to cluster TBD
 - name: 'gcr.io/cloud-builders/kubectl'
-  args: ['-n', 'fulfilment_platform', 'set', 'image', deployment/$PROJECT_ID/java-web',
+  args: ['-n', 'fulfilment_platform', 'set', 'image', deployment/java-web',
    'java-web=gcr.io/$PROJECT_ID/java-web:$BRANCH_NAME-$REVISION_ID']
   # args:
   # - 'set'
