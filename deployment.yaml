@@ -1,7 +1,7 @@
 apiVersion: apps/v1beta2
 kind: Deployment
 metadata:
-  name: prod-cluser
+  name: prod-cluster
   labels:
       app: java-web
 spec:
