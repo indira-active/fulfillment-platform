@@ -20,7 +20,7 @@ spec:
       - name: java-web
         image: gcr.io/fulfillment-platform/java-web
         ports:
-          - containerPort: 80
+          - containerPort: 8089
             name: http
-          - containerPort: 443
+          - containerPort: 8089
             name: https
