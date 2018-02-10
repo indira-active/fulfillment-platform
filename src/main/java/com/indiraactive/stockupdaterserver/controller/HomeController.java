@@ -26,9 +26,15 @@ public class HomeController {
         return "index";
     }
 
+    @RequestMapping("/login")
+    public String login() {
+        return "login";
+    }
+
     @PostMapping("/updateInventory")
     public String updateInventory(@ModelAttribute User user) {
         inventoryUpdater.updateInventory();
         return "success";
     }
+
 }
