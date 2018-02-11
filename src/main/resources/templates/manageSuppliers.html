@@ -1,0 +1,38 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Fulfillment Platform - Manage Suppliers</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+    <h1>Fulfillment Platform</h1>
+    <hr />
+    <a href="../">Home</a>
+    <a href="../inventoryUpdater">Inventory Updater</a>
+    <a href="../manageSuppliers">Manager Suppliers</a>
+    <hr />
+    <h1>Manage Suppliers</h1>
+    <h2>Create New Supplier</h2>
+    <form action="#" th:action="@{/addSupplier}" th:object="${supplier}" method="post">
+        <p>Shopify API Key: <input type="text" th:field="*{shopify_api_key}"/></p>
+        <p>Shopify Password: <input type="text" th:field="*{shopify_password}"/></p>
+        <p>Shop Name: <input type="text" th:field="*{shop_name}"/></p>
+        <p>Fulfil Subdomain: <input type="text" th:field="*{fulfil_subdomain}"/></p>
+        <p>Fulfil API Key: <input type="text" th:field="*{fulfil_api_key}"/></p>
+        <p>Supplier Code: <input type="text" th:field="*{supplier_code}"/></p>
+        <p>Alias: <input type="text" th:field="*{alias}"/></p>
+        <p><input type="submit" value="Submit"/></p>
+    </form>
+    <h2>Delete Supplier</h2>
+
+    <div th:each="supplier : ${suppliers}">
+        <span th:text="${supplier.supplier_id}"></span>
+        <span th:text="${supplier.alias}"></span>
+        <form action="#" th:action="@{/deleteSupplier/{supplierId}(supplierId=${supplier.supplier_id})}" th:object="${supplier}" th:method="delete">
+            <input type="submit" value="Delete"/>
+        </form>
+        <hr/>
+    </div>
+
+</body>
+</html>

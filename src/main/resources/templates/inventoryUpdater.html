@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Stock Updater</title>
+    <title>Fulfillment Platform - Inventory Updater</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
@@ -11,6 +11,10 @@
     <a href="../inventoryUpdater">Inventory Updater</a>
     <a href="../manageSuppliers">Manager Suppliers</a>
     <hr />
-    <h1>Successfully Executed Request</h1>
+    <h1>Inventory Updater</h1>
+    <p>Run Stock Updater Manually</p>
+    <form action="#" th:action="@{/updateInventory}" method="post">
+        <input type="submit" value="Run Stock Updater"/>
+    </form>
 </body>
 </html>
