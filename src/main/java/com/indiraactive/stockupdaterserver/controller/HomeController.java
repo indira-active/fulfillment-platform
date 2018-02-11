@@ -32,7 +32,7 @@ public class HomeController {
     }
 
     @PostMapping("/updateInventory")
-    public String updateInventory(@ModelAttribute User user) {
+    public String updateInventory() {
         inventoryUpdater.updateInventory();
         return "success";
     }
