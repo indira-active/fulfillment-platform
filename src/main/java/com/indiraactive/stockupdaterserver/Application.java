@@ -6,6 +6,8 @@ import org.springframework.boot.autoconfigure.security.oauth2.client.EnableOAuth
 import org.springframework.stereotype.*;
 import org.springframework.web.bind.annotation.*;
 
+// TODO: Address security password appearing in log when initially booting server Prod-
+
 @SpringBootApplication
 @EnableOAuth2Sso
 public class Application {

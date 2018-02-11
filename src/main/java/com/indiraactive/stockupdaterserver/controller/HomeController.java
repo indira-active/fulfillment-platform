@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+// TODO: Clean up this controller and create new classes to compartmentalize responsibilities.
 
 @Controller
 public class HomeController {
@@ -31,6 +32,7 @@ public class HomeController {
     @GetMapping("/manageSuppliers")
     public String manageSuppliers(Model model) {
         model.addAttribute("supplier", new Supplier());
+        model.addAttribute("suppliers", supplierRepository.findAll());
         return "manageSuppliers";
     }
 
@@ -48,6 +50,12 @@ public class HomeController {
     @PostMapping("/addSupplier")
     public String addSupplier(@ModelAttribute Supplier supplier) {
         supplierRepository.save(supplier);
+        return "success";
+    }
+
+    @DeleteMapping("/deleteSupplier/{supplierId}")
+    public String deleteSupplier(@PathVariable int supplierId) {
+        supplierRepository.delete(supplierId);
         return "success";
     }
 
