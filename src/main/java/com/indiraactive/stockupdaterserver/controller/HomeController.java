@@ -1,20 +1,22 @@
 package com.indiraactive.stockupdaterserver.controller;
 
+import com.indiraactive.stockupdaterserver.dal.SupplierRepository;
+import com.indiraactive.stockupdaterserver.model.Supplier;
 import com.indiraactive.stockupdaterserver.model.User;
 import com.indiraactive.stockupdaterserver.service.InventoryUpdater;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+
 
 @Controller
 public class HomeController {
 
     @Autowired
     private InventoryUpdater inventoryUpdater;
+    @Autowired
+    private SupplierRepository supplierRepository;
 
     public HomeController(InventoryUpdater inventoryUpdater) {
         this.inventoryUpdater = inventoryUpdater;
@@ -22,8 +24,19 @@ public class HomeController {
 
     @RequestMapping("/")
     public String home(Model model) {
-        model.addAttribute("user", new User());
+        model.addAttribute("user", new User()); // TODO: Get rid of user
         return "index";
+    }
+
+    @GetMapping("/manageSuppliers")
+    public String manageSuppliers(Model model) {
+        model.addAttribute("supplier", new Supplier());
+        return "manageSuppliers";
+    }
+
+    @GetMapping("/inventoryUpdater")
+    public String inventoryUpdater() {
+        return "inventoryUpdater";
     }
 
     @PostMapping("/updateInventory")
@@ -32,4 +45,17 @@ public class HomeController {
         return "success";
     }
 
+    @PostMapping("/addSupplier")
+    public String addSupplier(@ModelAttribute Supplier supplier) {
+        supplierRepository.save(supplier);
+        return "success";
+    }
+
+    @GetMapping(path = "/all")
+    public @ResponseBody
+    Iterable<Supplier> getAllUsers() {
+        // This returns a JSON or XML with the users
+        // This returns a JSON or XML with the users
+        return supplierRepository.findAll();
+    }
 }
