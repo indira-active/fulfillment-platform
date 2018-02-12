@@ -13,6 +13,11 @@
     <hr />
     <h1>Inventory Updater</h1>
     <p>Run Stock Updater Manually</p>
+    <select th:field="*{supplier}">
+        <option th:each="supplier : ${suppliers}"
+                th:value="${supplier.supplier_id}"
+                th:text="#{${supplier.alias}}"></option> <!-- TODO: Get the dropdown text to display properly !-->
+    </select>
     <form action="#" th:action="@{/updateInventory}" method="post">
         <input type="submit" value="Run Stock Updater"/>
     </form>

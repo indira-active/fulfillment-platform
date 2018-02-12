@@ -37,13 +37,15 @@ public class HomeController {
     }
 
     @GetMapping("/inventoryUpdater")
-    public String inventoryUpdater() {
+    public String inventoryUpdater(Model model) {
+        model.addAttribute("supplier", new Supplier());
+        model.addAttribute("suppliers", supplierRepository.findAll());
         return "inventoryUpdater";
     }
 
-    @PostMapping("/updateInventory")
-    public String updateInventory() {
-        inventoryUpdater.updateInventory();
+    @PostMapping("/updateInventory/{supplierId}")
+    public String updateInventory(@PathVariable int supplierId) {
+        inventoryUpdater.updateInventory(supplierId);
         return "success";
     }
 
