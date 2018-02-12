@@ -58,12 +58,4 @@ public class HomeController {
         supplierRepository.delete(supplierId);
         return "success";
     }
-
-    @GetMapping(path = "/all")
-    public @ResponseBody
-    Iterable<Supplier> getAllUsers() {
-        // This returns a JSON or XML with the users
-        // This returns a JSON or XML with the users
-        return supplierRepository.findAll();
-    }
 }
