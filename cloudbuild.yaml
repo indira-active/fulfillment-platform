@@ -13,7 +13,7 @@ steps:
 
 # Build Dockerfile
 - name: 'gcr.io/cloud-builders/docker'
-  args: [ 'build', '--build-arg', 'PROJECT_ID=$PROJECT_ID', '--cache-from', 'gcr.io/$PROJECT_ID/java-web:latest', '-t', gcr.io/$PROJECT_ID/java-web:$BRANCH_NAME-$REVISION_ID', '-t', 'gcr.io/$PROJECT_ID/java-web:latest', '.' ]
+  args: [ 'build', '--build-arg', 'PROJECT_ID=$PROJECT_ID', '--cache-from', 'gcr.io/$PROJECT_ID/java-web:latest', '-t', 'gcr.io/$PROJECT_ID/java-web:$BRANCH_NAME-$REVISION_ID', '-t', 'gcr.io/$PROJECT_ID/java-web:latest', '.' ]
 
 # Push image to gcr
 - name: 'gcr.io/cloud-builders/docker'
