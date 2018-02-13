@@ -8,8 +8,8 @@ steps:
   - --ciphertext-file=id_fulfilment-platform.enc
   - --plaintext-file=id_fulfilment-platform
   - --location=global
-  - --keyring=ssh-keys
-  - --key=fulfilment-platform
+  - --keyring=fulfilment-platform
+  - --key=scripts-deploy-key
 
 # Build Dockerfile
 - name: 'gcr.io/cloud-builders/docker'
@@ -35,15 +35,13 @@ steps:
   # - 'deployment'
   # - 'java-web=gcr.io/#PROJECT_ID/java-web:$BRANCH_NAME-$REVISION_ID'
   env:
-  - 'CLOUDSDK_COMPUTE_ZONE=us-central1-a'
-  - 'CLOUDSDK_CONTAINER_CLUSTER=cluster-1'
+  - 'CLOUDSDK_COMPUTE_ZONE=us-east1-b'
+  - 'CLOUDSDK_CONTAINER_CLUSTER=east-cluster'
 
 
 logsBucket: 'fulfilment_platform_logs'
 tags:
   - "java"
-  - "web-frontend"
-  - "logic-backend"
 
 # Save image in Container Registry
 images: 
