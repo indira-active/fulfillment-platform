@@ -26,6 +26,7 @@ public class HomeController {
     @RequestMapping("/")
     public String home(Model model) {
         model.addAttribute("user", new User()); // TODO: Get rid of user
+
         return "index";
     }
 
@@ -37,13 +38,15 @@ public class HomeController {
     }
 
     @GetMapping("/inventoryUpdater")
-    public String inventoryUpdater() {
+    public String inventoryUpdater(Model model) {
+        model.addAttribute("supplier", new Supplier());
+        model.addAttribute("suppliers", supplierRepository.findAll());
         return "inventoryUpdater";
     }
 
     @PostMapping("/updateInventory")
-    public String updateInventory() {
-        inventoryUpdater.updateInventory();
+    public String updateInventory(@ModelAttribute Supplier supplier) {
+        inventoryUpdater.updateInventory(supplier.getSupplier_id());
         return "success";
     }
 
