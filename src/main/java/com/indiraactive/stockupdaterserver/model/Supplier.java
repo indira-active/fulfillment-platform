@@ -1,84 +1,99 @@
 package com.indiraactive.stockupdaterserver.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import org.springframework.context.annotation.Configuration;
+
+import javax.persistence.*;
 
 @Entity
+@Table(name = "supplier")
 public class Supplier {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
-    private Integer supplier_id;
-    private String shopify_api_key;
-    private String shopify_password;
-    private String shop_name;
-    private String fulfil_subdomain;
-    private String fulfil_api_key;
-    private String supplier_code;
-    private String alias;
+    @Column(name = "supplier_id", length = 64, updatable = false)
+    private Integer supplierId;
 
-    public Integer getSupplier_id() {
-        return supplier_id;
+    @Column(name = "supplier_name", nullable = false)
+    private String supplierName;
+
+    @Column(name = "shopify_api_key", nullable = false)
+    private String shopifyApiKey;
+
+    @Column(name = "shopify_password", nullable = false)
+    private String shopifyPassword;
+
+    @Column(name = "shop_name", nullable = false)
+    private String shopName;
+
+    @Column(name = "fulfill_subdomain", nullable = false)
+    private String fulfillSubdomain;
+
+    @Column(name = "fulfill_api_key", nullable = false)
+    private String fulfillApiKey;
+
+    @Column(name = "supplier_code", nullable = false)
+    private String supplierCode;
+
+    public Integer getSupplierId() {
+        return supplierId;
     }
 
-    public void setSupplier_id(Integer supplier_id) {
-        this.supplier_id = supplier_id;
+    public void setSupplierId(Integer supplierId) {
+        this.supplierId = supplierId;
     }
 
-    public String getShopify_api_key() {
-        return shopify_api_key;
+    public String getShopifyApiKey() {
+        return shopifyApiKey;
     }
 
-    public void setShopify_api_key(String shopify_api_key) {
-        this.shopify_api_key = shopify_api_key;
+    public void setShopifyApiKey(String shopifyApiKey) {
+        this.shopifyApiKey = shopifyApiKey;
     }
 
-    public String getShopify_password() {
-        return shopify_password;
+    public String getShopifyPassword() {
+        return shopifyPassword;
     }
 
-    public void setShopify_password(String shopify_password) {
-        this.shopify_password = shopify_password;
+    public void setShopifyPassword(String shopifyPassword) {
+        this.shopifyPassword = shopifyPassword;
     }
 
-    public String getShop_name() {
-        return shop_name;
+    public String getShopName() {
+        return shopName;
     }
 
-    public void setShop_name(String shop_name) {
-        this.shop_name = shop_name;
+    public void setShopName(String shopName) {
+        this.shopName = shopName;
     }
 
-    public String getFulfil_subdomain() {
-        return fulfil_subdomain;
+    public String getFulfillSubdomain() {
+        return fulfillSubdomain;
     }
 
-    public void setFulfil_subdomain(String fulfil_subdomain) {
-        this.fulfil_subdomain = fulfil_subdomain;
+    public void setFulfillSubdomain(String fulfillSubdomain) {
+        this.fulfillSubdomain = fulfillSubdomain;
     }
 
-    public String getFulfil_api_key() {
-        return fulfil_api_key;
+    public String getFulfillApiKey() {
+        return fulfillApiKey;
     }
 
-    public void setFulfil_api_key(String fulfil_api_key) {
-        this.fulfil_api_key = fulfil_api_key;
+    public void setFulfillApiKey(String fulfillApiKey) {
+        this.fulfillApiKey = fulfillApiKey;
     }
 
-    public String getSupplier_code() {
-        return supplier_code;
+    public String getSupplierCode() {
+        return supplierCode;
     }
 
-    public void setSupplier_code(String supplier_code) {
-        this.supplier_code = supplier_code;
+    public void setSupplierCode(String supplierCode) {
+        this.supplierCode = supplierCode;
     }
 
-    public String getAlias() {
-        return alias;
+    public String getSupplierName() {
+        return supplierName;
     }
 
-    public void setAlias(String alias) {
-        this.alias = alias;
+    public void setSupplierName(String supplierName) {
+        this.supplierName = supplierName;
     }
 }

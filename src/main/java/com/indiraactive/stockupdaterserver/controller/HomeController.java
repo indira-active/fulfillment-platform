@@ -43,7 +43,7 @@ public class HomeController {
 
     @PostMapping("/updateInventory")
     public String updateInventory(@ModelAttribute Supplier supplier) {
-        inventoryUpdater.updateInventory(supplier.getSupplier_id());
+        inventoryUpdater.updateInventory(supplier.getSupplierId());
         return "success";
     }
 

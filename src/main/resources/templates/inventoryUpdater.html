@@ -14,10 +14,10 @@
     <h1>Inventory Updater</h1>
     <p>Run Stock Updater Manually</p>
     <form action="#"  th:action="@{/updateInventory}" th:object="${supplier}" method="post">
-        <select th:field="*{supplier_id}">
+        <select th:field="*{supplierId}">
             <option th:each="supplier : ${suppliers}"
-                    th:value="${supplier.supplier_id}"
-                    th:text="#{${supplier.alias}}"></option> <!-- TODO: Get the dropdown text to display properly !-->
+                    th:value="${supplier.supplierId}"
+                    th:text="#{${supplier.supplierName}}"></option> <!-- TODO: Get the dropdown text to display properly !-->
         </select>
         <input type="submit" value="Run Stock Updater"/>
     </form>
