@@ -26,6 +26,7 @@ public class HomeController {
     @RequestMapping("/")
     public String home(Model model) {
         model.addAttribute("user", new User()); // TODO: Get rid of user
+
         return "index";
     }
 
@@ -43,9 +44,9 @@ public class HomeController {
         return "inventoryUpdater";
     }
 
-    @PostMapping("/updateInventory/{supplierId}")
-    public String updateInventory(@PathVariable int supplierId) {
-        inventoryUpdater.updateInventory(supplierId);
+    @PostMapping("/updateInventory")
+    public String updateInventory(@ModelAttribute Supplier supplier) {
+        inventoryUpdater.updateInventory(supplier.getSupplier_id());
         return "success";
     }
 
