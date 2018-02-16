@@ -25,9 +25,9 @@ public class InventoryUpdater {
         System.out.println("Preparing to update inventory");
         System.out.println("Retrieving supplier information");
         Supplier supplier = supplierRepository.findOne(supplierId);
-        String args = SyncInventoryArgumentsFactory.getArgs(supplier);
+        String args = SyncInventoryArgumentsFactory.getArgs(supplier).trim();
         try {
-            Process process = Runtime.getRuntime().exec("python " + args);
+            Process process = Runtime.getRuntime().exec("python " + inventoryUpdaterScriptPath + " " + args);
         } catch(IOException ioException) {
             ioException.printStackTrace();
             System.out.println("Error, unable to find python script."); // TODO: Add better error notification
