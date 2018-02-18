@@ -1,6 +1,6 @@
-package com.indiraactive.stockupdaterserver.factory;
+package com.indiraactive.fulfillmentplatform.factory;
 
-import com.indiraactive.stockupdaterserver.model.Supplier;
+import com.indiraactive.fulfillmentplatform.model.Supplier;
 
 public class SyncInventoryArgumentsFactory {
     // Arguments being formed based on https://indiraactive.atlassian.net/wiki/spaces/SP/pages/10518531/Business+Automation+Scripts

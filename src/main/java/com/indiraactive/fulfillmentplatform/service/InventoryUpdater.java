@@ -1,12 +1,10 @@
-package com.indiraactive.stockupdaterserver.service;
+package com.indiraactive.fulfillmentplatform.service;
 
-import com.indiraactive.stockupdaterserver.dal.SupplierRepository;
-import com.indiraactive.stockupdaterserver.factory.SyncInventoryArgumentsFactory;
-import com.indiraactive.stockupdaterserver.model.Supplier;
+import com.indiraactive.fulfillmentplatform.dal.SupplierRepository;
+import com.indiraactive.fulfillmentplatform.factory.SyncInventoryArgumentsFactory;
+import com.indiraactive.fulfillmentplatform.model.Supplier;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.autoconfigure.AutoConfigureOrder;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;

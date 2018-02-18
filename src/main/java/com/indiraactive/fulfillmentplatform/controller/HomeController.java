@@ -1,9 +1,10 @@
-package com.indiraactive.stockupdaterserver.controller;
+package com.indiraactive.fulfillmentplatform.controller;
 
-import com.indiraactive.stockupdaterserver.dal.SupplierRepository;
-import com.indiraactive.stockupdaterserver.model.Supplier;
-import com.indiraactive.stockupdaterserver.service.InventoryUpdater;
+import com.indiraactive.fulfillmentplatform.dal.SupplierRepository;
+import com.indiraactive.fulfillmentplatform.model.Supplier;
+import com.indiraactive.fulfillmentplatform.service.InventoryUpdater;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -17,10 +18,6 @@ public class HomeController {
     private InventoryUpdater inventoryUpdater;
     @Autowired
     private SupplierRepository supplierRepository;
-
-    public HomeController(InventoryUpdater inventoryUpdater) {
-        this.inventoryUpdater = inventoryUpdater;
-    }
 
     @RequestMapping("/")
     public String home() {

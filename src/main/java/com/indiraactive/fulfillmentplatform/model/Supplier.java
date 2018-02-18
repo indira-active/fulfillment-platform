@@ -1,6 +1,4 @@
-package com.indiraactive.stockupdaterserver.model;
-
-import org.springframework.context.annotation.Configuration;
+package com.indiraactive.fulfillmentplatform.model;
 
 import javax.persistence.*;
 
