@@ -2,32 +2,66 @@ package com.indiraactive.fulfillmentplatform.model;
 
 import javax.persistence.*;
 
+/**
+ * Represents a specific supplier. Used to generate the supplier table in the
+ * fulfillment platform database. All properties besides supplier_id and supplier_name
+ * are derived from the sync_inventory section on the following confluence page:
+ * https://indiraactive.atlassian.net/wiki/spaces/SP/pages/10518531/Business+Automation+Scripts
+ * The java docs for everything besides those two attributes are derived from the above url.
+ */
 @Entity
 @Table(name = "supplier")
 public class Supplier {
+    /**
+     * Automatically increments in the database and is the primary key. The id is unique for
+     * each supplier
+     */
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     @Column(name = "supplier_id", length = 64, updatable = false)
     private Integer supplierId;
 
+    /**
+     * Name that the user gave the set of supplier information.
+     */
     @Column(name = "supplier_name", nullable = false)
     private String supplierName;
 
+    /**
+     * The API Key from a Shopify Private app
+     * (https://help.shopify.com/manual/apps/private-apps#generate-credentials-from-the-shopify-admin)
+     */
     @Column(name = "shopify_api_key", nullable = false)
     private String shopifyApiKey;
 
+    /**
+     * Password from the private app
+     */
     @Column(name = "shopify_password", nullable = false)
     private String shopifyPassword;
 
+    /**
+     * The shopify store name. Usually the first part of the .myshopify.com URL you use to access the store admin.
+     */
     @Column(name = "shop_name", nullable = false)
     private String shopName;
 
+    /**
+     * The subdomain of your fulfil instance.
+     */
     @Column(name = "fulfill_subdomain", nullable = false)
     private String fulfillSubdomain;
 
+    /**
+     * The API key of your fulfil instance. The user must have permission to read and write product suppliers.
+     */
     @Column(name = "fulfill_api_key", nullable = false)
     private String fulfillApiKey;
 
+    /**
+     * The code of the supplier (who own the shopify store). The code can be found on the top right card on the
+     * supplier contact. Usually a number.
+     */
     @Column(name = "supplier_code", nullable = false)
     private String supplierCode;
 
