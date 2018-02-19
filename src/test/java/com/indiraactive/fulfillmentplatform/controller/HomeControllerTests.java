@@ -20,12 +20,22 @@ public class HomeControllerTests {
     private MockMvc mockMvc;
 
     @Test
-    public void testIndexWithoutAuthorization() throws Exception{
+    public void testIndexWithoutAuthorization() throws Exception {
         MockHttpServletRequestBuilder requestBuilder = get("/");
         mockMvc.perform(requestBuilder).andExpect(MockMvcResultMatchers.status().is(302));
     }
 
+    @Test
+    public void testInventoryUpdaterWithoutAuthoration() throws Exception {
+        MockHttpServletRequestBuilder requestBuilder = get("/inventoryUpdater");
+        mockMvc.perform(requestBuilder).andExpect(MockMvcResultMatchers.status().is(302));
+    }
 
+    @Test
+    public void testManageSuppliersWithoutAuthoration() throws Exception {
+        MockHttpServletRequestBuilder requestBuilder = get("/manageSuppliers");
+        mockMvc.perform(requestBuilder).andExpect(MockMvcResultMatchers.status().is(302));
+    }
 
-
+    // TODO: Add tests for authorized requests
 }
