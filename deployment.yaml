@@ -8,7 +8,7 @@ spec:
   type: NodePort
   ports:
   - port: 8089
-    nodePort: 30060
+    nodePort: 30045
   selector:
     app: java-web
 ---
@@ -32,7 +32,38 @@ spec:
         branch: master
     spec:
       containers:
-      - name: java-web
-        image: gcr.io/fulfillment-platform/java-web
-        ports:
-          - containerPort: 8089
+
+        # Java applicaiton
+        - name: java-web
+          image: gcr.io/zip-zap-gateway/java-web
+          ports:
+            - containerPort: 8089
+          env:
+            - name: DB_USER
+              valueFrom:
+                secretKeyRef:
+                  name: cloudsql-db-credentials
+                  key: username
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: cloudsql-db-credentials
+                  key: password
+
+        # Sidecar cloud mysql proxy
+        - name: cloudsql-proxy
+          image: gcr.io/cloudsql-docker/gce-proxy:1.11
+          command: ["/cloud_sql_proxy",
+                    "-instances=zip-zap-gateway:us-central1:supplier-master=tcp:3306",
+                    "-credential_file=/secrets/cloudsql/credentials.json"]
+          volumeMounts:
+            - name: cloudsql-instance-credentials
+              mountPath: /secrets/cloudsql
+              readOnly: true
+
+      volumes:
+        - name: cloudsql-instance-credentials
+          secret:
+            secretName: cloudsql-instance-credentials
+        - name: cloudsql
+          emptyDir:
