@@ -2,7 +2,6 @@ package com.indiraactive.stockupdaterserver.controller;
 
 import com.indiraactive.stockupdaterserver.dal.SupplierRepository;
 import com.indiraactive.stockupdaterserver.model.Supplier;
-import com.indiraactive.stockupdaterserver.model.User;
 import com.indiraactive.stockupdaterserver.service.InventoryUpdater;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,8 +23,7 @@ public class HomeController {
     }
 
     @RequestMapping("/")
-    public String home(Model model) {
-        model.addAttribute("user", new User()); // TODO: Get rid of user
+    public String home() {
         return "index";
     }
 
@@ -37,13 +35,15 @@ public class HomeController {
     }
 
     @GetMapping("/inventoryUpdater")
-    public String inventoryUpdater() {
+    public String inventoryUpdater(Model model) {
+        model.addAttribute("supplier", new Supplier());
+        model.addAttribute("suppliers", supplierRepository.findAll());
         return "inventoryUpdater";
     }
 
     @PostMapping("/updateInventory")
-    public String updateInventory() {
-        inventoryUpdater.updateInventory();
+    public String updateInventory(@ModelAttribute Supplier supplier) {
+        inventoryUpdater.updateInventory(supplier.getSupplier_id());
         return "success";
     }
 
