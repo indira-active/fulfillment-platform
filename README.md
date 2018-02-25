@@ -26,7 +26,8 @@ Keys:
 * supplier-master-sql-credentials # ciphertext-file=credentials.json.enc plaintext-file=credentials.json
 
 # Important Enviorment Variabes
-These enviorment variables auto automatically set by our CI/CD systems. However locally they will be need to set manuall.
+These enviorment variables auto automatically set by our CI/CD systems. However locally they will be need to set manually.
+
     export <VARIABLE_NAME>=<VARIABLE_VALUE> # Sets variable in envoriemtn
     echo $<VARIABLE_NAME> # Prints variable to test
 
