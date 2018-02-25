@@ -22,8 +22,8 @@ Each secret is hosted securely on Cloud KMS.
 
 Keys:
 
-* scripts-deploy-key
-* supplier-master-sql-credentials
+* scripts-deploy-key # ciphertext-file=id_fulfilment-platform.enc plaintext-file=id_fulfilment-platform
+* supplier-master-sql-credentials # ciphertext-file=credentials.json.enc plaintext-file=credentials.json
 
 # Important Enviorment Variabes
 These enviorment variables auto automatically set by our CI/CD systems. However locally they will be need to set manuall.
