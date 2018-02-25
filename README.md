@@ -31,6 +31,8 @@ These enviorment variables auto automatically set by our CI/CD systems. However 
     echo $<VARIABLE_NAME> # Prints variable to test
 
 ENV:
+* DB_USER
+* DB_PASSWORD
 * OKTA_ISSUER
 * OKTA_CLIENTID
 * OKTA_CLIENTSECRET
@@ -42,3 +44,4 @@ ENV:
 
 # Manually build docker image and upload to registry
     gcloud container builds submit --config cloudbuild.yaml .
+
