@@ -1,17 +1,18 @@
 sudo: required
 language: java
 services:
-  - docker
+- docker
 jdk:
 - oraclejdk8
 
 before_install:
-  - docker build -t zip-zap-gateway/java-web .
+- openssl aes-256-cbc -K $encrypted_da447276b2d1_key -iv $encrypted_da447276b2d1_iv
+  -in id_fulfilment-platform-travis.enc -out id_fulfilment-platform -d
+- docker build -t zip-zap-gateway/java-web .
 
 notifications:
   slack:
     rooms:
-      #github
       secure: GSvyiGKKInnwx0SAeZ86qZpYSBp5Cw3HWHv9rPmpdHIj1ZevgkhbJYRoyJGJ2OUI7ZHJR4lf4zKPAX9nMi52e9g80gqjdN4zETs1IO2Z4N2poup6xnme/UyonPxw0FZlDwTE95oeaVftO4IJRaSfUhTDQSAOf6hLAYEcgFLq2VuiD156yJtKMEw0zJcaNwbZN4o11N3DX90lEwOwsI8crq6n+v+G2b8pH69+b5EURQ1cgmp3jN//K+F+jamsykMjV5dD/E6aB0ZvnH70SJVW9RxeZx++XAFKdIGxV+3WttZx48tCHzg5rnuepj4X1zg9OaqBajjgMMLkpfdlLue0ZMNPZmZoopU3vRJQ48WRkEKXbna0cVRCvj9ca0JFWXJ+2hjUwnHu/MbCjmUj/owSHqU/tmBqH/9ILUpg4OlzhMWK1ZVkOfGjpaBxpQSL/D+OEwnO1SUEMTF85WADeKSgY5mhjxjCjybTD+M3KHvwSe+tGsWGIKcOv93izMirv/Nyk5ronMZ3YI5EsNK5oSBuxcT/+qOAUBgGM6gTbMuQN2tNlDkVlOp9lwzxEyBCTSoQrA0CWiCaqiQzt6BAbKy48lsh8Mx8I7BGfAvNxP3Pg3Jv/jSjWBnObN5gvBJCDkj3NMggzNFfcV6naWVwl+VQ3hD2ige0/NixA+cUo1E2Ohs=
-    on_success: change # default: always
-    on_failure: always # default: always
+    on_success: change
+    on_failure: always
