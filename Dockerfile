@@ -62,4 +62,4 @@ RUN pip install --no-cache-dir -r requirements.txt && \
 
 # Start service
 EXPOSE 8089
-ENTRYPOINT ["java", "-jar", "./target/inventory-updater-web-app.jar"]
+ENTRYPOINT ["java", "-jar", "./target/fulfillment-platform.jar"]
