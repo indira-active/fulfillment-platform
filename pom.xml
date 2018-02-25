@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.indiraactive</groupId>
-    <artifactId>invetory-stok-updater</artifactId>
+    <artifactId>fulfillment-platform</artifactId>
     <version>0.0.1-SNAPSHOT</version>
 
     <parent>
@@ -77,7 +77,7 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
-                    <finalName>inventory-updater-web-app</finalName>
+                    <finalName>fulfillment-platform</finalName>
                 </configuration>
             </plugin>
         </plugins>

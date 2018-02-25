@@ -14,21 +14,21 @@
     <h1>Manage Suppliers</h1>
     <h2>Create New Supplier</h2>
     <form action="#" th:action="@{/addSupplier}" th:object="${supplier}" method="post">
-        <p>Shopify API Key: <input type="text" th:field="*{shopify_api_key}"/></p>
-        <p>Shopify Password: <input type="text" th:field="*{shopify_password}"/></p>
-        <p>Shop Name: <input type="text" th:field="*{shop_name}"/></p>
-        <p>Fulfil Subdomain: <input type="text" th:field="*{fulfil_subdomain}"/></p>
-        <p>Fulfil API Key: <input type="text" th:field="*{fulfil_api_key}"/></p>
-        <p>Supplier Code: <input type="text" th:field="*{supplier_code}"/></p>
-        <p>Alias: <input type="text" th:field="*{alias}"/></p>
+        <p>Supplier Name: <input type="text" th:field="*{supplierName}"/></p>
+        <p>Shopify API Key: <input type="text" th:field="*{shopifyApiKey}"/></p>
+        <p>Shopify Password: <input type="text" th:field="*{shopifyPassword}"/></p>
+        <p>Shop Name: <input type="text" th:field="*{shopName}"/></p>
+        <p>Fulfil Subdomain: <input type="text" th:field="*{fulfillSubdomain}"/></p>
+        <p>Fulfil API Key: <input type="text" th:field="*{fulfillApiKey}"/></p>
+        <p>Supplier Code: <input type="text" th:field="*{supplierCode}"/></p>
         <p><input type="submit" value="Submit"/></p>
     </form>
     <h2>Delete Supplier</h2>
 
     <div th:each="supplier : ${suppliers}">
-        <span th:text="${supplier.supplier_id}"></span>
-        <span th:text="${supplier.alias}"></span>
-        <form action="#" th:action="@{/deleteSupplier/{supplierId}(supplierId=${supplier.supplier_id})}" th:object="${supplier}" th:method="delete">
+        <span th:text="${supplier.supplierId}"></span>
+        <span th:text="${supplier.supplierName}"></span>
+        <form action="#" th:action="@{/deleteSupplier/{supplierId}(supplierId=${supplier.supplierId})}" th:object="${supplier}" th:method="delete">
             <input type="submit" value="Delete"/>
         </form>
         <hr/>
