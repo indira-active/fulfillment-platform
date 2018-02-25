@@ -48,7 +48,22 @@ spec:
               valueFrom:
                 secretKeyRef:
                   name: cloudsql-db-credentials
-                  key: password
+                  key: password 
+            - name: okta.oauth2.issuer
+              valueFrom:
+                secretKeyRef:
+                  name: okta-oauth
+                  key: issuer
+            - name: okta.oauth2.clientId
+              valueFrom:
+                secretKeyRef:
+                  name: okta-oauth
+                  key: clientId
+            - name: okta.oauth2.clientSecret
+              valueFrom:
+                secretKeyRef:
+                  name: okta-oauth
+                  key: clientSecret
 
         # Sidecar cloud mysql proxy
         - name: cloudsql-proxy

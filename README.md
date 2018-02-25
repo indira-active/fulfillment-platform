@@ -25,6 +25,17 @@ Keys:
 * scripts-deploy-key
 * supplier-master-sql-credentials
 
+# Important Enviorment Variabes
+These enviorment variables auto automatically set by our CI/CD systems. However locally they will be need to set manuall.
+    export <VARIABLE_NAME>=<VARIABLE_VALUE> # Sets variable in envoriemtn
+    echo $<VARIABLE_NAME> # Prints variable to test
+
+ENV:
+* OKTA_ISSUER
+* OKTA_CLIENTID
+* OKTA_CLIENTSECRET
+
+
 ## Command to decrypt:
     gcloud kms decrypt --ciphertext-file=[INPUT_FILE] --plaintext-file=[OUTPUT_FILE] --location=global --keyring=fulfilment-platform --key=[SPECIFED_KEY]
 

@@ -1,5 +1,10 @@
+# Secrets
 id_fulfilment-platform
 credentials.json
+secret.yml
+
+
+
 =======
 # Compiled class file
 *.class
