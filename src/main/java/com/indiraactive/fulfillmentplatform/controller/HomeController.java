@@ -74,7 +74,12 @@ public class HomeController {
      */
     @PostMapping("/updateInventory")
     public String updateInventory(@ModelAttribute Supplier supplier) {
-        inventoryUpdater.updateInventory(supplier.getSupplierId());
+        try {
+            inventoryUpdater.updateInventory(supplier.getSupplierId());
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "error";
+        }
         return "success";
     }
 
