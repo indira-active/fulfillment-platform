@@ -32,7 +32,7 @@ RUN git clone git@github.com:indira-active/Scripts.git
 RUN pwd && ls -la
 
 # Build java application
-RUN mvn clean install
+RUN mvn clean install -DskipTests
 
 # Cleanup ssh keys 
 RUN rm -vf id_fulfilment-platform /root/.ssh/id*
@@ -62,4 +62,4 @@ RUN pip install --no-cache-dir -r requirements.txt && \
 
 # Start service
 EXPOSE 8089
-ENTRYPOINT ["java", "-jar", "./target/inventory-updater-web-app.jar"]
+ENTRYPOINT ["java", "-jar", "./target/fulfillment-platform.jar"]
