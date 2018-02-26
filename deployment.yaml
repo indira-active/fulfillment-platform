@@ -49,17 +49,17 @@ spec:
                 secretKeyRef:
                   name: cloudsql-db-credentials
                   key: password 
-            - name: okta.oauth2.issuer
+            - name: OKTA_ISSUER
               valueFrom:
                 secretKeyRef:
                   name: okta-oauth
                   key: issuer
-            - name: okta.oauth2.clientId
+            - name: OKTA_CLIENTID
               valueFrom:
                 secretKeyRef:
                   name: okta-oauth
                   key: clientId
-            - name: okta.oauth2.clientSecret
+            - name: OKTA_CLIENTSECRET
               valueFrom:
                 secretKeyRef:
                   name: okta-oauth
