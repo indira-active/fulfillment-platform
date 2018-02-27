@@ -1,6 +1,8 @@
 package com.indiraactive.fulfillmentplatform.controller;
 
+import com.indiraactive.fulfillmentplatform.dal.ScriptRunAuditEntryRepository;
 import com.indiraactive.fulfillmentplatform.dal.SupplierRepository;
+import com.indiraactive.fulfillmentplatform.model.ScriptRunAuditEntry;
 import com.indiraactive.fulfillmentplatform.model.Supplier;
 import com.indiraactive.fulfillmentplatform.service.InventoryUpdater;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +11,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.sql.Timestamp;
 
 // TODO: Clean up this controller and create new classes to compartmentalize responsibilities.
 
@@ -34,6 +38,9 @@ public class HomeController {
      */
     @Autowired
     private SupplierRepository supplierRepository;
+
+    @Autowired
+    private ScriptRunAuditEntryRepository scriptRunAuditEntryRepository;
 
     /**
      * Provides the consumers with the home page of the fulfillment platform web app
@@ -75,7 +82,6 @@ public class HomeController {
      */
     @PostMapping("/updateInventory")
     public String updateInventory(@ModelAttribute Supplier supplier) {
-
         return "success";
     }
 
