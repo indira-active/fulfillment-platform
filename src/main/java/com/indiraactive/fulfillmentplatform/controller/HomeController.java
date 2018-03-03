@@ -44,6 +44,17 @@ public class HomeController {
     }
 
     /**
+     * Provides the the load balancer the current health status of the fulfillment platform web app.
+     * @return 200 OK with some basic information about application.
+     */
+    @ResponseStatus(OK)
+    @RequestMapping(value = "/healthz", method = RequestMethod.GET)
+    public void healthz() {
+        // Something like this might be more useful/proper:
+        // https://github.com/priyatam/spring-best-practices/blob/master/src/main/java/github/priyatam/springrest/HealthCheck.java
+    }
+
+    /**
      * User can manage the suppliers that the fulfillment platform uses
      * @param model Automatically passed when this endpoint is called via get request, used for building the view
      * @return View that lets a user add or delete suppliers
