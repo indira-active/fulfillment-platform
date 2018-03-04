@@ -4,12 +4,10 @@ services:
 - docker
 jdk:
 - oraclejdk8
-
 before_install:
 - openssl aes-256-cbc -K $encrypted_da447276b2d1_key -iv $encrypted_da447276b2d1_iv
   -in id_fulfilment-platform-travis.enc -out id_fulfilment-platform -d
 - docker build -t zip-zap-gateway/java-web .
-
 notifications:
   slack:
     rooms:
