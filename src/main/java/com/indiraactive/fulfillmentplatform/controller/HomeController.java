@@ -5,6 +5,7 @@ import com.indiraactive.fulfillmentplatform.model.Supplier;
 import com.indiraactive.fulfillmentplatform.service.InventoryUpdater;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -47,7 +48,7 @@ public class HomeController {
      * Provides the the load balancer the current health status of the fulfillment platform web app.
      * @return 200 OK with some basic information about application.
      */
-    @ResponseStatus(OK)
+    @ResponseStatus(HttpStatus.OK)
     @RequestMapping(value = "/healthz", method = RequestMethod.GET)
     public void healthz() {
         // Something like this might be more useful/proper:
