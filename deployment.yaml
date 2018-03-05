@@ -38,6 +38,12 @@ spec:
           image: gcr.io/zip-zap-gateway/java-web
           ports:
             - containerPort: 8089
+          readinessProbe:
+            httpGet:
+                path: /health
+                port: 8089
+            initialDelaySeconds: 120
+            periodSeconds: 5
           env:
             - name: DB_USER
               valueFrom:
