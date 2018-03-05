@@ -36,14 +36,16 @@ spec:
         # Java applicaiton
         - name: java-web
           image: gcr.io/zip-zap-gateway/java-web
+          imagePullPolicy: Always
           ports:
             - containerPort: 8089
           readinessProbe:
             httpGet:
                 path: /health
                 port: 8089
-            initialDelaySeconds: 300
+            initialDelaySeconds: 45
             periodSeconds: 5
+            timeoutSeconds: 5
           env:
             - name: DB_USER
               valueFrom:
