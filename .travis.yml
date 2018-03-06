@@ -2,7 +2,8 @@ sudo: required
 language: java
 cache:
   directories:
-    - $HOME/.m2
+    - $HOME/.m2 # mvn
+    - $HOME/.cache/pip # pip
 services:
 - docker
 jdk:
