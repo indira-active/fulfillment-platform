@@ -1,3 +1,5 @@
+*.env
+
 # Secrets
 id_fulfilment-platform
 credentials.json
