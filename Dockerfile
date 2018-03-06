@@ -43,8 +43,8 @@ RUN pwd && ls -la
 ########################################################################
 # BUILD STAGE 2 - copy the compiled build dir into a fresh runtime image
 FROM ubuntu:latest as runtime
-COPY --from=builder /build /target
-WORKDIR /target
+COPY --from=builder /build /build2
+WORKDIR /build2
 
 # Debug
 RUN pwd && ls -la
