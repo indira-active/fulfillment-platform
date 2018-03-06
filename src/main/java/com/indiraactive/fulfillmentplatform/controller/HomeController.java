@@ -75,7 +75,9 @@ public class HomeController {
      */
     @PostMapping("/updateInventory")
     public String updateInventory(@ModelAttribute Supplier supplier) {
+        System.out.println("STARTED RUNNING SYNC_INVENTORY.PY");
         inventoryUpdater.updateInventory(supplier.getSupplierId());
+        System.out.println("FINISHED RUNNING SYNC_INVENTORY.PY");
         return "success";
     }
 
