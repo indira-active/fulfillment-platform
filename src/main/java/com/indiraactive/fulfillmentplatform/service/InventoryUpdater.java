@@ -7,7 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 
 /**
  * Runs the sync_inventory script seen here:
@@ -40,7 +42,15 @@ public class InventoryUpdater {
         Supplier supplier = supplierRepository.findOne(supplierId);
         String args = SyncInventoryArgumentsFactory.getArgs(supplier).trim();
         try {
-            Process process = Runtime.getRuntime().exec("python " + inventoryUpdaterScriptPath + " " + args);
+            String commandToExecute = "python " + inventoryUpdaterScriptPath + " " + args;
+            System.out.println("Command to be executed: " + commandToExecute);
+            Process process = Runtime.getRuntime().exec(commandToExecute);
+            String line;
+            BufferedReader input = new BufferedReader(new InputStreamReader(process.getInputStream()));
+            while ((line = input.readLine()) != null) {
+                System.out.println("***FROM CONSOLE: " + line);
+            }
+            input.close();
         } catch(IOException ioException) {
             ioException.printStackTrace();
             System.out.println("Error, unable to find python script."); // TODO: Add better error notification
