@@ -13,8 +13,8 @@ RUN pwd && ls -la
 RUN apk --update add --no-cache maven git openssh openssl bash python-dev py-pip
 
 # Install runtime dependencies
-COPY requirements.txt .
-RUN pip install -r requirements.txt
+# COPY requirements.txt .
+# RUN pip install -r requirements.txt
 
 # Debug
 RUN pwd && ls -la
@@ -27,7 +27,8 @@ RUN pwd && ls -la
 # Debug
 #RUN pwd && ls -la
 COPY id_fulfilment-platform* ./ 
-RUN openssl aes-256-cbc -d -in id_fulfilment-platform-circleci.enc -k "$SCRIPTS_SSH" -out id_fulfilment-platform; exit 0
+#RUN openssl aes-256-cbc -d -in id_fulfilment-platform-circleci.enc -out id_fulfilment-platform -k "$SCRIPTS_SSH"; exit 0
+RUN bash && openssl aes-256-cbc -d -in id_fulfilment-platform-circle.enc -out id_fulfilment-platform -k $SCRIPTS_SSH; exit 0
 # RUN openssl aes-256-cbc -d -in id_fulfilment-platform-circleci.enc -k "$SCRIPTS_SSH" -out id_fulfilment-platform
 
 # Debug
