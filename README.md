@@ -1,4 +1,6 @@
-[![Build Status](https://travis-ci.com/indira-active/fulfillment-platform.svg?token=s8nDqBPzyxfbb3fVZTFy&branch=master)](https://travis-ci.com/indira-active/fulfillment-platform) [![Codacy Badge](https://api.codacy.com/project/badge/Grade/e2906ab1ca4c4ea9a5a01baee82f572a)](https://www.codacy.com?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=indira-active/fulfillment-platform&amp;utm_campaign=Badge_Grade)
+[![Build Status](https://travis-ci.com/indira-active/fulfillment-platform.svg?token=s8nDqBPzyxfbb3fVZTFy&branch=master)](https://travis-ci.com/indira-active/fulfillment-platform) 
+[![CircleCI](https://circleci.com/gh/indira-active/fulfillment-platform.svg?style=svg&circle-token=dede407d73b7eb5b0427274c18cfdd6a4ba083bb)](https://circleci.com/gh/indira-active/fulfillment-platform)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/e2906ab1ca4c4ea9a5a01baee82f572a)](https://www.codacy.com?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=indira-active/fulfillment-platform&amp;utm_campaign=Badge_Grade)
 
 # InventoryUpdaterWebApp
 Web application that will be called to update product inventory from our suppliers
