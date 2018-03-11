@@ -7,6 +7,10 @@ jobs:
     steps:
       - checkout
       - setup_remote_docker
+      - run:
+          name: Prepare enviorment
+          command: |
+            openssl aes-256-cbc -d -in id_fulfilment-platform-circle.enc -out id_fulfilment-platform -k $SCRIPTS_SSH; exit 0
       - restore_cache:
           keys:
             - v1-{{ .Branch }}
