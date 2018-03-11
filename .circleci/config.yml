@@ -7,10 +7,6 @@ jobs:
     steps:
       - checkout
       - setup_remote_docker
-      - run:
-          name: Install dependencies
-          command: |
-            openssl aes-256-cbc -d -in id_fulfilment-platform-circleci.enc -k $SCRIPTS_SSH > id_fulfilment-platform
       - restore_cache:
           keys:
             - v1-{{ .Branch }}
