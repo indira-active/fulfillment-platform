@@ -52,10 +52,31 @@ These enviorment variables are automatically set by our CI/CD systems. However l
     export <VARIABLE_NAME>=<VARIABLE_VALUE>
 
 
-# Build & Test locally
-    docker build .
-    TODO: nathang: add docker-compose setup to run
-    # Setup local docker file with ENV's and starting sidecar containers etc.
+
+# Development
+    # Install dependencies & devDependencies
+    mvn clean install
+    # Start server
+    
+    # Run tests
+    
+    # Check test coverage
+    
+
+
+# Production
+## Build & test local
+    docker-compose build
+    # Note subsequent builds will be cached, add --no-cache to rebuild from sctatch.
+    TODO: nathang - Figure out ENV's, sidecar container etc.
+
+
+## Run local
+    docker-compose up 
+    # Use -d to detach and run in background
+    # Note subsequent runs will re-use the image, add --build to rebuild image. 
+    
+
 
 
 # Misc
