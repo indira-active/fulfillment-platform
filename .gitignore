@@ -1,7 +1,6 @@
 *.env
 coverage
-.nyc_output
-coverage.lcov
+.codecov
 
 # Secrets
 id_fulfilment-platform
