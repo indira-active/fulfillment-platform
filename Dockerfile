@@ -49,8 +49,11 @@ RUN pwd && ls -la
 FROM base as test
 # TODO: nathang - Can we split out devDependencies with mvn?
 # Run tests and coverage
+ARG CODECOV_TOKEN
 RUN mvn clean test jacoco:report
-RUN curl -s https://codecov.io/bash -t=$CODECOV_TOKENll | bash
+RUN curl -s https://codecov.io/bash > .codecov
+RUN chmod +x .codecov
+RUN ./.codecov -- -t $CODECOV_TOKEN
 
 
 # ---- Release ----
