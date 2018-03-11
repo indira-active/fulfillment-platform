@@ -48,6 +48,7 @@ RUN pwd && ls -la
 # ---- Test ----
 # FROM base as test
 # Run tests and coverage
+# RUN mvn cobertura:cobertura
 
 
 # ---- Release ----
