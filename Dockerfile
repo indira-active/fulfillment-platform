@@ -10,14 +10,16 @@ WORKDIR /build
 RUN pwd && ls -la
 
 # Install build dependencies
-RUN apk --update add --no-cache maven git openssh bash python-dev py-pip
+RUN apk --update add --no-cache maven git openssh openssl bash python-dev py-pip
 
 # Install runtime dependencies
 COPY requirements.txt .
 RUN pip install -r requirements.txt
 
 # Setup temp ssh key to pull from private git repo
-COPY id_fulfilment-platform .
+COPY id_fulfilment-platform . 
+RUN if [ ! -f ./id_fulfilment-platform ]; \
+	then openssl aes-256-cbc -d -in id_fulfilment-platform-circleci.enc -k $SCRIPTS_SSH > id_fulfilment-platform; fi
 RUN mkdir -p /root/.ssh/ && \
 	chmod 0700 /root/.ssh && \
 	cat ./id_fulfilment-platform > /root/.ssh/id_rsa && \
