@@ -1,0 +1,20 @@
+version: '3'
+services:
+  java-web:
+    build:
+      context: .
+    image: gcr.io/zip-zap-gateway/java-web
+    volumes:
+      - .:/app
+    ports:
+      - '8089:8089'
+
+  # TODO: nathang - See if we can setup a cloudsql-proxy to work/test locally. 
+  # Would want a local test db, or a staging one in prod.
+  # cloudsql-proxy:
+  #   image: gcr.io/cloudsql-docker/gce-proxy:1.11
+  #   volumes:
+  #     - .:/app
+  #   command: ["/cloud_sql_proxy",
+  #                   "-instances=zip-zap-gateway:us-central1:supplier-master=tcp:3306",
+  #                   "-credential_file=/secrets/cloudsql/credentials.json"]
