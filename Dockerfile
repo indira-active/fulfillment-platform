@@ -10,7 +10,7 @@ WORKDIR /build
 RUN pwd && ls -la
 
 # Install build dependencies
-RUN apk --update add --no-cache maven git openssh openssl bash python-dev py-pip
+RUN apk --update add --no-cache maven curl git openssh openssl bash python-dev py-pip
 
 # Install runtime dependencies
 COPY requirements.txt .
@@ -46,9 +46,11 @@ RUN pwd && ls -la
 
 
 # ---- Test ----
-# FROM base as test
+FROM base as test
+# TODO: nathang - Can we split out devDependencies with mvn?
 # Run tests and coverage
-# RUN mvn cobertura:cobertura
+RUN mvn clean test jacoco:report
+RUN curl -s https://codecov.io/bash -t=$CODECOV_TOKENll | bash
 
 
 # ---- Release ----

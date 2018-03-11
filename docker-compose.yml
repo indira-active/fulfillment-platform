@@ -3,11 +3,14 @@ services:
   java-web:
     build:
       context: .
+      args:
+        - CODECOV_TOKEN=$CODECOV_TOKEN
     image: gcr.io/zip-zap-gateway/java-web
     volumes:
       - .:/app
     ports:
       - '8089:8089'
+
 
   # TODO: nathang - See if we can setup a cloudsql-proxy to work/test locally. 
   # Would want a local test db, or a staging one in prod.
