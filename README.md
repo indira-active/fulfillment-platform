@@ -47,7 +47,7 @@ These enviorment variables are automatically set by our CI/CD systems. However l
     * OKTA_ISSUER
     * OKTA_CLIENTID
     * OKTA_CLIENTSECRET
-* # TODO: nathang - Add env. Only needed for running coverage locally.
+* # docker-build # Only required if building Dockerfile locally
     * CODECOV_TOKEN 
 
 ### Retrive and set variable:
