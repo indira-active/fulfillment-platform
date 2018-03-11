@@ -19,14 +19,15 @@ RUN pip install -r requirements.txt
 # Debug
 RUN pwd && ls -la
 # Setup temp ssh key to pull from private git repo
-RUN openssl aes-256-cbc -d -in id_fulfilment-platform-circleci.enc -k "$SCRIPTS_SSH" -out id_fulfilment-platform; exit 0
+
 # RUN if [ -z {SCRIPTS_SSH+STUB} ]; \
 # 	then echo "SCRIPTS_SSH is unset" \
 # 	else openssl aes-256-cbc -d -in id_fulfilment-platform-circleci.enc -k "$SCRIPTS_SSH" -out id_fulfilment-platform; fi
 
 # Debug
-RUN pwd && ls -la
+#RUN pwd && ls -la
 COPY id_fulfilment-platform* ./ 
+RUN openssl aes-256-cbc -d -in id_fulfilment-platform-circleci.enc -k "$SCRIPTS_SSH" -out id_fulfilment-platform; exit 0
 # RUN openssl aes-256-cbc -d -in id_fulfilment-platform-circleci.enc -k "$SCRIPTS_SSH" -out id_fulfilment-platform
 
 # Debug
