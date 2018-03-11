@@ -16,10 +16,21 @@ RUN apk --update add --no-cache maven git openssh openssl bash python-dev py-pip
 COPY requirements.txt .
 RUN pip install -r requirements.txt
 
+# Debug
+RUN pwd && ls -la
 # Setup temp ssh key to pull from private git repo
-RUN if [ ! "$SCRIPTS_SSH" = "" ]; \
-	then openssl aes-256-cbc -d -in id_fulfilment-platform-circleci.enc -k $SCRIPTS_SSH > id_fulfilment-platform; fi
-COPY id_fulfilment-platform . 
+RUN openssl aes-256-cbc -d -in id_fulfilment-platform-circleci.enc -k "$SCRIPTS_SSH" -out id_fulfilment-platform; exit 0
+# RUN if [ -z {SCRIPTS_SSH+STUB} ]; \
+# 	then echo "SCRIPTS_SSH is unset" \
+# 	else openssl aes-256-cbc -d -in id_fulfilment-platform-circleci.enc -k "$SCRIPTS_SSH" -out id_fulfilment-platform; fi
+
+# Debug
+RUN pwd && ls -la
+COPY id_fulfilment-platform* ./ 
+# RUN openssl aes-256-cbc -d -in id_fulfilment-platform-circleci.enc -k "$SCRIPTS_SSH" -out id_fulfilment-platform
+
+# Debug
+RUN pwd && ls -la
 RUN mkdir -p /root/.ssh/ && \
 	chmod 0700 /root/.ssh && \
 	cat ./id_fulfilment-platform > /root/.ssh/id_rsa && \
