@@ -1,6 +1,4 @@
-# FROM alpine:latest # Ideal for more lean images (more complex Dockerfile setup)
 # ---- Base ----
-# FROM ubuntu:16.04 as base
 FROM openjdk:8-jdk-alpine3.7 as base
 LABEL maintainer="Nathan Guenther <nathang@indiraactive.com>"
 
