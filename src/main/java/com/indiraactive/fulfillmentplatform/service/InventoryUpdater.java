@@ -4,9 +4,11 @@ import com.indiraactive.fulfillmentplatform.dal.SupplierRepository;
 import com.indiraactive.fulfillmentplatform.factory.SyncInventoryArgumentsFactory;
 import com.indiraactive.fulfillmentplatform.utility.CommandLineRunner.*;
 import com.indiraactive.fulfillmentplatform.utility.CommandLineRunner;
+<<<<<<< HEAD
 import com.indiraactive.fulfillmentplatform.model.Supplier;
+=======
+>>>>>>> bbf7a02490ca7baf8f6203f94163a3ad5de39975
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 
@@ -46,21 +48,17 @@ public class InventoryUpdater {
      *                   sync_inventory.py script.
      */
     public CompletionErrorType updateInventory(int supplierId) throws Exception {
-        System.out.println("Preparing to update inventory");
-        System.out.println("Retrieving supplier information");
         String inventoryUpdaterScriptPath = getInventoryUpdaterScriptPath();
         String args = SyncInventoryArgumentsFactory.getArgs(supplierRepository.findOne(supplierId)).trim();
 
         if (inventoryUpdaterScriptPath != null ) {
             try {
-                String commandToExecute = "python " + inventoryUpdaterScriptPath + " " + args;
-                System.out.println("Command to be executed: " + commandToExecute);
                 CompletionErrorType completionErrorType = commandLineRunner.executeCommand("python " + inventoryUpdaterScriptPath + " " + args);
                 System.out.println("Completed running script with completionErrorType: " + completionErrorType);
-
                 return completionErrorType;
             } catch (Exception e) {
                 e.printStackTrace();
+                System.out.println(e.getMessage());
             }
         }
         throw new Exception("Unable to update inventory, an error occurred");
