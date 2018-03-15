@@ -23,8 +23,10 @@ public class CommandLineRunner {
      * @return CompletionErrorType of success or failure
      */
     public CompletionErrorType executeCommand(String commandLineText) {
+        System.out.println("CommandLineRunner: Spinning up a new process");
         Process process;
         try {
+            System.out.println("CommandLineRunner: About to execute the following command: " + commandLineText);
             process = Runtime.getRuntime().exec(commandLineText);
             if (process != null) {
                 int errorCode = process.waitFor();
@@ -37,6 +39,7 @@ public class CommandLineRunner {
                 input.close();
 
                 if (errorCode == 0) {
+                    System.out.println("CommandLineRunner: Successfully executed the following command: " + commandLineText);
                     return CompletionErrorType.SUCCESS;
                 }
             }

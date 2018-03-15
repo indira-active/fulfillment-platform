@@ -83,6 +83,7 @@ public class HomeController {
     @PostMapping("/updateInventory")
     public String updateInventory(@ModelAttribute Supplier supplier) {
         try {
+            System.out.println("STARTED RUNNING SYNC_INVENTORY.PY");
             ScriptRunAuditEntry auditEntry = new ScriptRunAuditEntry();
             auditEntry.setStartDateTime(new Timestamp(System.currentTimeMillis()));
             auditEntry.setSuccessCode(inventoryUpdater.updateInventory(supplier.getSupplierId()).toString());
@@ -90,6 +91,7 @@ public class HomeController {
             auditEntry.setSupplierId(supplier.getSupplierId());
             auditEntry.setUserTriggered("mock_need_to_get_user");
             scriptRunAuditEntryRepository.save(auditEntry);
+            System.out.println("FINISHED RUNNING SYNC_INVENTORY.PY");
         } catch (Exception e) {
             e.printStackTrace();
             return "error";
