@@ -12,7 +12,7 @@ Web application that will be called to update product inventory from our supplie
 https://cloud.google.com/sdk/docs/
 
     gcloud init
-    # Need to install kubectl addon
+    gcloud components install kubectl
 
 ## Select project and auth
     gcloud auth login
@@ -25,47 +25,62 @@ https://cloud.google.com/sdk/docs/
 ## Encrypted Keys (Files):  
 Every key is hosted securely and encrypted on Cloud KMS. Each file ending with *.enc is the encrypted version of the file and safe to commit. These can de be decrypted locally for testing/development, or automatically during the production build process:
   
-* scripts-deploy-key
-    * ciphertext-file=id_fulfilment-platform.enc
-    * plaintext-file=id_fulfilment-platform
-* supplier-master-sql-credentials
-    * ciphertext-file=credentials.json.enc
-    * plaintext-file=credentials.json
+
+| Cloud KMS key          | Command to retrieve |
+|-------------------------|-------------|
+| **scripts-deploy-key** `gcloud cli` | gcloud kms decrypt --ciphertext-file=id_fulfilment-platform.enc --plaintext-file=id_fulfilment-platform--location=global --keyring=fulfilment-platform --key=scripts-deploy-key |
+| **supplier-master-sql-credentials** `gcloud cli` | gcloud kms decrypt --ciphertext-file=credentials.json.enc --plaintext-file=credentials.json--location=global --keyring=fulfilment-platform --key=scripts-deploy-key |
 
 ### Decrypt file:
-    gcloud kms decrypt --ciphertext-file=[INPUT_FILE] --plaintext-file=[OUTPUT_FILE] --location=global --keyring=fulfilment-platform --key=[SPECIFED_KEY]
+    gcloud kms decrypt --ciphertext-file=[INPUT_FILE] --plaintext-file=[OUTPUT_FILE] --location=global --keyring=fulfilment-platform --key=scripts-deploy-key
     # These are exluded in .gitignore so they won't be committed.
 
 ## Encrypted Secrets (Enviorment Variables)
 These enviorment variables are automatically set by our CI/CD systems. However locally they will be need to set manually. They can easily be retrieved via kubectl secret name, and set in an enviorment: 
 
-* cloudsql-db-credentials
-    * DB_USER
-    * DB_PASSWORD
-* cloudsql-instance-credentials
-* okta-oauth
-    * OKTA_ISSUER
-    * OKTA_CLIENTID
-    * OKTA_CLIENTSECRET
-* # docker-build # Only required if building Dockerfile locally
-    * CODECOV_TOKEN 
+| Secret location            | Description |
+|-------------------------|-------------|
+| **cloudsql-db-credentials** `kubectl` | Containes database enviorment variables below |
+| **cloudsql-instance-credentials** `kubectl` | Contains Cloud SQL instance connection configuration |
+| **okta-oauth** `kubectl` | Contains Okta Client ID enviorment variables below  |
+| **Codecov token** `go/fp-codecov-token` | Lists repo coverage enviorment variables below |
 
-### Retrive and set variable:
+
+### Retrive and set variables:
+    # Create an .env file
+    cp .env.example .env
+
+    # Gather secrets from CLI or GUI
     kubectl get secret <SECRET_NAME> -o yaml
-    # Sets variable in enviorment
-    export <VARIABLE_NAME>=<VARIABLE_VALUE>
+    
+    # Edit file to add applicable variables
+    # Then Set enviorment variables locally
+    source ./.env
+
+| Variable                | Description |
+|-------------------------|-------------|
+| **DB_USER** `required to run` | Cloud SQL database username |
+| **DB_PASSWORD** `required to run`       | Cloud SQL database password |
+| **OKTA_ISSUER** `required to run` | URL as configured in Okta to issue the SAML request |
+| **OKTA_CLIENTID** `required for run`       | Okta Client ID used in web app Oauth process |
+| **OKTA_CLIENTSECRET**`required for run` | Okta Okta Client Secret used in web app Oauth process |
+| **CODECOV_TOKEN**`required to build docker image local` | Token to submit coverage results after tests pass |
 
 
 
 # Development
     # Install dependencies & devDependencies
     mvn clean install
+
     # Start server
-    
+    java -jar ./target/fulfillment-platform.jar
+
     # Run tests
-    
+    mvn clean test
+
     # Check test coverage
-    
+    mvn clean test jacoco:report
+
 
 
 # Production
@@ -80,7 +95,6 @@ These enviorment variables are automatically set by our CI/CD systems. However l
     # Use -d to detach and run in background
     # Note subsequent runs will re-use the image, add --build to rebuild image. 
     
-
 
 
 # Misc

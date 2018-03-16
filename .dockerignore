@@ -1,3 +1,5 @@
 .env
+.env.example
 .nyc_output
 coverage.lcov
+README.md
