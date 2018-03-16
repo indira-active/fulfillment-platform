@@ -47,7 +47,7 @@ These enviorment variables are automatically set by our CI/CD systems. However l
 
 
 ### Retrive and set variables:
-    # Create an .env file
+    # Create an copy .env file
     cp .env.example .env
 
     # Gather secrets from CLI or GUI
@@ -60,9 +60,9 @@ These enviorment variables are automatically set by our CI/CD systems. However l
 | Variable                | Description |
 |-------------------------|-------------|
 | **DB_USER** `required to run` | Cloud SQL database username |
-| **DB_PASSWORD** `required to run`       | Cloud SQL database password |
+| **DB_PASSWORD** `required to run` | Cloud SQL database password |
 | **OKTA_ISSUER** `required to run` | URL as configured in Okta to issue the SAML request |
-| **OKTA_CLIENTID** `required for run`       | Okta Client ID used in web app Oauth process |
+| **OKTA_CLIENTID** `required for run` | Okta Client ID used in web app Oauth process |
 | **OKTA_CLIENTSECRET**`required for run` | Okta Okta Client Secret used in web app Oauth process |
 | **CODECOV_TOKEN**`required to build docker image local` | Token to submit coverage results after tests pass |
 
