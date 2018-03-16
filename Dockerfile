@@ -46,7 +46,7 @@ FROM openjdk:8-jdk-alpine3.7 as release
 # TODO: nathang - Can we cache runtime dependencies from a base stage?
 
 # Install Runtime dependencies
-ADD requirements.txt .
+COPY requirements.txt .
 RUN apk --update add --no-cache maven python-dev py-pip && \
 pip install -r requirements.txt
 
