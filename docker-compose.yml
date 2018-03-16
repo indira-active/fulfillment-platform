@@ -6,10 +6,8 @@ services:
       cache_from:
         - java-web
       args:
-        - CODECOV_TOKEN=$CODECOV_TOKEN
+         - CODECOV_TOKEN=$CODECOV_TOKEN
     image: gcr.io/zip-zap-gateway/java-web
-    volumes:
-      - .:/app
     ports:
       - '8089:8089'
 

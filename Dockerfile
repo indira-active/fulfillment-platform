@@ -1,34 +1,23 @@
-# ---- Base ----
-FROM openjdk:8-jdk-alpine3.7 as base
+# ---- Build ----
+FROM openjdk:8-jdk-alpine3.7 as build
 LABEL maintainer="Nathan Guenther <nathang@indiraactive.com>"
 
 WORKDIR /build
 
-# Debug
-RUN pwd && ls -la
-
-# Install build dependencies
-RUN apk --update add --no-cache maven curl git openssh openssl bash python-dev py-pip
-
-# Install runtime dependencies
-COPY requirements.txt .
-RUN pip install -r requirements.txt
+# # Install build dependencies
+RUN apk --update add --no-cache maven curl git bash openssh openssl python-dev py-pip
 
 # Setup temp ssh key to pull from private git repo
 COPY id_fulfilment-platform* ./ 
 
 RUN mkdir -p /root/.ssh/ && \
-	chmod 0700 /root/.ssh && \
-	cat ./id_fulfilment-platform > /root/.ssh/id_rsa && \
-	chmod 0700 /root/.ssh/id_rsa && \
-	ssh-keyscan github.com > /root/.ssh/known_hosts
+chmod 0700 /root/.ssh && \
+cat ./id_fulfilment-platform > /root/.ssh/id_rsa && \
+chmod 0700 /root/.ssh/id_rsa && \
+ssh-keyscan github.com > /root/.ssh/known_hosts
 
 # Import latest script
 RUN git clone git@github.com:indira-active/Scripts.git
-
-# Debug
-# May want to move script from ./Scripts/ directory to a new location. Or update webapp.
-RUN pwd && ls -la
 
 # Copy remaining src
 COPY . /build
@@ -39,34 +28,31 @@ RUN mvn clean install -Dmaven.test.skip=true
 # Cleanup ssh keys 
 RUN rm -vf id_fulfilment-platform /root/.ssh/id*
 
-# Debug
-RUN pwd && ls -la
-
 
 # ---- Test ----
-FROM base as test
+FROM build as test
 # TODO: nathang - Can we split out devDependencies with mvn?
-# Run tests and coverage
+
+# Run tests and generate coverage
 ARG CODECOV_TOKEN
 RUN mvn clean test jacoco:report
-RUN curl -s https://codecov.io/bash > .codecov
-RUN chmod +x .codecov
-RUN ./.codecov -- -t $CODECOV_TOKEN
+RUN curl -s https://codecov.io/bash > .codecov && \
+chmod +x .codecov && \
+ ./.codecov -t $CODECOV_TOKEN
 
 
 # ---- Release ----
-# FROM ubuntu:latest as runtime
-FROM base as release
+FROM openjdk:8-jdk-alpine3.7 as release
+# TODO: nathang - Can we cache runtime dependencies from a base stage?
 
-# Debug
-RUN pwd && ls -la
+# Install Runtime dependencies
+ADD requirements.txt .
+RUN apk --update add --no-cache maven python-dev py-pip && \
+pip install -r requirements.txt
 
 WORKDIR /runtime
-COPY --from=base /build/target/ ./target/
-COPY --from=base /build/Scripts/ ./Scripts/
-
-# Debug
-RUN pwd && ls -la
+COPY --from=build /build/target/fulfillment-platform.jar ./target/fulfillment-platform.jar
+COPY --from=build /build/Scripts/sync_inventory.py ./Scripts/sync_inventory.py
 
 # Start service
 EXPOSE 8089
