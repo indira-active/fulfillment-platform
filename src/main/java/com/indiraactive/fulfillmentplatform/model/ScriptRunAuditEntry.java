@@ -3,29 +3,30 @@ package com.indiraactive.fulfillmentplatform.model;
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.time.DateTimeException;
+import java.util.Date;
 
 @Entity
 @Table(name = "script_run_audit_entry")
 public class ScriptRunAuditEntry {
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "script_run_audit_entry_id", length = 64, updatable = false)
     private Integer scriptRunAuditEntryId;
 
     @Column(name = "supplier_id", length = 64, updatable = false)
     private Integer supplierId;
 
+    @Column(name = "success_code", nullable = false)
+    private String successCode;
+
     @Column(name = "start_date_time", nullable = false)
-    private java.sql.Timestamp startDateTime;
+    private long startDateTime;
 
     @Column(name = "finish_date_time", nullable = false)
-    private java.sql.Timestamp finishDateTime;
+    private long finishDateTime;
 
     @Column(name = "user_triggered", nullable = false)
     private String userTriggered;
-
-    @Column(name = "success_code", nullable = false)
-    private String successCode;
 
     public Integer getScriptRunAuditEntryId() {
         return scriptRunAuditEntryId;
@@ -43,19 +44,27 @@ public class ScriptRunAuditEntry {
         this.supplierId = supplierId;
     }
 
-    public Timestamp getStartDateTime() {
+    public String getSuccessCode() {
+        return successCode;
+    }
+
+    public void setSuccessCode(String successCode) {
+        this.successCode = successCode;
+    }
+
+    public long getStartDateTime() {
         return startDateTime;
     }
 
-    public void setStartDateTime(Timestamp startDateTime) {
+    public void setStartDateTime(long startDateTime) {
         this.startDateTime = startDateTime;
     }
 
-    public Timestamp getFinishDateTime() {
+    public long getFinishDateTime() {
         return finishDateTime;
     }
 
-    public void setFinishDateTime(Timestamp finishDateTime) {
+    public void setFinishDateTime(long finishDateTime) {
         this.finishDateTime = finishDateTime;
     }
 
@@ -65,13 +74,5 @@ public class ScriptRunAuditEntry {
 
     public void setUserTriggered(String userTriggered) {
         this.userTriggered = userTriggered;
-    }
-
-    public String getSuccessCode() {
-        return successCode;
-    }
-
-    public void setSuccessCode(String successCode) {
-        this.successCode = successCode;
     }
 }

@@ -12,6 +12,7 @@ import org.springframework.stereotype.Component;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Date;
 
 /**
  * Runs the sync_inventory script seen here:
@@ -39,6 +40,12 @@ public class InventoryUpdater {
     private CommandLineRunner commandLineRunner;
 
     /**
+     * Used to log information about the sync inventory run
+     */
+    @Autowired
+    private AuditLoggerService auditLoggerService;
+
+    /**
      * Runs the sync_inventory.py script directly by running the script with python in a process with arguments that
      * are based on a supplier id that is passed into the method.
      * @param supplierId The id of the supplier that will be used for the commandline arguments for the
@@ -53,8 +60,12 @@ public class InventoryUpdater {
         if (inventoryUpdaterScriptPath != null ) {
             try {
                 String commandToExecute = "python " + inventoryUpdaterScriptPath + " " + args;
+                long startDateTime = System.currentTimeMillis();
                 CompletionErrorType completionErrorType = commandLineRunner.executeCommand(commandToExecute);
+                long endDateTime = System.currentTimeMillis();
                 System.out.println("Completed running script with completionErrorType: " + completionErrorType);
+                String userTriggered = "anonymous"; // TODO: Need to dedicate work to implementing this, maybe represent w/ Jira ticket.
+                auditLoggerService.logScriptRun(supplierId, startDateTime, endDateTime, userTriggered, completionErrorType.toString());
 
                 return completionErrorType;
             } catch (Exception e) {
