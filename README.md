@@ -1,6 +1,7 @@
 [![CircleCI](https://circleci.com/gh/indira-active/fulfillment-platform.svg?style=svg&circle-token=dede407d73b7eb5b0427274c18cfdd6a4ba083bb)](https://circleci.com/gh/indira-active/fulfillment-platform)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/e2906ab1ca4c4ea9a5a01baee82f572a)](https://www.codacy.com?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=indira-active/fulfillment-platform&amp;utm_campaign=Badge_Grade)
 [![codecov](https://codecov.io/gh/indira-active/fulfillment-platform/branch/master/graph/badge.svg?token=Fy61fd6xfd)](https://codecov.io/gh/indira-active/fulfillment-platform)
+[![Known Vulnerabilities](https://snyk.io/test/github/indira-active/fulfillment-platform/badge.svg)](https://snyk.io/test/github/indira-active/fulfillment-platform)
 
 # InventoryUpdaterWebApp
 Web application that will be called to update product inventory from our suppliers
@@ -71,7 +72,7 @@ These enviorment variables are automatically set by our CI/CD systems. However l
 # Development
     # Install dependencies & devDependencies
     mvn clean install
-
+    
     # Start server
     java -jar ./target/fulfillment-platform.jar
 
@@ -80,6 +81,9 @@ These enviorment variables are automatically set by our CI/CD systems. However l
 
     # Check test coverage
     mvn clean test jacoco:report
+
+    # Check vulnerabilities
+    npm install -g snyk && npm test
 
 
 
