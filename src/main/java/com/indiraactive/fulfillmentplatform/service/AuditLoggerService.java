@@ -1,13 +1,10 @@
 package com.indiraactive.fulfillmentplatform.service;
 
 import com.indiraactive.fulfillmentplatform.dal.ScriptRunAuditEntryRepository;
-import com.indiraactive.fulfillmentplatform.model.ScriptRunAuditEntry;
-import javafx.util.converter.TimeStringConverter;
+import com.indiraactive.fulfillmentplatform.factory.ScriptRunAuditEntryFactory;
+import com.indiraactive.fulfillmentplatform.model.db.ScriptRunAuditEntry;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
-import java.sql.Timestamp;
-import java.util.Date;
 
 /**
  * Logs data to the database
@@ -31,12 +28,8 @@ public class AuditLoggerService {
      * @return Whether or not the log was successfully saved to the database
      */
     public boolean logScriptRun(Integer supplierId, long startDateTime, long endDateTime, String userTriggered, String successCode) {
-        ScriptRunAuditEntry scriptRunAuditEntry = new ScriptRunAuditEntry();
-        scriptRunAuditEntry.setSupplierId(supplierId);
-        scriptRunAuditEntry.setStartDateTime(startDateTime);
-        scriptRunAuditEntry.setFinishDateTime(endDateTime);
-        scriptRunAuditEntry.setUserTriggered(userTriggered);
-        scriptRunAuditEntry.setSuccessCode(successCode);
+        ScriptRunAuditEntry scriptRunAuditEntry = ScriptRunAuditEntryFactory.CreateScriptRunAuditEntry(supplierId, startDateTime, endDateTime, userTriggered, successCode);
+
 
         scriptRunAuditEntryRepository.save(scriptRunAuditEntry);
         return false;

@@ -1,14 +1,13 @@
 package com.indiraactive.fulfillmentplatform.service;
 
 import com.indiraactive.fulfillmentplatform.dal.SupplierRepository;
-import com.indiraactive.fulfillmentplatform.model.Supplier;
+import com.indiraactive.fulfillmentplatform.model.db.Supplier;
 import com.indiraactive.fulfillmentplatform.utility.CommandLineRunner;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.test.context.junit4.SpringRunner;
 import com.indiraactive.fulfillmentplatform.utility.CommandLineRunner.*;
 

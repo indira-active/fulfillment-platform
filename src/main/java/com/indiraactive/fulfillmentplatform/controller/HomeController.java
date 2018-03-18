@@ -1,18 +1,20 @@
 package com.indiraactive.fulfillmentplatform.controller;
 
+import com.indiraactive.fulfillmentplatform.ViewModel.RunHistoryViewModel;
 import com.indiraactive.fulfillmentplatform.dal.ScriptRunAuditEntryRepository;
 import com.indiraactive.fulfillmentplatform.dal.SupplierRepository;
-import com.indiraactive.fulfillmentplatform.model.ScriptRunAuditEntry;
-import com.indiraactive.fulfillmentplatform.model.Supplier;
+import com.indiraactive.fulfillmentplatform.model.RunHistoryModel;
+import com.indiraactive.fulfillmentplatform.model.db.ScriptRunAuditEntry;
+import com.indiraactive.fulfillmentplatform.model.db.Supplier;
 import com.indiraactive.fulfillmentplatform.service.InventoryUpdater;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import sun.font.ScriptRun;
 
-import java.sql.Timestamp;
+import java.util.LinkedList;
+import java.util.List;
 
 // TODO: Clean up this controller and create new classes to compartmentalize responsibilities.
 
@@ -42,7 +44,7 @@ public class HomeController {
     @Autowired
     private ScriptRunAuditEntryRepository scriptRunAuditEntryRepository;
 
-    /**
+     /**
      * Provides the consumers with the home page of the fulfillment platform web app
      * @return Index page that links to other parts of the fulfillment platform
      */
@@ -61,6 +63,21 @@ public class HomeController {
         model.addAttribute("supplier", new Supplier());
         model.addAttribute("suppliers", supplierRepository.findAll());
         return "manageSuppliers";
+    }
+
+    @GetMapping("runHistory")
+    public String runHistory(Model model) {
+        List<ScriptRunAuditEntry> scriptRunAuditEntries = new LinkedList<>();
+        List<Supplier> supplierRepositories = new LinkedList<>();
+
+        scriptRunAuditEntryRepository.findAll().forEach(scriptRunAuditEntries::add);
+        supplierRepository.findAll().forEach(supplierRepositories::add);
+
+        RunHistoryViewModel runHistoryViewModels = new RunHistoryViewModel(scriptRunAuditEntries, supplierRepositories);
+        List<RunHistoryModel> runHistoryViewModelList = runHistoryViewModels.getRunHistoryModel();
+        model.addAttribute("runHistoryViewModels", runHistoryViewModelList);
+
+        return "runHistory";
     }
 
     /**

@@ -1,6 +1,6 @@
 package com.indiraactive.fulfillmentplatform.dal;
 
-import com.indiraactive.fulfillmentplatform.model.Supplier;
+import com.indiraactive.fulfillmentplatform.model.db.Supplier;
 import org.springframework.data.repository.CrudRepository;
 
 /**
