@@ -4,7 +4,7 @@ services:
     build:
       context: .
       cache_from:
-        - java-web
+        - gcr.io/zip-zap-gateway/java-web
       args:
          - CODECOV_TOKEN=$CODECOV_TOKEN
     image: gcr.io/zip-zap-gateway/java-web
