@@ -32,13 +32,13 @@ public class ScriptRunAuditEntry {
     private String successCode;
 
     /**
-     * The time the script started running at
+     * The time the script started running at in epoch
      */
     @Column(name = "start_date_time", nullable = false)
     private long startDateTime;
 
     /**
-     * The time the script finished running at
+     * The time the script finished running at in epoch
      */
     @Column(name = "finish_date_time", nullable = false)
     private long finishDateTime;

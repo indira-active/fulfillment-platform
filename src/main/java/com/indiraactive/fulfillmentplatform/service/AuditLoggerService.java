@@ -25,13 +25,9 @@ public class AuditLoggerService {
      * @param endDateTime end date time to log
      * @param userTriggered user triggered to log
      * @param successCode success code after run of script
-     * @return Whether or not the log was successfully saved to the database
      */
-    public boolean logScriptRun(Integer supplierId, long startDateTime, long endDateTime, String userTriggered, String successCode) {
+    public void logScriptRun(Integer supplierId, long startDateTime, long endDateTime, String userTriggered, String successCode) {
         ScriptRunAuditEntry scriptRunAuditEntry = ScriptRunAuditEntryFactory.CreateScriptRunAuditEntry(supplierId, startDateTime, endDateTime, userTriggered, successCode);
-
-
         scriptRunAuditEntryRepository.save(scriptRunAuditEntry);
-        return false;
     }
 }
