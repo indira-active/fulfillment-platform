@@ -83,7 +83,7 @@ These enviorment variables are automatically set by our CI/CD systems. However l
     mvn clean test jacoco:report
 
     # Check vulnerabilities
-    npm install -g snyk && npm test
+    npm install -g snyk && snyk test
 
 
 
