@@ -15,7 +15,7 @@ public class ScriptRunAuditEntryFactory {
      * @param successCode
      * @return
      */
-    public static ScriptRunAuditEntry CreateScriptRunAuditEntry(Integer supplierId, long startDateTime, long endDateTime, String userTriggered, String successCode) {
+    public static ScriptRunAuditEntry createScriptRunAuditEntry(Integer supplierId, long startDateTime, long endDateTime, String userTriggered, String successCode) {
         ScriptRunAuditEntry scriptRunAuditEntry = new ScriptRunAuditEntry();
 
         scriptRunAuditEntry.setSupplierId(supplierId);

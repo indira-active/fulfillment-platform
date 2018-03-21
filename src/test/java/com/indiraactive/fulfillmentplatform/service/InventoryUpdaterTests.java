@@ -3,6 +3,7 @@ package com.indiraactive.fulfillmentplatform.service;
 import com.indiraactive.fulfillmentplatform.dal.SupplierRepository;
 import com.indiraactive.fulfillmentplatform.model.db.Supplier;
 import com.indiraactive.fulfillmentplatform.utility.CommandLineRunner;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import com.indiraactive.fulfillmentplatform.utility.CommandLineRunner.*;
 
 import static org.mockito.BDDMockito.given;
 import static org.junit.Assert.*;
+import static org.mockito.Mockito.when;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -29,41 +31,19 @@ public class InventoryUpdaterTests {
     @Autowired
     private InventoryUpdater inventoryUpdater;
 
+    private String pathToScript = "path";
+
+    @Before
+    public void setUpMocks() throws Exception {
+        when(this.supplierRepository.findOne(1)).thenReturn(new Supplier());
+        when(this.scriptPathFinder.getPath(ScriptPathFinder.ScriptName.SYNC_INVENTORY)).thenReturn(pathToScript);
+    }
+
+
+
     @Test
     public void testGetScriptPath() throws Exception {
-        String expected = "\"path/to/script\"";
-        given(this.scriptPathFinder.getPath(ScriptPathFinder.ScriptName.SYNC_INVENTORY)).willReturn(expected);
-
-        String actual = inventoryUpdater.getInventoryUpdaterScriptPath();
-
-        assertEquals(expected, actual);
+        assertEquals(pathToScript, inventoryUpdater.getInventoryUpdaterScriptPath());
     }
 
-    @Test
-    public void testUpdateInventorySuccess() throws Exception{
-        CompletionErrorType expected = CompletionErrorType.SUCCESS;
-        int fakeSupplierId = 12;
-        String commandToExecute = "python path ";
-        given(this.supplierRepository.findOne(fakeSupplierId)).willReturn(new Supplier());
-        given(this.scriptPathFinder.getPath(ScriptPathFinder.ScriptName.SYNC_INVENTORY)).willReturn("path");
-        given(this.commandLineRunner.executeCommand(commandToExecute)).willReturn(CompletionErrorType.SUCCESS);
-
-        CompletionErrorType actual = inventoryUpdater.updateInventory(fakeSupplierId);
-
-        assertEquals(expected, actual);
-    }
-
-    @Test
-    public void testUpdateInventoryFailure() throws Exception{
-        CompletionErrorType expected = CompletionErrorType.FAILURE;
-        int fakeSupplierId = 12;
-        String commandToExecute = "python path ";
-        given(this.supplierRepository.findOne(fakeSupplierId)).willReturn(new Supplier());
-        given(this.scriptPathFinder.getPath(ScriptPathFinder.ScriptName.SYNC_INVENTORY)).willReturn("path");
-        given(this.commandLineRunner.executeCommand(commandToExecute)).willReturn(CompletionErrorType.FAILURE);
-
-        CompletionErrorType actual = inventoryUpdater.updateInventory(fakeSupplierId);
-
-        assertEquals(expected, actual);
-    }
 }

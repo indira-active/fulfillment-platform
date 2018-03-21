@@ -18,16 +18,10 @@ public class AuditLoggerService {
     private ScriptRunAuditEntryRepository scriptRunAuditEntryRepository;
 
     /**
-     * This method will log when the inventory updater script has been run
-     * and will log to the database information about the run.
-     * @param supplierId Supplier id value to log
-     * @param startDateTime start date time to log
-     * @param endDateTime end date time to log
-     * @param userTriggered user triggered to log
-     * @param successCode success code after run of script
+     * Save a ScriptRunAuditEntry object to the database
+     * @param scriptRunAuditEntry Object to save
      */
-    public void logScriptRun(Integer supplierId, long startDateTime, long endDateTime, String userTriggered, String successCode) {
-        ScriptRunAuditEntry scriptRunAuditEntry = ScriptRunAuditEntryFactory.CreateScriptRunAuditEntry(supplierId, startDateTime, endDateTime, userTriggered, successCode);
+    public void logScriptRun(ScriptRunAuditEntry scriptRunAuditEntry) {
         scriptRunAuditEntryRepository.save(scriptRunAuditEntry);
     }
 }
