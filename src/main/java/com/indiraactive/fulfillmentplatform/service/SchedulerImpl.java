@@ -1,4 +1,4 @@
-package com.indiraactive.fulfillmentplatform.scheduler;
+package com.indiraactive.fulfillmentplatform.service;
 
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
