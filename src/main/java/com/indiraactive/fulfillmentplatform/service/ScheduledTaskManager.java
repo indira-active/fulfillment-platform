@@ -1,11 +1,10 @@
 package com.indiraactive.fulfillmentplatform.service;
 
-import com.indiraactive.fulfillmentplatform.dal.ScheduledTask;
+import com.indiraactive.fulfillmentplatform.dal.ScheduledTaskRepository;
 import com.indiraactive.fulfillmentplatform.dal.SupplierRepository;
+import com.indiraactive.fulfillmentplatform.model.ScheduledTask;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
-import java.util.List;
 
 /**
  * Handles persisting data between the database and retrieving persisted data
@@ -17,7 +16,7 @@ public class ScheduledTaskManager {
      * Used for persisting schedules tasks/crud operations
      */
     @Autowired
-    private ScheduledTask scheduledTask;
+    private ScheduledTaskRepository scheduledTaskRepository;
 
     /**
      * Used for retrieving supplier information
@@ -31,7 +30,11 @@ public class ScheduledTaskManager {
      * @return The task that was saved
      */
     public ScheduledTask addNewScheduledTask(ScheduledTask scheduledTask) {
-        return scheduledTask.save(scheduledTask);
+        if (scheduledTask.getCreatedByUser() == null ) {
+            scheduledTask.setCreatedByUser("not_set");
+            System.out.println("Need to implement user management for logging purposes, failed to log user in addNewScheduledTask");
+        }
+        return scheduledTaskRepository.save(scheduledTask);
     }
 
     /**
@@ -39,14 +42,14 @@ public class ScheduledTaskManager {
      * @param scheduledTaskId The id of the scheduled task to be deleted
      */
     public void deleteScheduleTask(Integer scheduledTaskId) {
-        scheduledTask.delete(scheduledTaskId);
+        scheduledTaskRepository.delete(scheduledTaskId);
     }
 
     /**
      * Retrieve all scheduled tasks that are active
-     * @return List of scheduled tasks that are active
+     * @return Scheduled tasks that are active
      */
-    public List<ScheduledTask> getScheduledTasks() {
-        return (List<ScheduledTask>) scheduledTask.findAll();
+    public Iterable<ScheduledTask> getScheduledTasks() {
+        return scheduledTaskRepository.findAll();
     }
 }

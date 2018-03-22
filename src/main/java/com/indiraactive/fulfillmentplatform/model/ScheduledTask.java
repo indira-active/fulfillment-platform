@@ -48,6 +48,18 @@ public class ScheduledTask {
     @Column(name="created_by_user")
     private String createdByUser;
 
+    @Column(name="hour")
+    private int hour;
+
+    @Column(name="minute")
+    private int minute;
+
+    @Column(name="month")
+    private int month;
+
+    @Column(name="day")
+    private int day;
+
     public Integer getScheduledTaskId() {
         return scheduledTaskId;
     }
@@ -80,6 +92,38 @@ public class ScheduledTask {
         this.createdByUser = createdByUser;
     }
 
+    public int getHour() {
+        return hour;
+    }
+
+    public void setHour(int hour) {
+        this.hour = hour;
+    }
+
+    public int getMinute() {
+        return minute;
+    }
+
+    public void setMinute(int minute) {
+        this.minute = minute;
+    }
+
+    public int getMonth() {
+        return month;
+    }
+
+    public void setMonth(int month) {
+        this.month = month;
+    }
+
+    public int getDay() {
+        return day;
+    }
+
+    public void setDay(int day) {
+        this.day = day;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -87,6 +131,10 @@ public class ScheduledTask {
 
         ScheduledTask that = (ScheduledTask) o;
 
+        if (hour != that.hour) return false;
+        if (minute != that.minute) return false;
+        if (month != that.month) return false;
+        if (day != that.day) return false;
         if (scheduledTaskId != null ? !scheduledTaskId.equals(that.scheduledTaskId) : that.scheduledTaskId != null)
             return false;
         if (supplierIdToRun != null ? !supplierIdToRun.equals(that.supplierIdToRun) : that.supplierIdToRun != null)
@@ -101,6 +149,10 @@ public class ScheduledTask {
         result = 31 * result + (supplierIdToRun != null ? supplierIdToRun.hashCode() : 0);
         result = 31 * result + (timesToRun != null ? timesToRun.hashCode() : 0);
         result = 31 * result + (createdByUser != null ? createdByUser.hashCode() : 0);
+        result = 31 * result + hour;
+        result = 31 * result + minute;
+        result = 31 * result + month;
+        result = 31 * result + day;
         return result;
     }
 
@@ -111,6 +163,10 @@ public class ScheduledTask {
                 ", supplierIdToRun=" + supplierIdToRun +
                 ", timesToRun='" + timesToRun + '\'' +
                 ", createdByUser='" + createdByUser + '\'' +
+                ", hour=" + hour +
+                ", minute=" + minute +
+                ", month=" + month +
+                ", day=" + day +
                 '}';
     }
 }
