@@ -1,14 +1,20 @@
 package com.indiraactive.fulfillmentplatform.controller;
 
+import com.indiraactive.fulfillmentplatform.ViewModel.RunHistoryViewModel;
+import com.indiraactive.fulfillmentplatform.dal.ScriptRunAuditEntryRepository;
 import com.indiraactive.fulfillmentplatform.dal.SupplierRepository;
-import com.indiraactive.fulfillmentplatform.model.Supplier;
+import com.indiraactive.fulfillmentplatform.model.RunHistoryModel;
+import com.indiraactive.fulfillmentplatform.model.db.ScriptRunAuditEntry;
+import com.indiraactive.fulfillmentplatform.model.db.Supplier;
 import com.indiraactive.fulfillmentplatform.service.InventoryUpdater;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import sun.font.ScriptRun;
+
+import java.util.LinkedList;
+import java.util.List;
 
 // TODO: Clean up this controller and create new classes to compartmentalize responsibilities.
 
@@ -35,7 +41,10 @@ public class HomeController {
     @Autowired
     private SupplierRepository supplierRepository;
 
-    /**
+    @Autowired
+    private ScriptRunAuditEntryRepository scriptRunAuditEntryRepository;
+
+     /**
      * Provides the consumers with the home page of the fulfillment platform web app
      * @return Index page that links to other parts of the fulfillment platform
      */
@@ -54,6 +63,33 @@ public class HomeController {
         model.addAttribute("supplier", new Supplier());
         model.addAttribute("suppliers", supplierRepository.findAll());
         return "manageSuppliers";
+    }
+
+    @RequestMapping(value="runHistory", method=RequestMethod.GET)
+    public String runHistory(Model model, @RequestParam(value = "order", required = false) String order,
+                             @RequestParam(value = "property", required = false) String property) {
+        List<Supplier> supplierRepositories = new LinkedList<>();
+        supplierRepository.findAll().forEach(supplierRepositories::add);
+
+        List<ScriptRunAuditEntry> scriptRunAuditEntries = new LinkedList<>();
+        if (order != null) {
+            if (order.equalsIgnoreCase("asc") && property.equalsIgnoreCase("startDate")) {
+                scriptRunAuditEntries.addAll(scriptRunAuditEntryRepository.findAllByOrderByStartDateTimeAsc());
+            } else if (order.equalsIgnoreCase("desc") && property.equalsIgnoreCase("startDate")) {
+                scriptRunAuditEntries.addAll(scriptRunAuditEntryRepository.findAllByOrderByStartDateTimeDesc());
+            } else if (order.equalsIgnoreCase("asc") && property.equalsIgnoreCase("endDate")) {
+                scriptRunAuditEntries.addAll(scriptRunAuditEntryRepository.findAllByOrderByFinishDateTimeAsc());
+            } else if (order.equalsIgnoreCase("desc") && property.equalsIgnoreCase("endDate")) {
+                scriptRunAuditEntries.addAll(scriptRunAuditEntryRepository.findAllByOrderByFinishDateTimeDesc());
+            }
+        } else {
+            scriptRunAuditEntries.addAll(scriptRunAuditEntryRepository.findAll());
+        }
+
+        RunHistoryViewModel runHistoryViewModel = new RunHistoryViewModel(scriptRunAuditEntries, supplierRepositories);
+        model.addAttribute("runHistoryViewModels", runHistoryViewModel.getRunHistoryModel());
+
+        return "runHistory";
     }
 
     /**
@@ -75,9 +111,14 @@ public class HomeController {
      */
     @PostMapping("/updateInventory")
     public String updateInventory(@ModelAttribute Supplier supplier) {
-        System.out.println("STARTED RUNNING SYNC_INVENTORY.PY");
-        inventoryUpdater.updateInventory(supplier.getSupplierId());
-        System.out.println("FINISHED RUNNING SYNC_INVENTORY.PY");
+        try {
+            System.out.println("STARTED RUNNING SYNC_INVENTORY.PY");
+            inventoryUpdater.updateInventory(supplier.getSupplierId());
+            System.out.println("FINISHED RUNNING SYNC_INVENTORY.PY");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "error";
+        }
         return "success";
     }
 
