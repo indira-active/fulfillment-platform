@@ -1,0 +1,28 @@
+version: '3.5'
+services:
+  java-web:
+    build:
+      context: .
+      cache_from:
+        - gcr.io/zip-zap-gateway/java-web
+      args:
+         - CODECOV_TOKEN=$CODECOV_TOKEN
+    image: gcr.io/zip-zap-gateway/java-web
+    ports:
+      - '8089:8089'
+    environment:
+      - export DB_USER=$DB_USER
+      - export DB_PASSWORD=$DB_PASSWORD
+      - export OKTA_ISSUER=$OKTA_ISSUER
+      - export OKTA_CLIENTID=$OKTA_CLIENTID
+      - export OKTA_CLIENTSECRET=$OKTA_CLIENTSECRET
+
+  # TODO: nathang - See if we can setup a cloudsql-proxy sidebar container to work/test locally. 
+  # Would want a local test db, or a staging instance for it to connect with
+  # cloudsql-proxy:
+  #   image: gcr.io/cloudsql-docker/gce-proxy:1.11
+  #   volumes:
+  #     - .:/app
+  #   command: ["/cloud_sql_proxy",
+  #                   "-instances=zip-zap-gateway:us-central1:supplier-master=tcp:3306",
+  #                   "-credential_file=/secrets/cloudsql/credentials.json"]
