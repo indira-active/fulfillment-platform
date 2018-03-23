@@ -13,28 +13,28 @@
         <a href="../scheduler">Scheduler</a>
         <hr />
         <h1>Scheduler For Sync Inventory Script</h1>
-        <h2>Create New Schedule</h2>
-        <p>If days of week to run field is left blank then the job will only run if there are valid month (0-12), day(0-31), hour(0-24), and minute(0-60) properties set.</p>
-        <p>For days of the week to run you can combine any of the following chars to select dates to run on: s (sun), m (mon), t (tuesday), w (wed), t (thu), f (fri), a (sat)</p>
-        <form action="#" th:action="@{/scheduler/add}" th:object="${scheduledTask}" method="post">
-            <p>Supplier id to run: <input type="text" th:field="*{supplierIdToRun}"/></p>
-            <p>Days of week to run ex. smtwufa: <input type="text" th:field="*{timesToRun}"/></p>
-            <p>Month: <input type="text" th:field="*{month}"/></p>
-            <p>Day: <input type="text" th:field="*{day}"/></p>
-            <p>Hour: <input type="text" th:field="*{hour}"/></p>
-            <p>Minute: <input type="text" th:field="*{minute}"/></p>
-            <p><input type="submit" value="Submit"/></p>
-        </form>
+        <!--<h2>Create New Schedule</h2>-->
+        <!--<p>If days of week to run field is left blank then the job will only run if there are valid month (0-12), day(0-31), hour(0-24), and minute(0-60) properties set.</p>-->
+        <!--<p>For days of the week to run you can combine any of the following chars to select dates to run on: s (sun), m (mon), t (tuesday), w (wed), t (thu), f (fri), a (sat)</p>-->
+        <!--<form action="#" th:action="@{/scheduler/add}" th:object="${scheduledTask}" method="post">-->
+            <!--<p>Supplier id to run: <input type="text" th:field="*{supplierIdToRun}"/></p>-->
+            <!--<p>Days of week to run ex. smtwufa: <input type="text" th:field="*{timesToRun}"/></p>-->
+            <!--<p>Month: <input type="text" th:field="*{month}"/></p>-->
+            <!--<p>Day: <input type="text" th:field="*{day}"/></p>-->
+            <!--<p>Hour: <input type="text" th:field="*{hour}"/></p>-->
+            <!--<p>Minute: <input type="text" th:field="*{minute}"/></p>-->
+            <!--<p><input type="submit" value="Submit"/></p>-->
+        <!--</form>-->
 
-        <h2>Manage Schedules</h2>
-        <span>Supplier Name | Day Run On</span>
-        <div th:each="scheduleHist : ${scheduleHistoryModels}">
-            <span th:text="${scheduleHist.supplierName}"></span>
-            <span th:text="${scheduleHist.runFrequency}"></span>
-            <form action="#" th:action="@{/scheduler/delete/{scheduleTaskId}(scheduleTaskId=${scheduleHist.scheduleTaskId})}" th:object="${scheduleHist}" th:method="delete">
-                <input type="submit" value="Delete"/>
-            </form>
-            <hr/>
-        </div>
+        <!--<h2>Manage Schedules</h2>-->
+        <!--<span>Supplier Name | Day Run On</span>-->
+        <!--<div th:each="scheduleHist : ${scheduleHistoryModels}">-->
+            <!--<span th:text="${scheduleHist.supplierName}"></span>-->
+            <!--<span th:text="${scheduleHist.runFrequency}"></span>-->
+            <!--<form action="#" th:action="@{/scheduler/delete/{scheduleTaskId}(scheduleTaskId=${scheduleHist.scheduleTaskId})}" th:object="${scheduleHist}" th:method="delete">-->
+                <!--<input type="submit" value="Delete"/>-->
+            <!--</form>-->
+            <!--<hr/>-->
+        <!--</div>-->
     </body>
 </html>

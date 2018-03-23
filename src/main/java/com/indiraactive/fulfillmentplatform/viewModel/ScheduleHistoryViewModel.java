@@ -1,12 +1,8 @@
 package com.indiraactive.fulfillmentplatform.viewModel;
 
 import com.indiraactive.fulfillmentplatform.dal.SupplierRepository;
-import com.indiraactive.fulfillmentplatform.factory.ScheduleHistoryModelFactory;
-import com.indiraactive.fulfillmentplatform.model.ScheduledHistoryModel;
+import com.indiraactive.fulfillmentplatform.model.ScheduledTaskHistoryModel;
 import com.indiraactive.fulfillmentplatform.model.ScheduledTask;
-import com.indiraactive.fulfillmentplatform.model.Supplier;
-import org.springframework.beans.factory.annotation.Autowired;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -20,22 +16,22 @@ public class ScheduleHistoryViewModel {
         this.supplierRepository = supplierRepository;
     }
 
-    public List<ScheduledHistoryModel> getScheduleHistoryModels() {
-        List<ScheduledHistoryModel> scheduledHistoryModels = new LinkedList<>();
+    public List<ScheduledTaskHistoryModel> getScheduleHistoryModels() {
+        List<ScheduledTaskHistoryModel> scheduledTaskHistoryModels = new LinkedList<>();
         for (ScheduledTask scheduleTask : scheduleTasks) {
-            ScheduledHistoryModel scheduledHistoryModel;
+            ScheduledTaskHistoryModel scheduledTaskHistoryModel;
 
-            Integer supplierId = scheduleTask.getSupplierIdToRun();
-            String supplierNameToRun = supplierRepository.findOne(supplierId).getSupplierName();
-            String daysToRun = scheduleTask.getTimesToRun();
-            Integer supplierIdToRun = scheduleTask.getSupplierIdToRun();
+//            Integer supplierId = scheduleTask.getSupplierIdToRun();
+//            String supplierNameToRun = supplierRepository.findOne(supplierId).getSupplierName();
+//            String daysToRun = scheduleTask.getTimesToRun();
+//            Integer supplierIdToRun = scheduleTask.getSupplierIdToRun();
 
-            scheduledHistoryModel = ScheduleHistoryModelFactory.createScheduleHistoryModel(supplierNameToRun,
-                    daysToRun, supplierIdToRun);
-
-            scheduledHistoryModels.add(scheduledHistoryModel);
+//            scheduledTaskHistoryModel = ScheduleHistoryModelFactory.createScheduleHistoryModel(supplierNameToRun,
+//                    daysToRun, supplierIdToRun);
+//
+//            scheduledTaskHistoryModels.add(scheduledTaskHistoryModel);
         }
 
-        return scheduledHistoryModels;
+        return scheduledTaskHistoryModels;
     }
 }
