@@ -1,0 +1,41 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Fulfillment Platform - View Script Runs</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+    <body>
+    <h1>Run History</h1>
+    <hr />
+    <a href="../">Home</a>
+    <a href="../inventoryUpdater">Inventory Updater</a>
+    <a href="../runHistory">Run History</a>
+    <a href="../manageSuppliers">Manager Suppliers</a>
+    <hr />
+    <h2>Past Runs</h2>
+
+    <button><a href="../runHistory?order=asc&amp;property=startDate">Start Date Asc</a></button>
+    <button><a href="../runHistory?order=desc&amp;property=startDate">Start Date Desc</a></button>
+    <button><a href="../runHistory?order=asc&amp;property=endDate">End Date Asc</a></button>
+    <button><a href="../runHistory?order=desc&amp;property=endDate">End Date Desc</a></button>
+
+    <table>
+        <tr>
+            <td>Script Run Audit Entry Id |</td>
+            <td>Supplier Name |</td>
+            <td>Success Code |</td>
+            <td>Start Date Time |</td>
+            <td>End Date Time |</td>
+            <td>User Triggered</td>
+        </tr>
+    </table>
+    <div th:each="runHistoryModel : ${runHistoryViewModels}">
+        <span th:text="${runHistoryModel.scriptRunAuditEntryId + ' |'}"></span>
+        <span th:text="${runHistoryModel.supplierName + ' |'}"></span>
+        <span th:text="${runHistoryModel.successCode + ' |'}"></span>
+        <span th:text="${runHistoryModel.startDateTime + ' |'}"></span>
+        <span th:text="${runHistoryModel.endDateTime + ' |'}"></span>
+        <span th:text="${runHistoryModel.userTriggered}"></span>
+    </div>
+    </body>
+</html>
