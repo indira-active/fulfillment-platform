@@ -3,7 +3,7 @@ package com.indiraactive.fulfillmentplatform.factory;
 import com.indiraactive.fulfillmentplatform.model.ScheduledTask;
 import com.indiraactive.fulfillmentplatform.model.ScheduledTaskRunDaysJpa;
 import com.indiraactive.fulfillmentplatform.model.ScheduledTaskRunTimeJpa;
-import com.indiraactive.fulfillmentplatform.model.Supplier;
+import com.indiraactive.fulfillmentplatform.model.db.Supplier;
 
 import java.util.Date;
 import java.util.List;

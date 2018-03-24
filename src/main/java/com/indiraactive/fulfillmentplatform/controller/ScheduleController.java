@@ -5,7 +5,7 @@ import com.indiraactive.fulfillmentplatform.dal.SupplierRepository;
 import com.indiraactive.fulfillmentplatform.model.ScheduledTask;
 import com.indiraactive.fulfillmentplatform.model.ScheduledTaskRunDaysJpa;
 import com.indiraactive.fulfillmentplatform.model.ScheduledTaskRunTimeJpa;
-import com.indiraactive.fulfillmentplatform.model.Supplier;
+import com.indiraactive.fulfillmentplatform.model.db.Supplier;
 import com.indiraactive.fulfillmentplatform.viewModel.ScheduleHistoryViewModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

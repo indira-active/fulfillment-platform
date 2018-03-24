@@ -1,6 +1,8 @@
 package com.indiraactive.fulfillmentplatform.model;
 
 
+import com.indiraactive.fulfillmentplatform.model.db.Supplier;
+
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
