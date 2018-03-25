@@ -2,23 +2,23 @@ package com.indiraactive.fulfillmentplatform.viewModel;
 
 import com.indiraactive.fulfillmentplatform.dal.SupplierRepository;
 import com.indiraactive.fulfillmentplatform.model.ScheduledTaskHistoryModel;
-import com.indiraactive.fulfillmentplatform.model.ScheduledTask;
+import com.indiraactive.fulfillmentplatform.model.ScheduledTaskJpa;
 
 import java.util.LinkedList;
 import java.util.List;
 
 public class ScheduleHistoryViewModel {
     private SupplierRepository supplierRepository;
-    private List<ScheduledTask> scheduleTasks;
+    private List<ScheduledTaskJpa> scheduleTasks;
 
-    public ScheduleHistoryViewModel(Iterable<ScheduledTask> scheduleTasks, SupplierRepository supplierRepository) {
-        this.scheduleTasks = (List<ScheduledTask>) scheduleTasks;
+    public ScheduleHistoryViewModel(Iterable<ScheduledTaskJpa> scheduleTasks, SupplierRepository supplierRepository) {
+        this.scheduleTasks = (List<ScheduledTaskJpa>) scheduleTasks;
         this.supplierRepository = supplierRepository;
     }
 
     public List<ScheduledTaskHistoryModel> getScheduleHistoryModels() {
         List<ScheduledTaskHistoryModel> scheduledTaskHistoryModels = new LinkedList<>();
-        for (ScheduledTask scheduleTask : scheduleTasks) {
+        for (ScheduledTaskJpa scheduleTask : scheduleTasks) {
             ScheduledTaskHistoryModel scheduledTaskHistoryModel;
 
 //            Integer supplierId = scheduleTask.getSupplierIdToRun();

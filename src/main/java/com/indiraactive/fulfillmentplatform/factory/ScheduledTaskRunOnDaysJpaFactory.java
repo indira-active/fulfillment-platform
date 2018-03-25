@@ -3,7 +3,7 @@ package com.indiraactive.fulfillmentplatform.factory;
 import com.indiraactive.fulfillmentplatform.model.ScheduledTaskRunDaysJpa;
 
 /**
- * Creates a child object for ScheduledTask. The ScheduledTaskRunOnDays object
+ * Creates a child object for ScheduledTaskJpa. The ScheduledTaskRunOnDays object
  * represents which days of the week the job will be ran on.
  */
 public class ScheduledTaskRunOnDaysJpaFactory {

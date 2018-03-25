@@ -2,7 +2,7 @@ package com.indiraactive.fulfillmentplatform.service;
 
 import com.indiraactive.fulfillmentplatform.dal.ScheduledTaskRepository;
 import com.indiraactive.fulfillmentplatform.dal.SupplierRepository;
-import com.indiraactive.fulfillmentplatform.model.ScheduledTask;
+import com.indiraactive.fulfillmentplatform.model.ScheduledTaskJpa;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -26,15 +26,15 @@ public class ScheduledTaskManager {
 
     /**
      * Saves a scheduled task to the database
-     * @param scheduledTask The task to be saved
+     * @param scheduledTaskJpa The task to be saved
      * @return The task that was saved
      */
-    public ScheduledTask addNewScheduledTask(ScheduledTask scheduledTask) {
-        if (scheduledTask.getCreatedByUser() == null ) {
-            scheduledTask.setCreatedByUser("not_set");
+    public ScheduledTaskJpa addNewScheduledTask(ScheduledTaskJpa scheduledTaskJpa) {
+        if (scheduledTaskJpa.getCreatedByUser() == null ) {
+            scheduledTaskJpa.setCreatedByUser("not_set");
             System.out.println("Need to implement user management for logging purposes, failed to log user in addNewScheduledTask");
         }
-        return scheduledTaskRepository.save(scheduledTask);
+        return scheduledTaskRepository.save(scheduledTaskJpa);
     }
 
     /**
@@ -49,7 +49,7 @@ public class ScheduledTaskManager {
      * Retrieve all scheduled tasks that are active
      * @return Scheduled tasks that are active
      */
-    public Iterable<ScheduledTask> getScheduledTasks() {
+    public Iterable<ScheduledTaskJpa> getScheduledTasks() {
         return scheduledTaskRepository.findAll();
     }
 }

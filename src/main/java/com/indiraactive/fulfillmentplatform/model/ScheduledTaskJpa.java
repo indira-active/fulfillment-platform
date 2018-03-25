@@ -16,7 +16,7 @@ import java.util.List;
  */
 @Entity
 @Table(name = "scheduled_task")
-public class ScheduledTask {
+public class ScheduledTaskJpa {
     /**
      * Unique number representing a specific scheduled task
      */

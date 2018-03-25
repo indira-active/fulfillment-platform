@@ -2,7 +2,7 @@ package com.indiraactive.fulfillmentplatform.service;
 
 import com.indiraactive.fulfillmentplatform.dal.ScheduledTaskRepository;
 import com.indiraactive.fulfillmentplatform.dal.SupplierRepository;
-import com.indiraactive.fulfillmentplatform.model.ScheduledTask;
+import com.indiraactive.fulfillmentplatform.model.ScheduledTaskJpa;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
@@ -25,7 +25,7 @@ public class SchedulerImpl {
     @Scheduled(fixedRate = 5000)
     public void checkForJobs() {
 
-        for (ScheduledTask scheduledTask :scheduledTaskRepository.findAll()) {
+        for (ScheduledTaskJpa scheduledTaskJpa :scheduledTaskRepository.findAll()) {
             
         }
 

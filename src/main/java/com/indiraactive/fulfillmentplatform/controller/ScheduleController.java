@@ -2,19 +2,12 @@ package com.indiraactive.fulfillmentplatform.controller;
 
 import com.indiraactive.fulfillmentplatform.dal.ScheduledTaskRepository;
 import com.indiraactive.fulfillmentplatform.dal.SupplierRepository;
-import com.indiraactive.fulfillmentplatform.model.ScheduledTask;
-import com.indiraactive.fulfillmentplatform.model.ScheduledTaskRunDaysJpa;
-import com.indiraactive.fulfillmentplatform.model.ScheduledTaskRunTimeJpa;
-import com.indiraactive.fulfillmentplatform.model.db.Supplier;
+import com.indiraactive.fulfillmentplatform.model.ScheduledTaskJpa;
 import com.indiraactive.fulfillmentplatform.viewModel.ScheduleHistoryViewModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Date;
-import java.util.LinkedList;
-import java.util.List;
 
 /**
  * Handles incoming requests relating to the scheduling component
@@ -34,7 +27,7 @@ public class ScheduleController {
     public String schedule(Model model) {
         ScheduleHistoryViewModel scheduleHistoryViewModel = new ScheduleHistoryViewModel(scheduledTaskRepository.findAll(), supplierRepository);
 
-        model.addAttribute("scheduledTask", new ScheduledTask());
+        model.addAttribute("scheduledTask", new ScheduledTaskJpa());
         model.addAttribute("scheduleHistoryModels", scheduleHistoryViewModel.getScheduleHistoryModels());
         return "scheduler";
     }
@@ -42,11 +35,11 @@ public class ScheduleController {
 //    /**
 //     * Adds a new scheduled task to the system
 //     *
-//     * @param scheduledTask ScheduledTask to add to the fulfillment platform system
+//     * @param scheduledTask ScheduledTaskJpa to add to the fulfillment platform system
 //     * @return A success screen if there are no errors thrown during the process of running the screen
 //     */
 //    @PostMapping("/scheduler/add")
-//    public String addSupplier(@ModelAttribute ScheduledTask scheduledTask) {
+//    public String addSupplier(@ModelAttribute ScheduledTaskJpa scheduledTask) {
 //        scheduledTaskRepository.save(scheduledTask);
 //        return "success";
 //    }
@@ -65,7 +58,7 @@ public class ScheduleController {
 
 //    @GetMapping("/schedule/temp")
 //    public void temp() {
-//        ScheduledTask scheduledTask = new ScheduledTask();
+//        ScheduledTaskJpa scheduledTask = new ScheduledTaskJpa();
 //
 //        ScheduledTaskRunDaysJpa scheduledTaskRunDaysJpa = new ScheduledTaskRunDaysJpa();
 //        scheduledTaskRunDaysJpa.setSunday(true);
