@@ -1,9 +1,8 @@
 package com.indiraactive.fulfillmentplatform.controller;
 
-import com.indiraactive.fulfillmentplatform.ViewModel.RunHistoryViewModel;
+import com.indiraactive.fulfillmentplatform.viewModel.RunHistoryViewModel;
 import com.indiraactive.fulfillmentplatform.dal.ScriptRunAuditEntryRepository;
 import com.indiraactive.fulfillmentplatform.dal.SupplierRepository;
-import com.indiraactive.fulfillmentplatform.model.RunHistoryModel;
 import com.indiraactive.fulfillmentplatform.model.db.ScriptRunAuditEntry;
 import com.indiraactive.fulfillmentplatform.model.db.Supplier;
 import com.indiraactive.fulfillmentplatform.service.InventoryUpdater;
@@ -11,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import sun.font.ScriptRun;
 
 import java.util.LinkedList;
 import java.util.List;
