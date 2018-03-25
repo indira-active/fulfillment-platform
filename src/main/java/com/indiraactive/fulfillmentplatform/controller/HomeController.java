@@ -65,17 +65,29 @@ public class HomeController {
         return "manageSuppliers";
     }
 
-    @GetMapping("runHistory")
-    public String runHistory(Model model) {
-        List<ScriptRunAuditEntry> scriptRunAuditEntries = new LinkedList<>();
+    @RequestMapping(value="runHistory", method=RequestMethod.GET)
+    public String runHistory(Model model, @RequestParam(value = "order", required = false) String order,
+                             @RequestParam(value = "property", required = false) String property) {
         List<Supplier> supplierRepositories = new LinkedList<>();
-
-        scriptRunAuditEntryRepository.findAll().forEach(scriptRunAuditEntries::add);
         supplierRepository.findAll().forEach(supplierRepositories::add);
 
-        RunHistoryViewModel runHistoryViewModels = new RunHistoryViewModel(scriptRunAuditEntries, supplierRepositories);
-        List<RunHistoryModel> runHistoryViewModelList = runHistoryViewModels.getRunHistoryModel();
-        model.addAttribute("runHistoryViewModels", runHistoryViewModelList);
+        List<ScriptRunAuditEntry> scriptRunAuditEntries = new LinkedList<>();
+        if (order != null) {
+            if (order.equalsIgnoreCase("asc") && property.equalsIgnoreCase("startDate")) {
+                scriptRunAuditEntries.addAll(scriptRunAuditEntryRepository.findAllByOrderByStartDateTimeAsc());
+            } else if (order.equalsIgnoreCase("desc") && property.equalsIgnoreCase("startDate")) {
+                scriptRunAuditEntries.addAll(scriptRunAuditEntryRepository.findAllByOrderByStartDateTimeDesc());
+            } else if (order.equalsIgnoreCase("asc") && property.equalsIgnoreCase("endDate")) {
+                scriptRunAuditEntries.addAll(scriptRunAuditEntryRepository.findAllByOrderByFinishDateTimeAsc());
+            } else if (order.equalsIgnoreCase("desc") && property.equalsIgnoreCase("endDate")) {
+                scriptRunAuditEntries.addAll(scriptRunAuditEntryRepository.findAllByOrderByFinishDateTimeDesc());
+            }
+        } else {
+            scriptRunAuditEntries.addAll(scriptRunAuditEntryRepository.findAll());
+        }
+
+        RunHistoryViewModel runHistoryViewModel = new RunHistoryViewModel(scriptRunAuditEntries, supplierRepositories);
+        model.addAttribute("runHistoryViewModels", runHistoryViewModel.getRunHistoryModel());
 
         return "runHistory";
     }

@@ -1,18 +1,13 @@
 package com.indiraactive.fulfillmentplatform.service;
 
 import com.indiraactive.fulfillmentplatform.dal.SupplierRepository;
+import com.indiraactive.fulfillmentplatform.factory.ScriptRunAuditEntryFactory;
 import com.indiraactive.fulfillmentplatform.factory.SyncInventoryArgumentsFactory;
 import com.indiraactive.fulfillmentplatform.utility.CommandLineRunner.*;
 import com.indiraactive.fulfillmentplatform.utility.CommandLineRunner;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.Date;
 
 /**
  * Runs the sync_inventory script seen here:
@@ -51,7 +46,7 @@ public class InventoryUpdater {
      * @param supplierId The id of the supplier that will be used for the commandline arguments for the
      *                   sync_inventory.py script.
      */
-    public CompletionErrorType updateInventory(int supplierId) throws Exception {
+    public ScriptCompletionCode updateInventory(int supplierId) throws Exception {
         System.out.println("Preparing to update inventory");
         System.out.println("Retrieving supplier information");
         String inventoryUpdaterScriptPath = getInventoryUpdaterScriptPath();
@@ -61,13 +56,13 @@ public class InventoryUpdater {
             try {
                 String commandToExecute = "python " + inventoryUpdaterScriptPath + " " + args;
                 long startDateTime = System.currentTimeMillis();
-                CompletionErrorType completionErrorType = commandLineRunner.executeCommand(commandToExecute);
+                ScriptCompletionCode scriptCompletionCode = commandLineRunner.executeCommand(commandToExecute);
                 long endDateTime = System.currentTimeMillis();
-                System.out.println("Completed running script with completionErrorType: " + completionErrorType);
+                System.out.println("Completed running script with scriptCompletionCode: " + scriptCompletionCode);
                 String userTriggered = "anonymous"; // TODO: Need to dedicate work to implementing this, maybe represent w/ Jira ticket.
-                auditLoggerService.logScriptRun(supplierId, startDateTime, endDateTime, userTriggered, completionErrorType.toString());
+                auditLoggerService.logScriptRun(ScriptRunAuditEntryFactory.createScriptRunAuditEntry(supplierId, startDateTime, endDateTime, userTriggered, scriptCompletionCode.toString()));
 
-                return completionErrorType;
+                return scriptCompletionCode;
             } catch (Exception e) {
                 e.printStackTrace();
                 System.out.println(e.getMessage());
@@ -81,7 +76,7 @@ public class InventoryUpdater {
      * to find the path.
      * @return Path to the inventory updater script.
      */
-    String getInventoryUpdaterScriptPath() {
+    public String getInventoryUpdaterScriptPath() {
         String inventoryUpdaterScriptPath = null;
         try {
             inventoryUpdaterScriptPath = scriptPathFinder.getPath(ScriptPathFinder.ScriptName.SYNC_INVENTORY);
