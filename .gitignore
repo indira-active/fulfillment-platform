@@ -9,6 +9,8 @@ coverage.lcov
 id_fulfilment-platform
 credentials.json
 secret.yml
+service-account.json
+gcloud-service-key.json
 
 
 

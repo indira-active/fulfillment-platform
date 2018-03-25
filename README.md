@@ -29,8 +29,8 @@ Every key is hosted securely and encrypted on Cloud KMS. Each file ending with *
 
 | Cloud KMS key          | Command to retrieve |
 |-------------------------|-------------|
-| **scripts-deploy-key** `gcloud cli` | gcloud kms decrypt --ciphertext-file=id_fulfilment-platform.enc --plaintext-file=id_fulfilment-platform--location=global --keyring=fulfilment-platform --key=scripts-deploy-key |
-| **supplier-master-sql-credentials** `gcloud cli` | gcloud kms decrypt --ciphertext-file=credentials.json.enc --plaintext-file=credentials.json--location=global --keyring=fulfilment-platform --key=scripts-deploy-key |
+| **scripts-deploy-key** `gcloud cli` | gcloud kms decrypt --ciphertext-file=id_fulfilment-platform.enc --plaintext-file=id_fulfilment-platform --location=global --keyring=fulfilment-platform --key=scripts-deploy-key |
+| **supplier-master-sql-credentials** `gcloud cli` | gcloud kms decrypt --ciphertext-file=credentials.json.enc --plaintext-file=credentials.json --location=global --keyring=fulfilment-platform --key=scripts-deploy-key |
 
 ### Decrypt file:
     gcloud kms decrypt --ciphertext-file=[INPUT_FILE] --plaintext-file=[OUTPUT_FILE] --location=global --keyring=fulfilment-platform --key=scripts-deploy-key
@@ -83,7 +83,7 @@ These enviorment variables are automatically set by our CI/CD systems. However l
     mvn clean test jacoco:report
 
     # Check vulnerabilities
-    npm install -g snyk && npm test
+    npm install -g snyk && snyk test
 
 
 

@@ -4,7 +4,7 @@ services:
     build:
       context: .
       cache_from:
-        - java-web
+        - gcr.io/zip-zap-gateway/java-web
       args:
          - CODECOV_TOKEN=$CODECOV_TOKEN
     image: gcr.io/zip-zap-gateway/java-web
@@ -17,8 +17,8 @@ services:
       - export OKTA_CLIENTID=$OKTA_CLIENTID
       - export OKTA_CLIENTSECRET=$OKTA_CLIENTSECRET
 
-  # TODO: nathang - See if we can setup a cloudsql-proxy to work/test locally. 
-  # Would want a local test db, or a staging one in prod.
+  # TODO: nathang - See if we can setup a cloudsql-proxy sidebar container to work/test locally. 
+  # Would want a local test db, or a staging instance for it to connect with
   # cloudsql-proxy:
   #   image: gcr.io/cloudsql-docker/gce-proxy:1.11
   #   volumes:
