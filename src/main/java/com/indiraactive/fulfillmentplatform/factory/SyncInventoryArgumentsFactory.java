@@ -1,6 +1,6 @@
 package com.indiraactive.fulfillmentplatform.factory;
 
-import com.indiraactive.fulfillmentplatform.model.Supplier;
+import com.indiraactive.fulfillmentplatform.model.db.Supplier;
 
 //TODO: Reconsider the name of this class
 
@@ -17,12 +17,26 @@ public class SyncInventoryArgumentsFactory {
      * for the sync_inventory script
      */
     public static String getArgs(Supplier supplier) {
-        return
-            supplier.getShopifyApiKey() + " " +
-            supplier.getShopifyPassword() + " " +
-            supplier.getShopName() + " " +
-            supplier.getFulfillSubdomain() + " " +
-            supplier.getFulfillApiKey() + " " +
-            supplier.getSupplierCode() + " ";
+        String arguments = "";
+        if (supplier.getShopifyApiKey() != null ) {
+            arguments += supplier.getShopifyApiKey() + " ";
+        }
+        if (supplier.getShopifyPassword() != null ) {
+            arguments += supplier.getShopifyPassword() + " ";
+        }
+        if (supplier.getShopName() != null ) {
+            arguments += supplier.getShopName() + " ";
+        }
+        if (supplier.getFulfillSubdomain() != null ) {
+            arguments += supplier.getFulfillSubdomain() + " ";
+        }
+        if (supplier.getFulfillApiKey() != null ) {
+            arguments += supplier.getFulfillApiKey() + " ";
+        }
+        if (supplier.getSupplierCode() != null ) {
+            arguments += supplier.getSupplierCode() + " ";
+        }
+
+        return arguments.trim();
     }
 }

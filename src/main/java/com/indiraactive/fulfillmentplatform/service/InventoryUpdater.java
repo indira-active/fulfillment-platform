@@ -1,15 +1,13 @@
 package com.indiraactive.fulfillmentplatform.service;
 
 import com.indiraactive.fulfillmentplatform.dal.SupplierRepository;
+import com.indiraactive.fulfillmentplatform.factory.ScriptRunAuditEntryFactory;
 import com.indiraactive.fulfillmentplatform.factory.SyncInventoryArgumentsFactory;
-import com.indiraactive.fulfillmentplatform.model.Supplier;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
+import com.indiraactive.fulfillmentplatform.utility.CommandLineRunner.*;
+import com.indiraactive.fulfillmentplatform.utility.CommandLineRunner;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 /**
  * Runs the sync_inventory script seen here:
@@ -18,10 +16,10 @@ import java.io.InputStreamReader;
 @Component
 public class InventoryUpdater {
     /**
-     * Path where the sync_inventory.py script is located. Retrieved from the application.properties file
+     * Finds the path to a script given a script name.
      */
-    @Value("${inventoryUpdaterScriptPath}") // TODO: Verify everyone is in agreement with how the scripts are loaded
-    private String inventoryUpdaterScriptPath;   // TODO: Supplier service to provide us w/ supplier info to update inventory from
+    @Autowired
+    private ScriptPathFinder scriptPathFinder;
 
     /**
      * Data access abstraction to database for suppliers. Used specifically in this class to retrieve a
@@ -31,32 +29,62 @@ public class InventoryUpdater {
     private SupplierRepository supplierRepository;
 
     /**
+     * Runs commands in a shell
+     */
+    @Autowired
+    private CommandLineRunner commandLineRunner;
+
+    /**
+     * Used to log information about the sync inventory run
+     */
+    @Autowired
+    private AuditLoggerService auditLoggerService;
+
+    /**
      * Runs the sync_inventory.py script directly by running the script with python in a process with arguments that
      * are based on a supplier id that is passed into the method.
      * @param supplierId The id of the supplier that will be used for the commandline arguments for the
      *                   sync_inventory.py script.
      */
-    public void updateInventory(int supplierId) { //TODO: On app start up guarantee that the script is there and is valid.
+    public ScriptCompletionCode updateInventory(int supplierId) throws Exception {
         System.out.println("Preparing to update inventory");
         System.out.println("Retrieving supplier information");
-        Supplier supplier = supplierRepository.findOne(supplierId);
-        String args = SyncInventoryArgumentsFactory.getArgs(supplier).trim();
-        try {
-            String commandToExecute = "python " + inventoryUpdaterScriptPath + " " + args;
-            System.out.println("Command to be executed: " + commandToExecute);
-            Process process = Runtime.getRuntime().exec(commandToExecute);
-            String line;
-            BufferedReader input = new BufferedReader(new InputStreamReader(process.getInputStream()));
-            while ((line = input.readLine()) != null) {
-                System.out.println("***FROM CONSOLE: " + line);
+        String inventoryUpdaterScriptPath = getInventoryUpdaterScriptPath();
+        String args = SyncInventoryArgumentsFactory.getArgs(supplierRepository.findOne(supplierId)).trim();
+
+        if (inventoryUpdaterScriptPath != null ) {
+            try {
+                String commandToExecute = "python " + inventoryUpdaterScriptPath + " " + args;
+                long startDateTime = System.currentTimeMillis();
+                ScriptCompletionCode scriptCompletionCode = commandLineRunner.executeCommand(commandToExecute);
+                long endDateTime = System.currentTimeMillis();
+                System.out.println("Completed running script with scriptCompletionCode: " + scriptCompletionCode);
+                String userTriggered = "anonymous"; // TODO: Need to dedicate work to implementing this, maybe represent w/ Jira ticket.
+                auditLoggerService.logScriptRun(ScriptRunAuditEntryFactory.createScriptRunAuditEntry(supplierId, startDateTime, endDateTime, userTriggered, scriptCompletionCode.toString()));
+
+                return scriptCompletionCode;
+            } catch (Exception e) {
+                e.printStackTrace();
+                System.out.println(e.getMessage());
             }
-            input.close();
-        } catch(IOException ioException) {
-            ioException.printStackTrace();
-            System.out.println("Error, unable to find python script."); // TODO: Add better error notification
-        } catch (Exception e) {
-            e.printStackTrace();
         }
+        throw new Exception("Unable to update inventory, an error occurred");
     }
 
+    /**
+     * Gets the path to the inventory updater script. Utilizes the ScriptPathFinder
+     * to find the path.
+     * @return Path to the inventory updater script.
+     */
+    public String getInventoryUpdaterScriptPath() {
+        String inventoryUpdaterScriptPath = null;
+        try {
+            inventoryUpdaterScriptPath = scriptPathFinder.getPath(ScriptPathFinder.ScriptName.SYNC_INVENTORY);
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.err.println(e.getMessage());
+        }
+
+        return inventoryUpdaterScriptPath;
+    }
 }
