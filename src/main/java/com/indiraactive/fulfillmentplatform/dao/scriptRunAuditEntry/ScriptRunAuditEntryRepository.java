@@ -1,4 +1,4 @@
-package com.indiraactive.fulfillmentplatform.dal.scriptRunAuditEntry;
+package com.indiraactive.fulfillmentplatform.dao.scriptRunAuditEntry;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

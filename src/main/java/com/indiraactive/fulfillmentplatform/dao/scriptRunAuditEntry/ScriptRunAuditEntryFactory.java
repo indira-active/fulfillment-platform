@@ -1,6 +1,4 @@
-package com.indiraactive.fulfillmentplatform.dal.scriptRunAuditEntry;
-
-import com.indiraactive.fulfillmentplatform.dal.scriptRunAuditEntry.ScriptRunAuditEntry;
+package com.indiraactive.fulfillmentplatform.dao.scriptRunAuditEntry;
 
 /**
  * Responsible for producing object that relate to the ScriptRunAuditEntry data model

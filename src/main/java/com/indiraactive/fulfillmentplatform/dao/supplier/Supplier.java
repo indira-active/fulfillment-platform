@@ -1,4 +1,4 @@
-package com.indiraactive.fulfillmentplatform.dal.supplier;
+package com.indiraactive.fulfillmentplatform.dao.supplier;
 
 import javax.persistence.*;
 

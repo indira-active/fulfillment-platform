@@ -1,6 +1,6 @@
 package com.indiraactive.fulfillmentplatform.domain;
 
-import com.indiraactive.fulfillmentplatform.dal.scheduledTask.ScheduledTaskRunTimeJpa;
+import com.indiraactive.fulfillmentplatform.dao.scheduledTask.ScheduledTaskRunTimeJpa;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDateTime;

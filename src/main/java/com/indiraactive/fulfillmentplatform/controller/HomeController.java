@@ -1,10 +1,10 @@
 package com.indiraactive.fulfillmentplatform.controller;
 
 import com.indiraactive.fulfillmentplatform.viewModel.RunHistoryViewModel;
-import com.indiraactive.fulfillmentplatform.dal.scriptRunAuditEntry.ScriptRunAuditEntryRepository;
-import com.indiraactive.fulfillmentplatform.dal.supplier.SupplierRepository;
-import com.indiraactive.fulfillmentplatform.dal.scriptRunAuditEntry.ScriptRunAuditEntry;
-import com.indiraactive.fulfillmentplatform.dal.supplier.Supplier;
+import com.indiraactive.fulfillmentplatform.dao.scriptRunAuditEntry.ScriptRunAuditEntryRepository;
+import com.indiraactive.fulfillmentplatform.dao.supplier.SupplierRepository;
+import com.indiraactive.fulfillmentplatform.dao.scriptRunAuditEntry.ScriptRunAuditEntry;
+import com.indiraactive.fulfillmentplatform.dao.supplier.Supplier;
 import com.indiraactive.fulfillmentplatform.service.InventoryUpdater;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

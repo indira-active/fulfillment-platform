@@ -1,7 +1,7 @@
-package com.indiraactive.fulfillmentplatform.dal.scheduledTask;
+package com.indiraactive.fulfillmentplatform.dao.scheduledTask;
 
 
-import com.indiraactive.fulfillmentplatform.dal.supplier.Supplier;
+import com.indiraactive.fulfillmentplatform.dao.supplier.Supplier;
 
 import javax.persistence.*;
 import java.util.Date;

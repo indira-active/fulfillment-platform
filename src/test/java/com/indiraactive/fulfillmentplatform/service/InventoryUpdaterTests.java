@@ -1,7 +1,7 @@
 package com.indiraactive.fulfillmentplatform.service;
 
-import com.indiraactive.fulfillmentplatform.dal.supplier.SupplierRepository;
-import com.indiraactive.fulfillmentplatform.dal.supplier.Supplier;
+import com.indiraactive.fulfillmentplatform.dao.supplier.SupplierRepository;
+import com.indiraactive.fulfillmentplatform.dao.supplier.Supplier;
 import com.indiraactive.fulfillmentplatform.utility.CommandLineRunner;
 import org.junit.Before;
 import org.junit.Test;

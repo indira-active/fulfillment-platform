@@ -1,8 +1,8 @@
-package com.indiraactive.fulfillmentplatform.dal.scheduledTask;
+package com.indiraactive.fulfillmentplatform.dao.scheduledTask;
 
-import com.indiraactive.fulfillmentplatform.dal.supplier.SupplierRepository;
+import com.indiraactive.fulfillmentplatform.dao.supplier.SupplierRepository;
 import com.indiraactive.fulfillmentplatform.domain.ScheduledTask;
-import com.indiraactive.fulfillmentplatform.dal.supplier.Supplier;
+import com.indiraactive.fulfillmentplatform.dao.supplier.Supplier;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

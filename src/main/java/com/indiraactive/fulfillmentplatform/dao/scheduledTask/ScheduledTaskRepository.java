@@ -1,4 +1,4 @@
-package com.indiraactive.fulfillmentplatform.dal.scheduledTask;
+package com.indiraactive.fulfillmentplatform.dao.scheduledTask;
 
 import org.springframework.data.repository.CrudRepository;
 

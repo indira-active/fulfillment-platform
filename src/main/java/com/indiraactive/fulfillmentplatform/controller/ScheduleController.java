@@ -1,7 +1,7 @@
 package com.indiraactive.fulfillmentplatform.controller;
 
-import com.indiraactive.fulfillmentplatform.dal.scheduledTask.ScheduledTaskRepository;
-import com.indiraactive.fulfillmentplatform.dal.supplier.SupplierRepository;
+import com.indiraactive.fulfillmentplatform.dao.scheduledTask.ScheduledTaskRepository;
+import com.indiraactive.fulfillmentplatform.dao.supplier.SupplierRepository;
 import com.indiraactive.fulfillmentplatform.manager.scheduledTask.ScheduledTaskManager;
 import com.indiraactive.fulfillmentplatform.domain.ScheduledTask;
 import com.indiraactive.fulfillmentplatform.viewModel.ScheduleHistoryViewModel;

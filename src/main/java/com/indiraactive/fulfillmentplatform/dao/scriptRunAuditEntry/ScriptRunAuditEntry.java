@@ -1,9 +1,6 @@
-package com.indiraactive.fulfillmentplatform.dal.scriptRunAuditEntry;
+package com.indiraactive.fulfillmentplatform.dao.scriptRunAuditEntry;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
-import java.time.DateTimeException;
-import java.util.Date;
 
 /**
  * Captures a specific run of the sync_inventory script so run history can be inspected.

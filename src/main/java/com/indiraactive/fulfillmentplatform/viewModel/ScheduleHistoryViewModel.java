@@ -1,8 +1,8 @@
 package com.indiraactive.fulfillmentplatform.viewModel;
 
-import com.indiraactive.fulfillmentplatform.dal.supplier.SupplierRepository;
+import com.indiraactive.fulfillmentplatform.dao.supplier.SupplierRepository;
 import com.indiraactive.fulfillmentplatform.domain.ScheduledTaskHistoryModel;
-import com.indiraactive.fulfillmentplatform.dal.scheduledTask.ScheduledTaskJpa;
+import com.indiraactive.fulfillmentplatform.dao.scheduledTask.ScheduledTaskJpa;
 
 import java.util.LinkedList;
 import java.util.List;

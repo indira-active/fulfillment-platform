@@ -1,8 +1,8 @@
 package com.indiraactive.fulfillmentplatform.viewModel;
 
 import com.indiraactive.fulfillmentplatform.domain.RunHistoryModel;
-import com.indiraactive.fulfillmentplatform.dal.scriptRunAuditEntry.ScriptRunAuditEntry;
-import com.indiraactive.fulfillmentplatform.dal.supplier.Supplier;
+import com.indiraactive.fulfillmentplatform.dao.scriptRunAuditEntry.ScriptRunAuditEntry;
+import com.indiraactive.fulfillmentplatform.dao.supplier.Supplier;
 
 import java.util.Date;
 import java.util.LinkedList;
