@@ -69,6 +69,17 @@ public class ScheduledTaskJpa {
     @Embedded
     private ScheduledTaskRunDaysJpa runOnDays;
 
+    @Column(name="has_ran")
+    private Boolean hasRan;
+
+    public Boolean hasRan() {
+        return hasRan;
+    }
+
+    public void setHasRan(Boolean hasRan) {
+        this.hasRan = hasRan;
+    }
+
     public Integer getScheduledTaskId() {
         return scheduledTaskId;
     }

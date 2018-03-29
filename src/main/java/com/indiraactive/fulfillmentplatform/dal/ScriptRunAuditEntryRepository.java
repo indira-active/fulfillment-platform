@@ -11,4 +11,5 @@ public interface ScriptRunAuditEntryRepository extends JpaRepository<ScriptRunAu
     List<ScriptRunAuditEntry> findAllByOrderByStartDateTimeDesc();
     List<ScriptRunAuditEntry> findAllByOrderByFinishDateTimeAsc();
     List<ScriptRunAuditEntry> findAllByOrderByFinishDateTimeDesc();
+    List<ScriptRunAuditEntry> findAllByScriptRunAuditEntryIdOrderByStartDateTimeAsc(Integer supplierId);
 }
