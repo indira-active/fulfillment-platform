@@ -65,6 +65,19 @@ public class Supplier {
     @Column(name = "supplier_code", nullable = false)
     private String supplierCode;
 
+    public Supplier() { }
+
+    public Supplier(Integer supplierId, String supplierName, String shopifyApiKey, String shopifyPassword, String shopName, String fulfillSubdomain, String fulfillApiKey, String supplierCode) {
+        this.supplierId = supplierId;
+        this.supplierName = supplierName;
+        this.shopifyApiKey = shopifyApiKey;
+        this.shopifyPassword = shopifyPassword;
+        this.shopName = shopName;
+        this.fulfillSubdomain = fulfillSubdomain;
+        this.fulfillApiKey = fulfillApiKey;
+        this.supplierCode = supplierCode;
+    }
+
     public Integer getSupplierId() {
         return supplierId;
     }
