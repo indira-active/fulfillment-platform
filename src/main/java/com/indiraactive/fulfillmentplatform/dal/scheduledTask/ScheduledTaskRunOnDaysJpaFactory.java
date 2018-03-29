@@ -1,4 +1,4 @@
-package com.indiraactive.fulfillmentplatform.factory;
+package com.indiraactive.fulfillmentplatform.dal.scheduledTask;
 
 import com.indiraactive.fulfillmentplatform.dal.scheduledTask.ScheduledTaskRunDaysJpa;
 

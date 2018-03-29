@@ -1,6 +1,7 @@
 package com.indiraactive.fulfillmentplatform.factory;
 
 import com.indiraactive.fulfillmentplatform.dal.scriptRunAuditEntry.ScriptRunAuditEntry;
+import com.indiraactive.fulfillmentplatform.dal.scriptRunAuditEntry.ScriptRunAuditEntryFactory;
 import org.junit.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 

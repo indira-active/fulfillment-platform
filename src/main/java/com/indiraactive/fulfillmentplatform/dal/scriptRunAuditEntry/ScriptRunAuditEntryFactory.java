@@ -1,4 +1,4 @@
-package com.indiraactive.fulfillmentplatform.factory;
+package com.indiraactive.fulfillmentplatform.dal.scriptRunAuditEntry;
 
 import com.indiraactive.fulfillmentplatform.dal.scriptRunAuditEntry.ScriptRunAuditEntry;
 

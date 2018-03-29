@@ -1,7 +1,7 @@
 package com.indiraactive.fulfillmentplatform.manager.scheduledTask;
 
 import com.indiraactive.fulfillmentplatform.dal.scheduledTask.ScheduledTaskRepository;
-import com.indiraactive.fulfillmentplatform.factory.ScheduledTaskJpaFactory;
+import com.indiraactive.fulfillmentplatform.dal.scheduledTask.ScheduledTaskJpaFactory;
 import com.indiraactive.fulfillmentplatform.model.ScheduledTask;
 import com.indiraactive.fulfillmentplatform.dal.scheduledTask.ScheduledTaskJpa;
 import org.springframework.beans.factory.annotation.Autowired;
