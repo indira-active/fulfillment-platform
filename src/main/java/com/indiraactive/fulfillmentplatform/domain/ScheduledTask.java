@@ -1,4 +1,4 @@
-package com.indiraactive.fulfillmentplatform.model;
+package com.indiraactive.fulfillmentplatform.domain;
 
 import com.indiraactive.fulfillmentplatform.dal.scheduledTask.ScheduledTaskRunTimeJpa;
 import org.springframework.format.annotation.DateTimeFormat;

@@ -1,7 +1,5 @@
 package com.indiraactive.fulfillmentplatform.factory;
 
-import com.indiraactive.fulfillmentplatform.model.ScheduledTaskHistoryModel;
-
 /**
  * Generates the model for the view that displays the scheduled task/job run history
  */

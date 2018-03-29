@@ -1,4 +1,4 @@
-package com.indiraactive.fulfillmentplatform.model;
+package com.indiraactive.fulfillmentplatform.domain;
 
 import java.util.Date;
 

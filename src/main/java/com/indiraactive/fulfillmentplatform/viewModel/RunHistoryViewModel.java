@@ -1,6 +1,6 @@
 package com.indiraactive.fulfillmentplatform.viewModel;
 
-import com.indiraactive.fulfillmentplatform.model.RunHistoryModel;
+import com.indiraactive.fulfillmentplatform.domain.RunHistoryModel;
 import com.indiraactive.fulfillmentplatform.dal.scriptRunAuditEntry.ScriptRunAuditEntry;
 import com.indiraactive.fulfillmentplatform.dal.supplier.Supplier;
 

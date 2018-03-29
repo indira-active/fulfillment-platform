@@ -3,7 +3,7 @@ package com.indiraactive.fulfillmentplatform.controller;
 import com.indiraactive.fulfillmentplatform.dal.scheduledTask.ScheduledTaskRepository;
 import com.indiraactive.fulfillmentplatform.dal.supplier.SupplierRepository;
 import com.indiraactive.fulfillmentplatform.manager.scheduledTask.ScheduledTaskManager;
-import com.indiraactive.fulfillmentplatform.model.ScheduledTask;
+import com.indiraactive.fulfillmentplatform.domain.ScheduledTask;
 import com.indiraactive.fulfillmentplatform.viewModel.ScheduleHistoryViewModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
