@@ -24,14 +24,4 @@ public class Application {
         SpringApplication.run(Application.class, args);
     }
 
-    @Configuration
-    @EnableOAuth2Sso
-    protected static class SecurityConfig extends WebSecurityConfigurerAdapter {
-        @Override
-        protected void configure(HttpSecurity http) throws Exception {
-            http.authorizeRequests()
-                    .antMatchers("/health").permitAll()
-                    .anyRequest().authenticated();
-        }
-    }
 }
