@@ -1,4 +1,4 @@
-package com.indiraactive.fulfillmentplatform.factory;
+package com.indiraactive.fulfillmentplatform.domain;
 
 import com.indiraactive.fulfillmentplatform.dao.supplier.Supplier;
 

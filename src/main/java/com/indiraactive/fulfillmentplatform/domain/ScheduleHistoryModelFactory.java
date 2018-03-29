@@ -1,4 +1,4 @@
-package com.indiraactive.fulfillmentplatform.factory;
+package com.indiraactive.fulfillmentplatform.domain;
 
 /**
  * Generates the model for the view that displays the scheduled task/job run history

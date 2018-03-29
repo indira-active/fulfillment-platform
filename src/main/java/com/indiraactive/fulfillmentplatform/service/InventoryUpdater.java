@@ -2,7 +2,7 @@ package com.indiraactive.fulfillmentplatform.service;
 
 import com.indiraactive.fulfillmentplatform.dao.supplier.SupplierRepository;
 import com.indiraactive.fulfillmentplatform.dao.scriptRunAuditEntry.ScriptRunAuditEntryFactory;
-import com.indiraactive.fulfillmentplatform.factory.SyncInventoryArgumentsFactory;
+import com.indiraactive.fulfillmentplatform.domain.SyncInventoryArgumentsFactory;
 import com.indiraactive.fulfillmentplatform.utility.CommandLineRunner.*;
 import com.indiraactive.fulfillmentplatform.utility.CommandLineRunner;
 
