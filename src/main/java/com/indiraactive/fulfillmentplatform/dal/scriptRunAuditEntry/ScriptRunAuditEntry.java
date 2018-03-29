@@ -1,4 +1,4 @@
-package com.indiraactive.fulfillmentplatform.model.db;
+package com.indiraactive.fulfillmentplatform.dal.scriptRunAuditEntry;
 
 import javax.persistence.*;
 import java.sql.Timestamp;

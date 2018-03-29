@@ -1,6 +1,6 @@
 package com.indiraactive.fulfillmentplatform.factory;
 
-import com.indiraactive.fulfillmentplatform.model.ScheduledTaskRunDaysJpa;
+import com.indiraactive.fulfillmentplatform.dal.scheduledTask.ScheduledTaskRunDaysJpa;
 
 /**
  * Creates a child object for ScheduledTaskJpa. The ScheduledTaskRunOnDays object

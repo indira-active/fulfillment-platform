@@ -1,6 +1,5 @@
 package com.indiraactive.fulfillmentplatform.dal.scheduledTask;
 
-import com.indiraactive.fulfillmentplatform.model.ScheduledTaskJpa;
 import org.springframework.data.repository.CrudRepository;
 
 /**

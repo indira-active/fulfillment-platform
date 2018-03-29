@@ -1,6 +1,6 @@
 package com.indiraactive.fulfillmentplatform.factory;
 
-import com.indiraactive.fulfillmentplatform.model.db.Supplier;
+import com.indiraactive.fulfillmentplatform.dal.supplier.Supplier;
 
 //TODO: Reconsider the name of this class
 

@@ -1,4 +1,4 @@
-package com.indiraactive.fulfillmentplatform.model;
+package com.indiraactive.fulfillmentplatform.dal.scheduledTask;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;

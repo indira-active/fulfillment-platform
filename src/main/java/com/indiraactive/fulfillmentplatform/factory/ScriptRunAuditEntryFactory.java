@@ -1,6 +1,6 @@
 package com.indiraactive.fulfillmentplatform.factory;
 
-import com.indiraactive.fulfillmentplatform.model.db.ScriptRunAuditEntry;
+import com.indiraactive.fulfillmentplatform.dal.scriptRunAuditEntry.ScriptRunAuditEntry;
 
 /**
  * Responsible for producing object that relate to the ScriptRunAuditEntry data model

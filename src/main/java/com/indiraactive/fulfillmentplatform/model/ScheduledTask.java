@@ -1,11 +1,9 @@
 package com.indiraactive.fulfillmentplatform.model;
 
-import com.indiraactive.fulfillmentplatform.model.db.Supplier;
+import com.indiraactive.fulfillmentplatform.dal.scheduledTask.ScheduledTaskRunTimeJpa;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.List;
 
 public class ScheduledTask {
