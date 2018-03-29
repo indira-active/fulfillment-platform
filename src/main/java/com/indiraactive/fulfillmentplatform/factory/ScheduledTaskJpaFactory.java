@@ -1,6 +1,6 @@
 package com.indiraactive.fulfillmentplatform.factory;
 
-import com.indiraactive.fulfillmentplatform.dal.SupplierRepository;
+import com.indiraactive.fulfillmentplatform.dal.supplier.SupplierRepository;
 import com.indiraactive.fulfillmentplatform.model.ScheduledTask;
 import com.indiraactive.fulfillmentplatform.model.ScheduledTaskJpa;
 import com.indiraactive.fulfillmentplatform.model.ScheduledTaskRunDaysJpa;
@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.util.*;
 
 /**

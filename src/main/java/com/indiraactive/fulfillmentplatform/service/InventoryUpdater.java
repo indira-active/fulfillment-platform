@@ -1,6 +1,6 @@
 package com.indiraactive.fulfillmentplatform.service;
 
-import com.indiraactive.fulfillmentplatform.dal.SupplierRepository;
+import com.indiraactive.fulfillmentplatform.dal.supplier.SupplierRepository;
 import com.indiraactive.fulfillmentplatform.factory.ScriptRunAuditEntryFactory;
 import com.indiraactive.fulfillmentplatform.factory.SyncInventoryArgumentsFactory;
 import com.indiraactive.fulfillmentplatform.utility.CommandLineRunner.*;

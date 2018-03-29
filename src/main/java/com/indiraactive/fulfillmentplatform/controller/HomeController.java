@@ -1,8 +1,8 @@
 package com.indiraactive.fulfillmentplatform.controller;
 
 import com.indiraactive.fulfillmentplatform.viewModel.RunHistoryViewModel;
-import com.indiraactive.fulfillmentplatform.dal.ScriptRunAuditEntryRepository;
-import com.indiraactive.fulfillmentplatform.dal.SupplierRepository;
+import com.indiraactive.fulfillmentplatform.dal.scriptRunAuditEntry.ScriptRunAuditEntryRepository;
+import com.indiraactive.fulfillmentplatform.dal.supplier.SupplierRepository;
 import com.indiraactive.fulfillmentplatform.model.db.ScriptRunAuditEntry;
 import com.indiraactive.fulfillmentplatform.model.db.Supplier;
 import com.indiraactive.fulfillmentplatform.service.InventoryUpdater;

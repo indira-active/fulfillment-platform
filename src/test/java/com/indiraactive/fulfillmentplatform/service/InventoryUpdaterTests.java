@@ -1,6 +1,6 @@
 package com.indiraactive.fulfillmentplatform.service;
 
-import com.indiraactive.fulfillmentplatform.dal.SupplierRepository;
+import com.indiraactive.fulfillmentplatform.dal.supplier.SupplierRepository;
 import com.indiraactive.fulfillmentplatform.model.db.Supplier;
 import com.indiraactive.fulfillmentplatform.utility.CommandLineRunner;
 import org.junit.Before;
@@ -10,9 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
-import com.indiraactive.fulfillmentplatform.utility.CommandLineRunner.*;
 
-import static org.mockito.BDDMockito.given;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.when;
 
