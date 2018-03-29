@@ -1,4 +1,4 @@
-package com.indiraactive.fulfillmentplatform.manager.scheduledTask;
+package com.indiraactive.fulfillmentplatform.service.scheduledTask;
 
 import com.indiraactive.fulfillmentplatform.dao.scheduledTask.ScheduledTaskRepository;
 import com.indiraactive.fulfillmentplatform.dao.scheduledTask.ScheduledTaskJpaFactory;
@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-public class ScheduledTaskManager {
+public class ScheduledTaskService {
 
     @Autowired
     private ScheduledTaskRepository scheduledTaskRepository;

@@ -2,7 +2,7 @@ package com.indiraactive.fulfillmentplatform.controller;
 
 import com.indiraactive.fulfillmentplatform.dao.scheduledTask.ScheduledTaskRepository;
 import com.indiraactive.fulfillmentplatform.dao.supplier.SupplierRepository;
-import com.indiraactive.fulfillmentplatform.manager.scheduledTask.ScheduledTaskManager;
+import com.indiraactive.fulfillmentplatform.service.scheduledTask.ScheduledTaskService;
 import com.indiraactive.fulfillmentplatform.domain.ScheduledTask;
 import com.indiraactive.fulfillmentplatform.viewModel.ScheduleHistoryViewModel;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +24,7 @@ public class ScheduleController {
     private SupplierRepository supplierRepository;
 
     @Autowired
-    private ScheduledTaskManager scheduledTaskManager;
+    private ScheduledTaskService scheduledTaskService;
 
     @GetMapping("/scheduler")
     public String schedule(Model model) {
@@ -43,7 +43,7 @@ public class ScheduleController {
      */
     @PostMapping("/scheduler/add")
     public String addSupplier(@ModelAttribute ScheduledTask scheduledTask) {
-        scheduledTaskManager.addNewScheduledTask(scheduledTask);
+        scheduledTaskService.addNewScheduledTask(scheduledTask);
         return "success";
     }
 
