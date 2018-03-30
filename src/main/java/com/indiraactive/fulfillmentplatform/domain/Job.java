@@ -1,31 +1,34 @@
 package com.indiraactive.fulfillmentplatform.domain;
 
 import com.indiraactive.fulfillmentplatform.dao.supplier.Supplier;
+import org.omg.CORBA.INTERNAL;
+import org.springframework.format.annotation.DateTimeFormat;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 public class Job {
     private Integer id;
-    private Supplier supplier;
+    private Integer supplierId;
     private String createdByUser;
-    private Date startDateTime;
+    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
+    private LocalDateTime startDateTime;
     private boolean runOnce;
     private String cronExpression;
 
     public Job() { }
 
-    public Job(Supplier supplier, String createdByUser, Date startDateTime, boolean runOnce, String cronExpression) {
-        this.id = id;
-        this.supplier = supplier;
+    public Job(Integer supplierId, String createdByUser, LocalDateTime startDateTime, boolean runOnce, String cronExpression) {
+        this.supplierId = supplierId;
         this.createdByUser = createdByUser;
         this.startDateTime = startDateTime;
         this.runOnce = runOnce;
         this.cronExpression = cronExpression;
     }
 
-    public Job(Integer id, Supplier supplier, String createdByUser, Date startDateTime, boolean runOnce, String cronExpression) {
+    public Job(Integer id, Integer supplierId, String createdByUser, LocalDateTime startDateTime, boolean runOnce, String cronExpression) {
         this.id = id;
-        this.supplier = supplier;
+        this.supplierId = supplierId;
         this.createdByUser = createdByUser;
         this.startDateTime = startDateTime;
         this.runOnce = runOnce;
@@ -40,12 +43,12 @@ public class Job {
         this.id = id;
     }
 
-    public Supplier getSupplier() {
-        return supplier;
+    public Integer getSupplierId() {
+        return supplierId;
     }
 
-    public void setSupplier(Supplier supplier) {
-        this.supplier = supplier;
+    public void setSupplierId(Integer supplierId) {
+        this.supplierId = supplierId;
     }
 
     public String getCreatedByUser() {
@@ -56,11 +59,11 @@ public class Job {
         this.createdByUser = createdByUser;
     }
 
-    public Date getStartDateTime() {
+    public LocalDateTime getStartDateTime() {
         return startDateTime;
     }
 
-    public void setStartDateTime(Date startDateTime) {
+    public void setStartDateTime(LocalDateTime startDateTime) {
         this.startDateTime = startDateTime;
     }
 

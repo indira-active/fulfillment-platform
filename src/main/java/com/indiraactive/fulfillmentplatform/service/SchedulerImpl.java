@@ -58,7 +58,7 @@ public class SchedulerImpl {
     public ScheduledTaskJpa updateRunOnDate(ScheduledTaskJpa scheduledTaskJpa, int dayOfWeek) {
         ScheduledTaskRunDaysJpa runOnDays = scheduledTaskJpa.getRunOnDays();
 
-        // Map to Calendar integer representation of week day
+        // Map to CalendarSync integer representation of week day
         Map<Integer, Boolean> taskActivatedOnDayMap = new HashMap<>();
         taskActivatedOnDayMap.put(1, runOnDays.isMonday());
         taskActivatedOnDayMap.put(2, runOnDays.isTuesday());

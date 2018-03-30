@@ -4,6 +4,8 @@ import com.indiraactive.fulfillmentplatform.dao.supplier.Supplier;
 import org.junit.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.time.LocalDateTime;
+import java.util.Calendar;
 import java.util.Date;
 
 import static org.junit.Assert.assertEquals;
@@ -14,21 +16,21 @@ public class JobTests {
     public void testJob() {
         Job job = new Job();
         Integer expectedId = 123;
-        Supplier expectedSupplier = new Supplier();
+        Integer expectedSupplier = 1;
         String expectedUser = "user";
-        Date expectedStartDateTime = new Date();
+        LocalDateTime expectedStartDateTime = LocalDateTime.now();
         boolean expectedRunOnce = true;
         String expectedCronExpression = "* * * * * *";
 
         job.setId(expectedId);
-        job.setSupplier(expectedSupplier);
+        job.setSupplierId(expectedSupplier);
         job.setCreatedByUser(expectedUser);
         job.setStartDateTime(expectedStartDateTime);
         job.setRunOnce(expectedRunOnce);
         job.setCronExpression(expectedCronExpression);
 
         assertEquals(expectedId, job.getId());
-        assertEquals(expectedSupplier, job.getSupplier());
+        assertEquals(expectedSupplier, job.getSupplierId());
         assertEquals(expectedUser, job.getCreatedByUser());
         assertEquals(expectedStartDateTime, job.getStartDateTime());
         assertEquals(expectedRunOnce, job.isRunOnce());

@@ -3,6 +3,7 @@ package com.indiraactive.fulfillmentplatform.dao.scheduledTask;
 import com.indiraactive.fulfillmentplatform.dao.supplier.SupplierRepository;
 import com.indiraactive.fulfillmentplatform.domain.ScheduledTask;
 import com.indiraactive.fulfillmentplatform.dao.supplier.Supplier;
+import com.indiraactive.fulfillmentplatform.utility.CalendarSync;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -18,6 +19,9 @@ public class ScheduledTaskJpaFactory {
 
     @Autowired
     private SupplierRepository supplierRepository;
+
+    @Autowired
+    private CalendarSync calendarSync;
 
     /**
      *
@@ -42,7 +46,7 @@ public class ScheduledTaskJpaFactory {
     }
 
     public ScheduledTaskJpa createScheduleTaskJpa(ScheduledTask scheduledTask) {
-        Date runOnDate = getDateFromDateTime(scheduledTask.getRunOnDate());
+        Date runOnDate = calendarSync.getDateFromDateTime(scheduledTask.getRunOnDate());
         String createdByUserId = "unknown"; //TODO: Map this eventually
         boolean isRecurringJob = false; // TODO: Add to view eventually
         ScheduledTaskRunDaysJpa scheduledTaskRunDaysJpa = createScheduledTaskRunDaysJpa(scheduledTask.getRunOnDays());
@@ -94,9 +98,5 @@ public class ScheduledTaskJpaFactory {
         }
 
         return scheduledTaskRunDaysJpa;
-    }
-
-    public Date getDateFromDateTime(LocalDateTime localDateTime) {
-        return Calendar.getInstance(TimeZone.getTimeZone("US/Eastern")).getTime();
     }
 }

@@ -3,6 +3,7 @@ package com.indiraactive.fulfillmentplatform.domain;
 import com.indiraactive.fulfillmentplatform.Application;
 import com.indiraactive.fulfillmentplatform.dao.job.JobJpa;
 import com.indiraactive.fulfillmentplatform.dao.supplier.Supplier;
+import com.indiraactive.fulfillmentplatform.utility.CalendarSync;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,20 +20,25 @@ public class JobFactoryTests {
     @Autowired
     private JobFactory jobFactory;
 
+    @Autowired
+    private CalendarSync calendarSync;
+
     @Test
     public void createJobFromValues() {
-        Supplier expectedSupplier = new Supplier();
+        Integer expectedSupplierId = 1;
+        Supplier supplier = new Supplier();
+        supplier.setSupplierId(expectedSupplierId);
         String expectedCreatedByUser = "user";
         Date expectedStartDateTime = new Date();
         boolean expectedRunOnce = true;
         String expectedCronExpression = "* * * * * *";
 
-        Job actualJob = jobFactory.createJob(expectedSupplier, expectedCreatedByUser, expectedStartDateTime, expectedRunOnce, expectedCronExpression);
+        Job actualJob = jobFactory.createJob(supplier, expectedCreatedByUser, expectedStartDateTime, expectedRunOnce, expectedCronExpression);
 
         assertNull(actualJob.getId());
-        assertEquals(expectedSupplier, actualJob.getSupplier());
+        assertEquals(expectedSupplierId, actualJob.getSupplierId());
         assertEquals(expectedCreatedByUser, actualJob.getCreatedByUser());
-        assertEquals(expectedStartDateTime, actualJob.getStartDateTime());
+        assertEquals(calendarSync.getLocalDateTimeFromDate(expectedStartDateTime), actualJob.getStartDateTime());
         assertEquals(expectedRunOnce, actualJob.isRunOnce());
         assertEquals(expectedCronExpression, actualJob.getCronExpression());
     }
@@ -41,6 +47,7 @@ public class JobFactoryTests {
     public void createJobFromJpa() {
         Integer expectedId = 1;
         Supplier expectedSupplier = new Supplier();
+        expectedSupplier.setSupplierId(2);
         String expectedCreatedByUser = "user";
         Date expectedStartDateTime = new Date();
         boolean expectedRunOnce = true;
@@ -50,9 +57,9 @@ public class JobFactoryTests {
         Job actualJob = jobFactory.createJob(expectedJobJpa);
 
         assertEquals(expectedId, actualJob.getId());
-        assertEquals(expectedSupplier, actualJob.getSupplier());
+        assertEquals(expectedSupplier.getSupplierId(), actualJob.getSupplierId());
         assertEquals(expectedCreatedByUser, actualJob.getCreatedByUser());
-        assertEquals(expectedStartDateTime, actualJob.getStartDateTime());
+        assertEquals(calendarSync.getLocalDateTimeFromDate(expectedStartDateTime), actualJob.getStartDateTime());
         assertEquals(expectedRunOnce, actualJob.isRunOnce());
         assertEquals(expectedCronExpression, actualJob.getCronExpression());
     }
