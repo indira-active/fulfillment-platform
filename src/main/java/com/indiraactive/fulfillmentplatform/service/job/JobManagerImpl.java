@@ -21,6 +21,11 @@ public class JobManagerImpl implements JobManager {
 
     @Override
     public Job saveJob(Job jobWithNoId) {
+        if (jobWithNoId.getCreatedByUser() == null) {
+            //TODO: Pass user name to store once user management is finished
+            jobWithNoId.setCreatedByUser("USER MANAGEMENT NOT IMPLEMENTED");
+            System.out.println("USER MANAGEMENT NOT IMPLEMENTED");
+        }
         JobJpa jobJpaToSave = jobJpaFactory.createJobJpaNoId(jobWithNoId);
         jobJpaToSave = jobDao.save(jobJpaToSave);
 

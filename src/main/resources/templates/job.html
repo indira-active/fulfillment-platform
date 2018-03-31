@@ -30,7 +30,7 @@
             </tr>
             <tr>
                 <td>
-                    <select name="minute" id="minute" multiple="multiple" class="cronbox">
+                    <select onChange="show_value()" name="minute" id="minute" multiple="multiple" class="cronbox">
                         <option value="*">*</option>
                         <option value="0">0</option>
                         <option value="1">1</option>
@@ -95,7 +95,7 @@
                     </select>
                 </td>
                 <td>
-                    <select name="hour" id="hour" multiple="multiple" class="cronbox">
+                    <select onChange="show_value()" name="hour" id="hour" multiple="multiple" class="cronbox">
                         <option value="*">*</option>
                         <option value="0">0</option>
                         <option value="1">1</option>
@@ -124,7 +124,7 @@
                     </select>
                 </td>
                 <td>
-                    <select name="day" id="day" multiple="multiple" class="cronbox">
+                    <select onChange="show_value()" name="day" id="day" multiple="multiple" class="cronbox">
                         <option value="*">*</option>
                         <option value="1">1</option>
                         <option value="2">2</option>
@@ -177,7 +177,7 @@
                     </select>
                 </td>
                 <td>
-                    <select name="weekday" id="weekday" multiple="multiple" class="cronbox">
+                    <select onChange="show_value()" name="weekday" id="weekday" multiple="multiple" class="cronbox">
                         <option value="*">*</option>
                         <option value="1">Monday</option>
                         <option value="2">Tuesday</option>
@@ -193,10 +193,9 @@
 
         <form action="#" th:action="@{/job/add}" th:object="${job}" method="post">
             Supplier id to run: <input type="text" th:field="*{supplierId}"/><br />
-            Date to Start Job: <input type="datetime-local" th:field="*{runOnDate}"/><br />
-            If this jobs needs to reoccur select the dates to reoccur on
-            <input type="text" th:field="*{runOnDays}"/><br/>
-
+            Date to Start Job: <input type="datetime-local" th:field="*{startDateTime}"/><br />
+            Run once? <input type="checkbox" th:field="*{runOnce}"/><br />
+            <input type="hidden" th:field="*{cronExpression}"/><br />
             <p><input type="submit" value="Submit"/></p>
         </form>
 
@@ -223,7 +222,8 @@
 			weekday	= getSelection('weekday');
 
 			var cronPattern =  minute + "\t" + hour + "\t" + day + "\t" + month + "\t" + weekday;
-			alert(cronPattern)
+			//alert(cronPattern)
+		    document.getElementById("cronExpression").value = cronPattern;
 
 			return cronPattern;
 	}
