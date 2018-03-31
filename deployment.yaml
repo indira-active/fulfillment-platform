@@ -35,7 +35,7 @@ spec:
 
         # Java applicaiton
         - name: java-web
-          image: gcr.io/zip-zap-gateway/java-web
+          image: gcr.io/zip-zap-gateway/java-web:master
           imagePullPolicy: Always
           ports:
             - containerPort: 8089
