@@ -15,8 +15,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 import static org.junit.Assert.*;
 
 import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
-import java.util.Date;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -68,7 +66,7 @@ public class JobJpaFactoryTests {
         assertNull(actualJobJpa.getId());
         assertEquals(expectedSupplier, actualJobJpa.getSupplier());
         assertEquals(expectedCreatedByUser, actualJobJpa.getCreatedByUser());
-        assertEquals(calendarSync.getDateFromDateTime(expectedStartDateTime), actualJobJpa.getStartDateTime());
+        assertEquals(calendarSync.getDateFromLocalDateTime(expectedStartDateTime), actualJobJpa.getStartDateTime());
         assertEquals(expectedRunOnce, actualJobJpa.isRunOnce());
         assertEquals(expectedCronExpression, actualJobJpa.getCronExpression());
     }

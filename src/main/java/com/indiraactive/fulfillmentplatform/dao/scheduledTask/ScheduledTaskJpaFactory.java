@@ -7,7 +7,6 @@ import com.indiraactive.fulfillmentplatform.utility.CalendarSync;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.time.LocalDateTime;
 import java.util.*;
 
 /**
@@ -46,7 +45,7 @@ public class ScheduledTaskJpaFactory {
     }
 
     public ScheduledTaskJpa createScheduleTaskJpa(ScheduledTask scheduledTask) {
-        Date runOnDate = calendarSync.getDateFromDateTime(scheduledTask.getRunOnDate());
+        Date runOnDate = calendarSync.getDateFromLocalDateTime(scheduledTask.getRunOnDate());
         String createdByUserId = "unknown"; //TODO: Map this eventually
         boolean isRecurringJob = false; // TODO: Add to view eventually
         ScheduledTaskRunDaysJpa scheduledTaskRunDaysJpa = createScheduledTaskRunDaysJpa(scheduledTask.getRunOnDays());

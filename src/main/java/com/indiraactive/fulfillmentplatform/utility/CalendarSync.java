@@ -3,8 +3,6 @@ package com.indiraactive.fulfillmentplatform.utility;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.Calendar;
 import java.util.Date;
@@ -14,8 +12,8 @@ import java.util.TimeZone;
 public class CalendarSync {
     private TimeZone timeZone = TimeZone.getTimeZone("US/Eastern");
 
-    public Date getDateFromDateTime(LocalDateTime localDateTime) {
-        return Calendar.getInstance().getTime();
+    public Date getDateFromLocalDateTime(LocalDateTime localDateTime) {
+        return Date.from(localDateTime.atZone(timeZone.toZoneId()).toInstant());
     }
 
     public LocalDateTime getLocalDateTimeFromDate(Date date) {
@@ -27,6 +25,6 @@ public class CalendarSync {
     }
 
     public Date getDateNow() {
-        return getDateFromDateTime(LocalDateTime.now());
+        return getDateFromLocalDateTime(LocalDateTime.now());
     }
 }
