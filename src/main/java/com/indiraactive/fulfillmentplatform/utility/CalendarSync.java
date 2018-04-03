@@ -1,5 +1,6 @@
 package com.indiraactive.fulfillmentplatform.utility;
 
+import org.springframework.scheduling.support.CronSequenceGenerator;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
@@ -25,6 +26,14 @@ public class CalendarSync {
     }
 
     public Date getDateNow() {
-        return getDateFromLocalDateTime(LocalDateTime.now());
+        return getDateFromLocalDateTime(getLocalDateTimeNow());
+    }
+
+    public Date getNextDateFromCronSequence(String cronSequence) {
+        if(CronSequenceGenerator.isValidExpression(cronSequence)) {
+            return new CronSequenceGenerator(cronSequence).next(getDateNow());
+        }
+
+        return null;
     }
 }

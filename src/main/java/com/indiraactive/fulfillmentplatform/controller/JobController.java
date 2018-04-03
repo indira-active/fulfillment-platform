@@ -24,7 +24,15 @@ public class JobController {
 
     @PostMapping("/job/add")
     public String add(@ModelAttribute Job job) {
+        cleanUpJobFromUser(job);
         jobManager.saveJob(job);
         return "success";
+    }
+
+    private void cleanUpJobFromUser(Job jobToClean) {
+        jobToClean.setActive(true);
+        String newCronExpression = jobToClean.getCronExpression().replaceAll("\t", " ");
+        newCronExpression = "* "+ newCronExpression; // Add seconds manually, UI doesn't support this field
+        jobToClean.setCronExpression(newCronExpression);
     }
 }

@@ -1,13 +1,14 @@
 package com.indiraactive.fulfillmentplatform.service;
 
-import com.indiraactive.fulfillmentplatform.dao.scheduledTask.ScheduledTaskRepository;
-import com.indiraactive.fulfillmentplatform.dao.scriptRunAuditEntry.ScriptRunAuditEntryRepository;
-import com.indiraactive.fulfillmentplatform.dao.supplier.SupplierRepository;
-import com.indiraactive.fulfillmentplatform.dao.scheduledTask.ScheduledTaskJpa;
-import com.indiraactive.fulfillmentplatform.dao.scheduledTask.ScheduledTaskRunDaysJpa;
+import com.indiraactive.fulfillmentplatform.dao.job.JobDao;
+import com.indiraactive.fulfillmentplatform.dao.job.JobJpa;
+import com.indiraactive.fulfillmentplatform.dao.jobQueue.JobQueueDao;
+import com.indiraactive.fulfillmentplatform.dao.jobQueue.JobQueueJpa;
+import com.indiraactive.fulfillmentplatform.utility.CalendarSync;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.*;
 
@@ -17,16 +18,13 @@ import java.util.*;
 @Component
 public class SchedulerImpl {
     @Autowired
-    private ScheduledTaskRepository scheduledTaskRepository;
+    private JobDao jobDao;
 
     @Autowired
-    private InventoryUpdater inventoryUpdater;
+    private JobQueueDao jobQueueDao;
 
     @Autowired
-    private SupplierRepository supplierRepository;
-
-    @Autowired
-    private ScriptRunAuditEntryRepository scriptRunAuditEntryRepository;
+    private CalendarSync calendarSync;
 
     /**
      * Checks to see if sync_inventory needs to be ran on a schedule. This schedule
@@ -34,7 +32,52 @@ public class SchedulerImpl {
      */
     @Scheduled(fixedRate = 5000)
     public void checkForJobs() throws Exception {
+        System.out.println("Updating Job Queue");
+        updateJobs();
+        //System.out.println("Checking Job Queue For Pending Jobs");
+        runJobs();
+    }
 
+    public void updateJobs() {
+        List<JobJpa> jobsToCheckForUpdate = jobDao.findByStartDateTimeBeforeAndActive(calendarSync.getDateNow(),true); // TODO: Minute is not inclusive, delayed a minute
+        System.out.println("Found " + jobsToCheckForUpdate.size() + " jobs that are candidates to schedule");
+        for (JobJpa job : jobsToCheckForUpdate) {
+            System.out.println("Checking to see if the following job needs to be queued, job id: "+ job.getId());
+            if (!isJobQueued(job)) {
+                System.out.println("Queuing the following job, job id: "+ job.getId());
+                scheduleJob(job);
+            }
+            System.out.println("Checking to see if job id: "+ job.getId() + " is a run once job.");
+            if(job.isRunOnce()) {
+                System.out.println("Job is run once, turning off job id: "+ job.getId());
+                turnOffJob(job);
+            }
+        }
+    }
+
+    private void turnOffJob(JobJpa job) {
+        job.setActive(false);
+        jobDao.save(job);
+    }
+
+    public void scheduleJob(JobJpa jobToSchedule) {
+        Date executeDateTime = getExecuteDateTime(jobToSchedule);
+        JobQueueJpa jobToAddToQueue = new JobQueueJpa(jobToSchedule, executeDateTime, false);
+        jobQueueDao.save(jobToAddToQueue);
+    }
+
+    public boolean isJobQueued(JobJpa jobToSchedule) {
+        JobQueueJpa queuedJob = jobQueueDao.findByExecutedAndJobJpa(false, jobToSchedule);
+        return queuedJob != null;
+    }
+
+    public Date getExecuteDateTime(JobJpa jobToSchedule) {
+        return calendarSync.getNextDateFromCronSequence(jobToSchedule.getCronExpression());
+    }
+
+    public void runJobs() {
+        // Get jobs that have not yet run (executed == false)
+        // if the current date time matches execute date time execute
     }
 
 }
