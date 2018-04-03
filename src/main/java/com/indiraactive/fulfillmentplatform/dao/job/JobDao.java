@@ -6,5 +6,5 @@ import java.util.Date;
 import java.util.List;
 
 public interface JobDao extends CrudRepository<JobJpa, Integer> {
-    List<JobDao> findByStartDateTimeBefore(Date startDateTime);
+    List<JobDao> findByStartDateTimeBeforeAndActive(Date startDateTime, boolean isActive);
 }
