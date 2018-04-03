@@ -70,5 +70,4 @@ public class JobJpaFactoryTests {
         assertEquals(expectedRunOnce, actualJobJpa.isRunOnce());
         assertEquals(expectedCronExpression, actualJobJpa.getCronExpression());
     }
-
 }
