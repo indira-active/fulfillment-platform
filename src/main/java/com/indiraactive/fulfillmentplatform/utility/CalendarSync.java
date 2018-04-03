@@ -13,7 +13,7 @@ public class CalendarSync {
     private TimeZone timeZone = TimeZone.getTimeZone("US/Eastern");
 
     public Date getDateFromLocalDateTime(LocalDateTime localDateTime) {
-        return Date.from(localDateTime.atZone(timeZone.toZoneId()).toInstant());
+        return Date.from(localDateTime.atZone(timeZone.toZoneId()).toInstant().truncatedTo(ChronoUnit.MINUTES));
     }
 
     public LocalDateTime getLocalDateTimeFromDate(Date date) {
