@@ -32,8 +32,9 @@ public class JobFactoryTests {
         Date expectedStartDateTime = new Date();
         boolean expectedRunOnce = true;
         String expectedCronExpression = "* * * * * *";
+        boolean expectedActive = true;
 
-        Job actualJob = jobFactory.createJob(supplier, expectedCreatedByUser, expectedStartDateTime, expectedRunOnce, expectedCronExpression);
+        Job actualJob = jobFactory.createJob(supplier, expectedCreatedByUser, expectedStartDateTime, expectedRunOnce, expectedCronExpression, expectedActive);
 
         assertNull(actualJob.getId());
         assertEquals(expectedSupplierId, actualJob.getSupplierId());
@@ -41,6 +42,7 @@ public class JobFactoryTests {
         assertEquals(calendarSync.getLocalDateTimeFromDate(expectedStartDateTime), actualJob.getStartDateTime());
         assertEquals(expectedRunOnce, actualJob.isRunOnce());
         assertEquals(expectedCronExpression, actualJob.getCronExpression());
+        assertEquals(expectedActive, actualJob.isActive());
     }
 
     @Test
@@ -52,7 +54,9 @@ public class JobFactoryTests {
         Date expectedStartDateTime = new Date();
         boolean expectedRunOnce = true;
         String expectedCronExpression = "* * * * * *";
-        JobJpa expectedJobJpa = new JobJpa(expectedId, expectedSupplier, expectedCreatedByUser, expectedStartDateTime, expectedRunOnce, expectedCronExpression);
+        boolean expectedActive = true;
+        JobJpa expectedJobJpa = new JobJpa(expectedId, expectedSupplier, expectedCreatedByUser,
+                expectedStartDateTime, expectedRunOnce, expectedCronExpression, expectedActive);
 
         Job actualJob = jobFactory.createJob(expectedJobJpa);
 
@@ -62,5 +66,6 @@ public class JobFactoryTests {
         assertEquals(calendarSync.getLocalDateTimeFromDate(expectedStartDateTime), actualJob.getStartDateTime());
         assertEquals(expectedRunOnce, actualJob.isRunOnce());
         assertEquals(expectedCronExpression, actualJob.getCronExpression());
+        assertEquals(expectedActive, actualJob.isActive());
     }
 }

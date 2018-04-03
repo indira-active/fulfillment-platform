@@ -15,24 +15,35 @@ public class Job {
     private LocalDateTime startDateTime;
     private boolean runOnce;
     private String cronExpression;
+    private boolean active;
 
     public Job() { }
 
-    public Job(Integer supplierId, String createdByUser, LocalDateTime startDateTime, boolean runOnce, String cronExpression) {
+    public Job(Integer supplierId, String createdByUser, LocalDateTime startDateTime, boolean runOnce, String cronExpression, boolean active) {
         this.supplierId = supplierId;
         this.createdByUser = createdByUser;
         this.startDateTime = startDateTime;
         this.runOnce = runOnce;
         this.cronExpression = cronExpression;
+        this.active = active;
     }
 
-    public Job(Integer id, Integer supplierId, String createdByUser, LocalDateTime startDateTime, boolean runOnce, String cronExpression) {
+    public Job(Integer id, Integer supplierId, String createdByUser, LocalDateTime startDateTime, boolean runOnce, String cronExpression, boolean active) {
         this.id = id;
         this.supplierId = supplierId;
         this.createdByUser = createdByUser;
         this.startDateTime = startDateTime;
         this.runOnce = runOnce;
         this.cronExpression = cronExpression;
+        this.active = active;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
     }
 
     public Integer getId() {

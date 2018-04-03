@@ -33,24 +33,28 @@ public class JobJpa {
     @Column(name = "cron_expression")
     private String cronExpression;
 
+    @Column(name = "active")
+    private boolean active;
+
     public JobJpa() { }
 
-    public JobJpa(Integer id, Supplier supplier, String createdByUser, Date startDateTime, boolean runOnce, String cronExpression) {
+    public JobJpa(Integer id, Supplier supplier, String createdByUser, Date startDateTime, boolean runOnce, String cronExpression, boolean active) {
         this.id = id;
         this.supplier = supplier;
         this.createdByUser = createdByUser;
         this.startDateTime = startDateTime;
         this.runOnce = runOnce;
         this.cronExpression = cronExpression;
+        this.active = active;
     }
 
-    public JobJpa(Supplier supplier, String createdByUser, Date startDateTime, boolean runOnce, String cronExpression) {
-        this.id = id;
+    public JobJpa(Supplier supplier, String createdByUser, Date startDateTime, boolean runOnce, String cronExpression, boolean active) {
         this.supplier = supplier;
         this.createdByUser = createdByUser;
         this.startDateTime = startDateTime;
         this.runOnce = runOnce;
         this.cronExpression = cronExpression;
+        this.active = active;
     }
 
     public Integer getId() {
@@ -99,6 +103,14 @@ public class JobJpa {
 
     public void setCronExpression(String cronExpression) {
         this.cronExpression = cronExpression;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
     }
 
     @Override

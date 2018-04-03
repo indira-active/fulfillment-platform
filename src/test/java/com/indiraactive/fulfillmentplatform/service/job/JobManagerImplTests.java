@@ -47,7 +47,7 @@ public class JobManagerImplTests {
     @Test
     public void testAddJob(){
         Job expectedJob = new Job(1, "createdBy", calendarSync.getLocalDateTimeNow(),
-                false, "******");
+                false, "******", true);
         JobJpa expectedJobJpa = jobJpaFactory.createJobJpaNoId(expectedJob);
         JobJpa savedJobJpa = new JobJpa();
         savedJobJpa.setId(1);

@@ -15,7 +15,7 @@ public class JobQueueJpaTest {
     public void testJobQueueJpa() {
         JobQueueJpa actualJobQueueJpa = new JobQueueJpa();
         Integer expectedId = 1;
-        JobJpa expectedJobJpa = new JobJpa(1, new Supplier(), "createdBy", new Date(), false, "*****");
+        JobJpa expectedJobJpa = new JobJpa(1, new Supplier(), "createdBy", new Date(), false, "*****", true);
         Date expectedExecuteDateTime= new Date();
         Boolean expectedIsExecuted = false;
 
@@ -33,7 +33,7 @@ public class JobQueueJpaTest {
     @Test
     public void testJobQueueJpaConstructorWithoutId() {
         Integer expectedId = 1;
-        JobJpa expectedJobJpa = new JobJpa(1, new Supplier(), "createdBy", new Date(), false, "*****");
+        JobJpa expectedJobJpa = new JobJpa(1, new Supplier(), "createdBy", new Date(), false, "*****", true);
         Date expectedExecuteDateTime= new Date();
         Boolean expectedIsExecuted = false;
 
@@ -47,7 +47,7 @@ public class JobQueueJpaTest {
 
     @Test
     public void testJobQueueJpaConstructorWithId() {
-        JobJpa expectedJobJpa = new JobJpa(1, new Supplier(), "createdBy", new Date(), false, "*****");
+        JobJpa expectedJobJpa = new JobJpa(1, new Supplier(), "createdBy", new Date(), false, "*****", true);
         Date expectedExecuteDateTime= new Date();
         Boolean expectedIsExecuted = false;
 

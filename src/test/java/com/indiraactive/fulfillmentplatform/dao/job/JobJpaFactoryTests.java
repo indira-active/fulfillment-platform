@@ -37,7 +37,8 @@ public class JobJpaFactoryTests {
         LocalDateTime expectedStartDateTime = calendarSync.getLocalDateTimeNow();
         boolean expectedRunOnce = true;
         String expectedCronExpression = "* * * * * *";
-        Job expectedJob = new Job(expectedId, expectedSupplier.getSupplierId(), expectedCreatedByUser, expectedStartDateTime, expectedRunOnce, expectedCronExpression);
+        boolean expectedActive = false;
+        Job expectedJob = new Job(expectedId, expectedSupplier.getSupplierId(), expectedCreatedByUser, expectedStartDateTime, expectedRunOnce, expectedCronExpression, expectedActive);
         Mockito.when(supplierRepository.findOne(expectedSupplier.getSupplierId())).thenReturn(expectedSupplier);
 
         JobJpa actualJobJpa = jobJpaFactory.createJobJpa(expectedJob);
@@ -48,6 +49,7 @@ public class JobJpaFactoryTests {
         assertEquals(expectedStartDateTime, calendarSync.getLocalDateTimeFromDate(actualJobJpa.getStartDateTime()));
         assertEquals(expectedRunOnce, actualJobJpa.isRunOnce());
         assertEquals(expectedCronExpression, actualJobJpa.getCronExpression());
+        assertEquals(expectedActive, actualJobJpa.isActive());
     }
 
     @Test
@@ -58,7 +60,8 @@ public class JobJpaFactoryTests {
         LocalDateTime expectedStartDateTime = calendarSync.getLocalDateTimeNow();
         boolean expectedRunOnce = true;
         String expectedCronExpression = "* * * * * *";
-        Job expectedJob = new Job(expectedSupplier.getSupplierId(), expectedCreatedByUser, expectedStartDateTime, expectedRunOnce, expectedCronExpression);
+        boolean expectedActive = false;
+        Job expectedJob = new Job(expectedSupplier.getSupplierId(), expectedCreatedByUser, expectedStartDateTime, expectedRunOnce, expectedCronExpression, expectedActive);
         Mockito.when(supplierRepository.findOne(expectedSupplier.getSupplierId())).thenReturn(expectedSupplier);
 
         JobJpa actualJobJpa = jobJpaFactory.createJobJpa(expectedJob);
@@ -69,5 +72,6 @@ public class JobJpaFactoryTests {
         assertEquals(calendarSync.getDateFromLocalDateTime(expectedStartDateTime), actualJobJpa.getStartDateTime());
         assertEquals(expectedRunOnce, actualJobJpa.isRunOnce());
         assertEquals(expectedCronExpression, actualJobJpa.getCronExpression());
+        assertEquals(expectedActive, actualJobJpa.isActive());
     }
 }

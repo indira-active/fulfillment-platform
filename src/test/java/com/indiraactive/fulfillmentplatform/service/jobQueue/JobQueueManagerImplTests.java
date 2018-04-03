@@ -64,8 +64,8 @@ public class JobQueueManagerImplTests {
 
     @Test
     public void testGetJobsQueued() {
-        JobJpa jobJpa1 = new JobJpa(1, new Supplier(), "user", calendarSync.getDateNow(), false, "***4**");
-        JobJpa jobJpa2 = new JobJpa(2, new Supplier(), "user2", calendarSync.getDateNow(), false, "***3**");
+        JobJpa jobJpa1 = new JobJpa(1, new Supplier(), "user", calendarSync.getDateNow(), false, "***4**", true);
+        JobJpa jobJpa2 = new JobJpa(2, new Supplier(), "user2", calendarSync.getDateNow(), false, "***3**", true);
         JobQueueJpa jobQueueJpa1 = new JobQueueJpa(1, jobJpa1, calendarSync.getDateNow(), false);
         JobQueueJpa jobQueueJpa2 = new JobQueueJpa(2, jobJpa2, calendarSync.getDateNow(), false);
         List<JobQueueJpa> jobQueueJpaList = new LinkedList<>();

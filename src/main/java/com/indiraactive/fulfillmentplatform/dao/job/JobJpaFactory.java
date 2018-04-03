@@ -19,13 +19,13 @@ public class JobJpaFactory {
         Supplier supplier = supplierRepository.findOne(job.getSupplierId());
 
         return new JobJpa(job.getId(), supplier, job.getCreatedByUser(), calendarSync.getDateFromLocalDateTime(job.getStartDateTime()),
-                job.isRunOnce(), job.getCronExpression());
+                job.isRunOnce(), job.getCronExpression(), job.isActive());
     }
 
     public JobJpa createJobJpaNoId(Job job) {
         Supplier supplier = supplierRepository.findOne(job.getSupplierId());
 
         return new JobJpa(supplier, job.getCreatedByUser(), calendarSync.getDateFromLocalDateTime(job.getStartDateTime()),
-                job.isRunOnce(), job.getCronExpression());
+                job.isRunOnce(), job.getCronExpression(), job.isActive());
     }
 }

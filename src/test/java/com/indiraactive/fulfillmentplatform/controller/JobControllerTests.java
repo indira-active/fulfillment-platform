@@ -53,7 +53,7 @@ public class JobControllerTests {
     @Test
     @WithMockUser
     public void testAddJob() throws Exception {
-        Job jobToAdd = new Job(1, "createdBy", LocalDateTime.now(), false, "******");
+        Job jobToAdd = new Job(1, "createdBy", LocalDateTime.now(), false, "******", true);
 
         mockMvc.perform(MockMvcRequestBuilders.post("/job/add")
                 .flashAttr("job",jobToAdd))
@@ -71,7 +71,7 @@ public class JobControllerTests {
 
     @Test
     public void testAddJobNoAuth() throws Exception {
-        Job jobToAdd = new Job(1, "createdBy", LocalDateTime.now(), false, "******");
+        Job jobToAdd = new Job(1, "createdBy", LocalDateTime.now(), false, "******", true);
 
         mockMvc.perform(MockMvcRequestBuilders.post("/job/add")
                 .flashAttr("job",jobToAdd))
