@@ -26,6 +26,9 @@ public class SchedulerImpl {
     @Autowired
     private CalendarSync calendarSync;
 
+    @Autowired
+    private InventoryUpdater inventoryUpdater;
+
     /**
      * Checks to see if sync_inventory needs to be ran on a schedule. This schedule
      * has yet to be determined.
@@ -76,8 +79,26 @@ public class SchedulerImpl {
     }
 
     public void runJobs() {
-        // Get jobs that have not yet run (executed == false)
+        List<JobQueueJpa> candidateJobs = jobQueueDao.
+                findByExecutedOrderByExecuteDateTime(false);
+        System.out.println("Found " + candidateJobs.size() + " job(s) queued.");
         // if the current date time matches execute date time execute
+        for (JobQueueJpa jobQueued : candidateJobs) {
+            Date jobQueuedTime = jobQueued.getExecuteDateTime();
+            Date dateTimeNow = calendarSync.getDateNow();
+            System.out.println("Dates comparing for queued job jobQueueId: " + jobQueued.getId() + " executedDateTime: " + jobQueuedTime + " now: " + dateTimeNow);
+            if (jobQueuedTime.before(dateTimeNow)) {
+                Integer supplierId = jobQueued.getJobJpa().getSupplier().getSupplierId();
+                try {
+                    System.out.println("Attempting to execute the following jobQueueId: " + jobQueued.getId());
+                    inventoryUpdater.updateInventory(supplierId);
+                    jobQueued.setExecuted(true);
+                    jobQueueDao.save(jobQueued);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 
 }
