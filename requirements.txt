@@ -1,2 +1,4 @@
 ShopifyAPI
 fulfil-client
+virtualenv
+virtualenvwrapper
