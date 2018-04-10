@@ -6,7 +6,6 @@ import com.indiraactive.fulfillmentplatform.dao.supplier.Supplier;
 import com.indiraactive.fulfillmentplatform.dao.supplier.SupplierRepository;
 import com.indiraactive.fulfillmentplatform.service.inventoryUpdater.InventoryUpdater;
 import com.indiraactive.fulfillmentplatform.service.inventoryUpdater.InventoryUpdaterManagerImpl;
-import com.indiraactive.fulfillmentplatform.viewModel.RunHistoryViewModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
