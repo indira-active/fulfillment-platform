@@ -8,6 +8,9 @@ import com.indiraactive.fulfillmentplatform.domain.JobFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.LinkedList;
+import java.util.List;
+
 @Component
 public class JobManagerImpl implements JobManager {
     @Autowired
@@ -30,5 +33,16 @@ public class JobManagerImpl implements JobManager {
         jobJpaToSave = jobDao.save(jobJpaToSave);
 
         return jobFactory.createJob(jobJpaToSave);
+    }
+
+    @Override
+    public List<Job> getActiveJobs() {
+        List<Job> activeJobs = new LinkedList<>();
+        List<JobJpa> activeJobJpas = jobDao.findByActive(true);
+        for (JobJpa jobJpa : activeJobJpas) {
+            activeJobs.add(jobFactory.createJob(jobJpa));
+        }
+
+        return activeJobs;
     }
 }

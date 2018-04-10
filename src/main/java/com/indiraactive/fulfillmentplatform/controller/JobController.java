@@ -2,6 +2,7 @@ package com.indiraactive.fulfillmentplatform.controller;
 
 import com.indiraactive.fulfillmentplatform.domain.Job;
 import com.indiraactive.fulfillmentplatform.service.job.JobManager;
+import com.indiraactive.fulfillmentplatform.service.jobQueue.JobQueueManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,9 +16,14 @@ public class JobController {
     @Autowired
     private JobManager jobManager;
 
+    @Autowired
+    private JobQueueManager jobQueueManager;
+
     @GetMapping("/job")
     public String index(Model model) {
         model.addAttribute("job", new Job());
+        model.addAttribute("activeJobs", jobManager.getActiveJobs());
+        model.addAttribute("queuedJobs", jobQueueManager.getJobsQueued());
 
         return "job";
     }

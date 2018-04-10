@@ -19,6 +19,8 @@
         <a href="../manageSuppliers">Manager Suppliers</a>
         <a href="../job">Job Manager</a>
         <hr />
+        <h1>Job Manager</h1>
+        <h2>Create New Job</h2>
         <font size='1'>Select more than one values by holding the ctrl or shift</font><br /><br />
         <table>
             <tr>
@@ -196,10 +198,39 @@
             Date to Start Job: <input type="datetime-local" th:field="*{startDateTime}"/><br />
             Run once? <input type="checkbox" th:field="*{runOnce}"/><br />
             <input type="hidden" th:field="*{cronExpression}"/><br />
-            <p><input type="submit" value="Submit"/></p>
+            <input type="submit" value="Submit"/>
         </form>
 
-        <button onClick="show_value()">Test</button>
+        <h2>Active Jobs</h2>
+        <table>
+            <tr>
+                <td>Job Id | </td>
+                <td>Supplier Id | </td>
+                <td>Start Date | </td>
+                <td>Run Once | </td>
+                <td>Cron Expression</td>
+            </tr>
+            <tr th:each="activeJob : ${activeJobs}">
+                <td th:text="${activeJob.id}"></td>
+                <td th:text="${activeJob.supplierId}"></td>
+                <td th:text="${activeJob.startDateTime}"></td>
+                <td th:text="${activeJob.runOnce}? #{true} : #{false}"></td>
+                <td th:text="${activeJob.cronExpression}"></td>
+            </tr>
+        </table>
+
+        <h2>Queued Jobs</h2>
+        <table>
+            <tr>
+                <td>Job Id | </td>
+                <td>Execute Date</td>
+            </tr>
+            <tr th:each="queuedJob : ${queuedJobs}">
+                <td th:text="${queuedJob.jobId}"></td>
+                <td th:text="${queuedJob.executeDateTime}"></td>
+            </tr>
+        </table>
+
     </body>
 </html>
 
