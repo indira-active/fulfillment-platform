@@ -3,6 +3,7 @@ package com.indiraactive.fulfillmentplatform.controller;
 import com.indiraactive.fulfillmentplatform.config.SecurityConfig;
 import com.indiraactive.fulfillmentplatform.domain.Job;
 import com.indiraactive.fulfillmentplatform.service.job.JobManager;
+import com.indiraactive.fulfillmentplatform.service.jobQueue.JobQueueManager;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -36,6 +37,9 @@ public class JobControllerTests {
 
     @MockBean
     private JobManager jobManager;
+
+    @MockBean
+    private JobQueueManager jobQueueManager;
 
     @Captor
     private ArgumentCaptor<Job> jobArgumentCaptor;
