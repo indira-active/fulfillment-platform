@@ -18,7 +18,7 @@ public class CalendarSync {
     }
 
     public LocalDateTime getLocalDateTimeFromDate(Date date) {
-        return LocalDateTime.ofInstant(date.toInstant(), TimeZone.getTimeZone("US/Eastern").toZoneId()).truncatedTo(ChronoUnit.MINUTES);
+        return LocalDateTime.ofInstant(date.toInstant(), timeZone.toZoneId()).truncatedTo(ChronoUnit.MINUTES);
     }
 
     public LocalDateTime getLocalDateTimeNow() {
