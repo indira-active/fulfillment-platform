@@ -7,12 +7,14 @@ import com.indiraactive.fulfillmentplatform.dao.supplier.SupplierRepository;
 import com.indiraactive.fulfillmentplatform.service.inventoryUpdater.InventoryUpdater;
 import com.indiraactive.fulfillmentplatform.service.inventoryUpdater.InventoryUpdaterManagerImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.LinkedList;
 import java.util.List;
 
+@Controller
 public class InventoryUpdaterController {
     @Autowired
     private InventoryUpdaterManagerImpl inventoryUpdaterManager;
