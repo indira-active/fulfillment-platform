@@ -4,11 +4,11 @@ import com.indiraactive.fulfillmentplatform.dao.job.JobDao;
 import com.indiraactive.fulfillmentplatform.dao.job.JobJpa;
 import com.indiraactive.fulfillmentplatform.dao.jobQueue.JobQueueDao;
 import com.indiraactive.fulfillmentplatform.dao.jobQueue.JobQueueJpa;
+import com.indiraactive.fulfillmentplatform.service.inventoryUpdater.InventoryUpdater;
 import com.indiraactive.fulfillmentplatform.utility.CalendarSync;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.*;
 

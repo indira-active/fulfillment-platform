@@ -5,7 +5,6 @@ import com.indiraactive.fulfillmentplatform.dao.scriptRunAuditEntry.ScriptRunAud
 import com.indiraactive.fulfillmentplatform.dao.supplier.SupplierRepository;
 import com.indiraactive.fulfillmentplatform.dao.scriptRunAuditEntry.ScriptRunAuditEntry;
 import com.indiraactive.fulfillmentplatform.dao.supplier.Supplier;
-import com.indiraactive.fulfillmentplatform.service.InventoryUpdater;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
