@@ -1,9 +1,6 @@
 package com.indiraactive.fulfillmentplatform.dao.job;
 
-import com.indiraactive.fulfillmentplatform.dao.scheduledTask.ScheduledTaskRunDaysJpa;
-import com.indiraactive.fulfillmentplatform.dao.scheduledTask.ScheduledTaskRunTimeJpa;
 import com.indiraactive.fulfillmentplatform.dao.supplier.Supplier;
-import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
 import java.util.Date;
