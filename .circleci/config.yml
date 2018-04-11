@@ -1,0 +1,57 @@
+version: 2
+jobs:
+  build:
+    working_directory: /build
+    docker:
+        - image: google/cloud-sdk:193.0.0
+    steps:
+      - checkout
+      - setup_remote_docker
+      - run:
+          name: Install CI enviorment dependencies
+          command: |
+            apt-get install openssl python-pip -y
+            pip install docker-compose==1.19.0
+            openssl aes-256-cbc -d -in id_fulfilment-platform-circle.enc -out id_fulfilment-platform -k $SCRIPTS_SSH; exit 0
+      - run:
+          name: Autenticate gcloud
+          command: |
+            echo $GOOGLE_AUTH | base64 - --decode --ignore-garbage > ${HOME}/gcloud-service-key.json 
+            gcloud auth activate-service-account --key-file=${HOME}/gcloud-service-key.json
+            gcloud --quiet config set project ${GCLOUD_PROJECT_ID}
+            gcloud --quiet config set compute/zone ${GOOGLE_COMPUTE_ZONE}
+            #gcloud --quiet container clusters get-credentials ${GOOGLE_CLUSTER_NAME}
+      - restore_cache:
+          keys:
+            - v1-{{ .Branch }}
+          paths:
+            - /caches/app.tar
+      - run:
+          name: Load Docker image layer cache
+          command: |
+            set +o pipefail
+            docker load -i /caches/app.tar | true
+      - run:
+          name: Build application Docker image
+          command: |
+            docker-compose build
+      - run:
+          name: Tag and push image to Google Container Registry
+          command: |
+             docker tag gcr.io/${GCLOUD_PROJECT_ID}/java-web gcr.io/${GCLOUD_PROJECT_ID}/java-web:$CIRCLE_SHA1
+             docker tag gcr.io/${GCLOUD_PROJECT_ID}/java-web gcr.io/${GCLOUD_PROJECT_ID}/java-web:CIRCLE_BUILD_NUM_$CIRCLE_BUILD_NUM
+             docker tag gcr.io/${GCLOUD_PROJECT_ID}/java-web gcr.io/${GCLOUD_PROJECT_ID}/java-web:$CIRCLE_BRANCH
+             docker tag gcr.io/${GCLOUD_PROJECT_ID}/java-web gcr.io/${GCLOUD_PROJECT_ID}/java-web:latest
+             gcloud docker -- push gcr.io/${GCLOUD_PROJECT_ID}/java-web:$CIRCLE_SHA1
+             gcloud docker -- push gcr.io/${GCLOUD_PROJECT_ID}/java-web:CIRCLE_BUILD_NUM_$CIRCLE_BUILD_NUM
+             gcloud docker -- push gcr.io/${GCLOUD_PROJECT_ID}/java-web:$CIRCLE_BRANCH
+             gcloud docker -- push gcr.io/${GCLOUD_PROJECT_ID}/java-web:latest
+      - run:
+          name: Save Docker image layer cache
+          command: |
+            mkdir -p /caches
+            docker save -o /caches/app.tar gcr.io/zip-zap-gateway/java-web
+      - save_cache:
+          key: v1-{{ .Branch }}-{{ epoch }}
+          paths:
+            - /caches/app.tar

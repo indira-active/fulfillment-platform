@@ -1,9 +1,16 @@
 *.env
+coverage/
+.codecov
+README.md
+.nyc_output
+coverage.lcov
 
 # Secrets
 id_fulfilment-platform
 credentials.json
 secret.yml
+service-account.json
+gcloud-service-key.json
 
 
 

@@ -1,35 +1,26 @@
-# FROM alpine:latest # Ideal for more lean images (more complex Dockerfile setup)
-########################################################################
-# BUILD STAGE 1 - Start with the same image that will be used at runtime
-FROM ubuntu:latest as builder
+# ---- Build ----
+FROM openjdk:8-jdk-alpine3.7 as build
+LABEL maintainer="Nathan Guenther <nathang@indiraactive.com>"
 
-COPY . /build
 WORKDIR /build
 
-# Debug
-RUN pwd && ls -la
-
-# May want to copy in an additional secret for script parameters (API keys, etc.)
-
-# Install build dependencies
-RUN apt-get update && \
-  apt-get upgrade -y && \
-  apt-get install -q -y openjdk-8-jdk maven build-essential git ssh && \
-  apt-get autoremove && \
-  apt-get clean
+# # Install build dependencies
+RUN apk --update add --no-cache maven curl git bash openssh openssl python-dev py-pip
 
 # Setup temp ssh key to pull from private git repo
+COPY id_fulfilment-platform* ./ 
+
 RUN mkdir -p /root/.ssh/ && \
-	chmod 0700 /root/.ssh && \
-	cat ./id_fulfilment-platform > /root/.ssh/id_rsa && \
-	chmod 0700 /root/.ssh/id_rsa && \
-	cat /root/.ssh/id_rsa && \
-	ssh-keyscan github.com > /root/.ssh/known_hosts
+chmod 0700 /root/.ssh && \
+cat ./id_fulfilment-platform > /root/.ssh/id_rsa && \
+chmod 0700 /root/.ssh/id_rsa && \
+ssh-keyscan github.com > /root/.ssh/known_hosts
 
 # Import latest script
 RUN git clone git@github.com:indira-active/Scripts.git
-# May want to move script from ./Scripts/ directory to a new location. Or update webapp.
-RUN pwd && ls -la
+
+# Copy remaining src
+COPY . /build
 
 # Build java application
 RUN mvn clean install -Dmaven.test.skip=true
@@ -37,28 +28,31 @@ RUN mvn clean install -Dmaven.test.skip=true
 # Cleanup ssh keys 
 RUN rm -vf id_fulfilment-platform /root/.ssh/id*
 
-# Debug
-RUN pwd && ls -la
 
-########################################################################
-# BUILD STAGE 2 - copy the compiled build dir into a fresh runtime image
-FROM ubuntu:latest as runtime
-COPY --from=builder /build /target
-WORKDIR /target
+# ---- Test ----
+FROM build as test
+# TODO: nathang - Can we split out devDependencies with mvn?
 
-# Debug
-RUN pwd && ls -la
+# Run tests and generate coverage
+ARG CODECOV_TOKEN
+RUN mvn clean test jacoco:report
+RUN curl -s https://codecov.io/bash > .codecov && \
+chmod +x .codecov && \
+ ./.codecov -t $CODECOV_TOKEN
 
-# Install runtime dependencies
-RUN apt-get update && \
-  apt-get upgrade -y && \
-  apt-get install -q -y openjdk-8-jdk python-dev python-pip && \
-  apt-get autoremove && \
-  apt-get clean
 
-RUN pip install --no-cache-dir -r requirements.txt && \
-	pip install --user virtualenv && \
-	pip install --user virtualenvwrapper
+# ---- Release ----
+FROM openjdk:8-jdk-alpine3.7 as release
+# TODO: nathang - Can we cache runtime dependencies from a base stage?
+
+# Install Runtime dependencies
+COPY requirements.txt .
+RUN apk --update add --no-cache maven python-dev py-pip && \
+pip install -r requirements.txt
+
+WORKDIR /runtime
+COPY --from=build /build/target/fulfillment-platform.jar ./target/fulfillment-platform.jar
+COPY --from=build /build/Scripts/sync_inventory.py ./Scripts/sync_inventory.py
 
 # Start service
 EXPOSE 8089

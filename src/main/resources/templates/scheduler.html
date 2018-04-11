@@ -1,0 +1,38 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Fulfillment Platform - Scheduler</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+    <body>
+        <h1>Fulfillment Platform</h1>
+        <hr />
+        <a href="../">Home</a>
+        <a href="../inventoryUpdater">Inventory Updater</a>
+        <a href="../runHistory">Run History</a>
+        <a href="../manageSuppliers">Manager Suppliers</a>
+        <a href="../job">Job Manager</a>
+        <hr />
+        <h1>Scheduler For Sync Inventory Script</h1>
+        <h2>Create New Schedule</h2>
+        <form action="#" th:action="@{/scheduler/add}" th:object="${scheduledTask}" method="post">
+            Supplier id to run: <input type="text" th:field="*{supplierId}"/><br />
+            Date to Start Job: <input type="datetime-local" th:field="*{runOnDate}"/><br />
+            If this jobs needs to reoccur select the dates to reoccur on
+            <input type="text" th:field="*{runOnDays}"/><br/>
+
+            <p><input type="submit" value="Submit"/></p>
+        </form>
+
+        <!--<h2>Manage Schedules</h2>-->
+        <!--<span>Supplier Name | Day Run On</span>-->
+        <!--<div th:each="scheduleHist : ${scheduleHistoryModels}">-->
+            <!--<span th:text="${scheduleHist.supplierName}"></span>-->
+            <!--<span th:text="${scheduleHist.runFrequency}"></span>-->
+            <!--<form action="#" th:action="@{/scheduler/delete/{scheduleTaskId}(scheduleTaskId=${scheduleHist.scheduleTaskId})}" th:object="${scheduleHist}" th:method="delete">-->
+                <!--<input type="submit" value="Delete"/>-->
+            <!--</form>-->
+            <!--<hr/>-->
+        <!--</div>-->
+    </body>
+</html>

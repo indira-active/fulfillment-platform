@@ -1,0 +1,32 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Fulfillment Platform</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+    <body>
+        <h1>Fulfillment Platform</h1>
+        <hr />
+        <a href="../">Home</a>
+        <a href="../inventoryUpdater">Inventory Updater</a>
+        <a href="../runHistory">Run History</a>
+        <a href="../manageSuppliers">Manager Suppliers</a>
+        <a href="../job">Job Manager</a>
+        <hr />
+        <h2>Update Supplier</h2>
+        <form action="#" th:action="@{/updateSupplier}" th:object="${supplierToUpdate}" method="post">
+            <input type="hidden" th:field="*{supplierId}"/>
+            <p>Supplier Name: <input type="text" th:field="*{supplierName}"/></p>
+            <p>Shopify API Key: <input type="text" th:field="*{shopifyApiKey}"/></p>
+            <p>Shopify Password: <input type="text" th:field="*{shopifyPassword}"/></p>
+            <p>Shop Name: <input type="text" th:field="*{shopName}"/></p>
+            <p>Fulfil Subdomain: <input type="text" th:field="*{fulfillSubdomain}"/></p>
+            <p>Fulfil API Key: <input type="text" th:field="*{fulfillApiKey}"/></p>
+            <p>Supplier Code: <input type="text" th:field="*{supplierCode}"/></p>
+            <p><input type="submit" value="Submit"/></p>
+        </form>
+        <form action="#" th:action="@{/manageSuppliers}" th:method="get">
+            <input type="submit" value="Cancel"/>
+        </form>
+    </body>
+</html>

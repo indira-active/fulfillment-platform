@@ -1,8 +1,7 @@
 package com.indiraactive.fulfillmentplatform.service;
 
-import com.indiraactive.fulfillmentplatform.dal.ScriptRunAuditEntryRepository;
-import com.indiraactive.fulfillmentplatform.factory.ScriptRunAuditEntryFactory;
-import com.indiraactive.fulfillmentplatform.model.db.ScriptRunAuditEntry;
+import com.indiraactive.fulfillmentplatform.dao.scriptRunAuditEntry.ScriptRunAuditEntryRepository;
+import com.indiraactive.fulfillmentplatform.dao.scriptRunAuditEntry.ScriptRunAuditEntry;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
