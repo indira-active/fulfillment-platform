@@ -45,4 +45,19 @@ public class JobManagerImpl implements JobManager {
 
         return activeJobs;
     }
+
+    @Override
+    public Job getJobById(int jobId) {
+        return jobFactory.createJob(jobDao.findOne(jobId));
+    }
+
+    @Override
+    public boolean updateJob(Job job) {
+        if (job.getSupplierId() == null) {
+            System.out.println("Attempting to update job that does not exist");
+            return false;
+        }
+        JobJpa updatedJobJpa = jobDao.save(jobJpaFactory.createJobJpa(job));
+        return updatedJobJpa != null;
+    }
 }

@@ -1,15 +1,13 @@
 package com.indiraactive.fulfillmentplatform.controller;
 
+import com.indiraactive.fulfillmentplatform.dao.supplier.Supplier;
 import com.indiraactive.fulfillmentplatform.domain.Job;
 import com.indiraactive.fulfillmentplatform.service.job.JobManager;
 import com.indiraactive.fulfillmentplatform.service.jobQueue.JobQueueManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class JobController {
@@ -32,6 +30,39 @@ public class JobController {
     public String add(@ModelAttribute Job job) {
         cleanUpJobFromUser(job);
         jobManager.saveJob(job);
+        return "success";
+    }
+
+    @GetMapping("job/update/{jobId}")
+    public String updateJob(Model model, @PathVariable int jobId) {
+        Job jobToUpdate = jobManager.getJobById(jobId);
+
+        if (jobToUpdate == null) {
+            return "error";
+        }
+        model.addAttribute("jobToUpdate", jobToUpdate);
+        return "updateJob";
+    }
+
+    @PostMapping("/job/update")
+    public String updateJob(@ModelAttribute Job job) {
+        Job jobToUpdate = jobManager.getJobById(job.getId());
+        jobToUpdate.setSupplierId(job.getSupplierId());
+        jobToUpdate.setStartDateTime(job.getStartDateTime());
+        jobToUpdate.setRunOnce(job.isRunOnce());
+        jobToUpdate.setCronExpression(job.getCronExpression());
+        boolean success = jobManager.updateJob(jobToUpdate);
+        if (success) {
+            return "success";
+        }
+        return "error";
+    }
+
+    @DeleteMapping("/job/delete/{jobId}")
+    public String deleteSupplier(@PathVariable int jobId) {
+        Job jobToDelete = jobManager.getJobById(jobId);
+        jobToDelete.setActive(false);
+        jobManager.updateJob(jobToDelete);
         return "success";
     }
 

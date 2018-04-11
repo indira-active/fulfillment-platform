@@ -30,6 +30,9 @@
     <div th:each="supplier : ${suppliers}">
         <span th:text="${supplier.supplierId}"></span>
         <span th:text="${supplier.supplierName}"></span>
+        <form action="#" th:action="@{/updateSupplier/{supplierId}(supplierId=${supplier.supplierId})}" th:object="${supplier}" th:method="get">
+            <input type="submit" value="Edit"/>
+        </form>
         <form action="#" th:action="@{/deleteSupplier/{supplierId}(supplierId=${supplier.supplierId})}" th:object="${supplier}" th:method="delete">
             <input type="submit" value="Delete"/>
         </form>

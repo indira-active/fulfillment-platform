@@ -15,7 +15,7 @@ public class JobJpa {
     private Integer id;
 
     @ManyToOne(optional=false)
-    @JoinColumn(name="supplier_id", nullable=false, updatable = false)
+    @JoinColumn(name="supplier_id", nullable=false)
     private Supplier supplier;
 
     @Column(name="created_by_user", nullable = false, updatable = false)

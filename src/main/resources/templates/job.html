@@ -210,14 +210,22 @@
                 <td>Run Once | </td>
                 <td>Cron Expression</td>
             </tr>
-            <tr th:each="activeJob : ${activeJobs}">
-                <td th:text="${activeJob.id}"></td>
-                <td th:text="${activeJob.supplierId}"></td>
-                <td th:text="${activeJob.startDateTime}"></td>
-                <td th:text="${activeJob.runOnce}? #{true} : #{false}"></td>
-                <td th:text="${activeJob.cronExpression}"></td>
-            </tr>
         </table>
+        <hr/>
+        <div th:each="activeJob : ${activeJobs}">
+            <span th:text="${activeJob.id}"></span>
+            <span th:text="${activeJob.supplierId}"></span>
+            <span th:text="${activeJob.startDateTime}"></span>
+            <span th:text="${activeJob.runOnce}? #{true} : #{false}"></span>
+            <span th:text="${activeJob.cronExpression}"></span>
+            <form action="#" th:action="@{/job/update/{id}(id=${activeJob.id})}" th:object="${activeJob}" th:method="get">
+                <input type="submit" value="Edit"/>
+            </form>
+            <form action="#" th:action="@{/job/delete/{id}(id=${activeJob.id})}" th:object="${activeJob}" th:method="delete">
+                <input type="submit" value="Delete"/>
+            </form>
+            <hr/>
+        </div>
 
         <h2>Queued Jobs</h2>
         <table>

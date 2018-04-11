@@ -48,4 +48,24 @@ public class SupplierController {
         supplierRepository.delete(supplierId);
         return "success";
     }
+
+    @GetMapping("updateSupplier/{supplierId}")
+    public String updateSupplier(Model model, @PathVariable int supplierId) {
+        Supplier supplierToUpdate = supplierRepository.findOne(supplierId);
+        if (supplierToUpdate == null) {
+            return "error";
+        }
+        model.addAttribute("supplierToUpdate", supplierToUpdate);
+        return "updateSupplier";
+    }
+
+    @PostMapping("/updateSupplier")
+    public String updateSupplier(@ModelAttribute Supplier supplier) {
+        if (supplier.getSupplierId() == null) {
+            System.out.println("Attempting to update supplier that does not exist");
+            return "error";
+        }
+        supplierRepository.save(supplier);
+        return "success";
+    }
 }
